@@ -4,6 +4,7 @@ import TechPad from './components/TechPad';
 // import bigImage from './assets/BIG.png';
 import brImage from './assets/BR_transparent.png';
 import { AnimatedButton } from '@/components/ui/animated-button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/animated-tabs";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -89,11 +90,39 @@ const Portfolio = () => {
               </div>
               <span className="text-sm tracking-[0.2em] font-bold text-white uppercase">CM.dev</span>
             </div>
-            <div className="hidden md:flex items-center gap-12">
-              <button onClick={() => scrollToSection("about")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">About</button>
-              <button onClick={() => scrollToSection("expertise")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Expertise</button>
-              <button onClick={() => scrollToSection("experience")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Experience</button>
-              <button onClick={() => scrollToSection("works")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Works</button>
+            <div className="hidden md:flex items-center">
+              <Tabs defaultValue="about" className="w-auto">
+                <TabsList className="bg-transparent border-none p-0 gap-2">
+                  <TabsTrigger
+                    value="about"
+                    onClick={() => scrollToSection("about")}
+                    className="text-sm tracking-wide"
+                  >
+                    About
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="expertise"
+                    onClick={() => scrollToSection("expertise")}
+                    className="text-sm tracking-wide"
+                  >
+                    Expertise
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="experience"
+                    onClick={() => scrollToSection("experience")}
+                    className="text-sm tracking-wide"
+                  >
+                    Experience
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="works"
+                    onClick={() => scrollToSection("works")}
+                    className="text-sm tracking-wide"
+                  >
+                    Works
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
             </div>
             <AnimatedButton
               className='text-white hidden md:flex'

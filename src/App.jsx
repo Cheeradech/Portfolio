@@ -119,7 +119,7 @@ const Portfolio = () => {
                 filter: blur,
                 opacity,
               }}
-              className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 pt-24 md:pt-32"
+              className="sticky top-0 h-screen flex flex-col items-center justify-start px-6 pt-4 md:pt-20"
             >
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-hero-glow rounded-full opacity-60 blur-3xl pointer-events-none"></div>
 

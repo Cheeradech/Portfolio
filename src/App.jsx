@@ -5,6 +5,7 @@ import TechPad from './components/TechPad';
 import brImage from './assets/BR_transparent.png';
 import { AnimatedButton } from '@/components/ui/animated-button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/animated-tabs";
+import './App.css';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -83,14 +84,18 @@ const Portfolio = () => {
 
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/30 border-b border-white/5">
-          <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
-            <div className="flex items-center gap-2">
+          <div className="max-w-7xl mx-auto px-6 h-20 relative flex items-center justify-between">
+
+            {/* Logo (Left) */}
+            <div className="flex items-center gap-2 z-20">
               <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30 text-primary">
                 <span className="material-symbols-outlined text-sm font-bold">code</span>
               </div>
               <span className="text-sm tracking-[0.2em] font-bold text-white uppercase">CM.dev</span>
             </div>
-            <div className="hidden md:flex items-center">
+
+            {/* Tabs (Absolute Center) */}
+            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
               <Tabs defaultValue="about" className="w-auto">
                 <TabsList className="bg-transparent border-none p-0 gap-2">
                   <TabsTrigger
@@ -124,28 +129,33 @@ const Portfolio = () => {
                 </TabsList>
               </Tabs>
             </div>
-            <AnimatedButton
-              className='text-white hidden md:flex'
-              variant='default'
-              size='default'
-              glow={true}
-              textEffect='normal'
-              uppercase={true}
-              rounded='custom'
-              asChild={false}
-              hideAnimations={false}
-              shimmerColor='#39FF14'
-              shimmerSize='0.15em'
-              shimmerDuration='3s'
-              borderRadius='100px'
-              background='rgba(0, 0, 0, 1)'
-              onClick={() => window.location.href = 'mailto:cheeradech.m@example.com'}
-            >
-              Contact Me
-            </AnimatedButton>
-            <button className="cursor-pointer md:hidden text-white">
-              <span className="material-symbols-outlined">menu</span>
-            </button>
+
+            {/* Contact Button / Mobile Menu (Right) */}
+            <div className="flex items-center gap-4 z-20">
+              <AnimatedButton
+                className='text-white hidden md:flex'
+                variant='default'
+                size='default'
+                glow={true}
+                textEffect='normal'
+                uppercase={true}
+                rounded='custom'
+                asChild={false}
+                hideAnimations={false}
+                shimmerColor='#39FF14'
+                shimmerSize='0.15em'
+                shimmerDuration='3s'
+                borderRadius='100px'
+                background='rgba(0, 0, 0, 1)'
+                onClick={() => window.location.href = 'mailto:cheeradech.m@example.com'}
+              >
+                Contact Me
+              </AnimatedButton>
+              <button className="cursor-pointer md:hidden text-white">
+                <span className="material-symbols-outlined">menu</span>
+              </button>
+            </div>
+
           </div>
         </nav>
 
@@ -216,13 +226,51 @@ const Portfolio = () => {
 
                 {/* Right Column: Image */}
                 <div className="flex justify-center md:justify-end order-1 md:order-2">
-                  <motion.div variants={itemVariants} className="relative w-64 h-64 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] group flex items-end justify-center z-20">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-10 pointer-events-none rounded-b-3xl"></div>
+                  <motion.div variants={itemVariants} className="relative w-64 h-64 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] group flex items-center justify-center z-20">
+
+                    {/* 🪐 Orbital System */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      {/* Orbit 1 */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-blue-500/20 rounded-full"
+                        style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
+                        <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
+                          style={{ '--orbit-radius': '170px', '--orbit-duration': '8s' }}></div>
+                      </div>
+
+                      {/* Orbit 2 */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-purple-500/20 rounded-full"
+                        style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
+                        <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
+                          style={{ '--orbit-radius': '200px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                      </div>
+
+                      {/* Orbit 3 (Faint) */}
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] border border-cyan-500/10 rounded-full"
+                        style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
+                      </div>
+                    </div>
+
+                    {/* ✨ Floating Particles */}
+                    <div className="absolute inset-[-50px] pointer-events-none">
+                      <div className="absolute top-0 left-1/4 w-1 h-1 bg-white rounded-full floating" style={{ animationDelay: '0s' }}></div>
+                      <div className="absolute bottom-10 right-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full floating" style={{ animationDelay: '1s' }}></div>
+                      <div className="absolute top-1/3 right-0 w-1 h-1 bg-purple-300 rounded-full floating" style={{ animationDelay: '2s' }}></div>
+                    </div>
+
+                    {/* 🌠 Shooting Star */}
+                    <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
+
+                    {/* ✨ Glow Core */}
+                    <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full blur-3xl pointer-events-none pulse-glow"></div>
+
+                    {/* 🧑 Your Image */}
                     <img
-                      alt="Professional executive portrait in dark suit"
-                      className="relative w-full h-full object-cover object-top filter grayscale-0 contrast-125 brightness-110 drop-shadow-[0_0_25px_rgba(13,127,242,0.4)] hover:drop-shadow-[0_0_35px_rgba(13,127,242,0.6)] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2"
+                      alt="Professional executive portrait"
+                      className="relative w-[90%] h-[90%] rounded-full object-cover object-top contrast-125 brightness-110 drop-shadow-[0_0_30px_rgba(13,127,242,0.4)] hover:drop-shadow-[0_0_50px_rgba(13,127,242,0.6)] transition-all duration-700 hover:scale-[1.05] z-10 masking-image"
                       src={brImage}
+                      style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
                     />
+
                   </motion.div>
                 </div>
 

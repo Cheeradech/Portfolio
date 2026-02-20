@@ -96,7 +96,7 @@ const Portfolio = () => {
               <button onClick={() => scrollToSection("works")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Works</button>
             </div>
             <AnimatedButton
-              className='bg-green-500 text-white hover:bg-green-600 transition-colors hidden md:flex'
+              className='text-white hidden md:flex'
               variant='default'
               size='default'
               glow={true}

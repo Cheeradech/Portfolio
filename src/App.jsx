@@ -84,7 +84,28 @@ const Portfolio = () => {
 
         {/* Navigation */}
         <nav className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/30 border-b border-white/5">
-          <div className="max-w-7xl mx-auto px-6 h-20 relative flex items-center justify-between">
+
+          {/* Tabs อยู่ absolute กึ่งกลางของ nav เต็มจอ */}
+          <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+            <Tabs defaultValue="about" className="w-auto">
+              <TabsList className="bg-transparent border-none p-0 gap-2">
+                <TabsTrigger value="about" onClick={() => scrollToSection("about")} className="text-sm tracking-wide">
+                  About
+                </TabsTrigger>
+                <TabsTrigger value="expertise" onClick={() => scrollToSection("expertise")} className="text-sm tracking-wide">
+                  Expertise
+                </TabsTrigger>
+                <TabsTrigger value="experience" onClick={() => scrollToSection("experience")} className="text-sm tracking-wide">
+                  Experience
+                </TabsTrigger>
+                <TabsTrigger value="works" onClick={() => scrollToSection("works")} className="text-sm tracking-wide">
+                  Works
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative">
 
             {/* Logo (Left) */}
             <div className="flex items-center gap-2 z-20">
@@ -92,42 +113,6 @@ const Portfolio = () => {
                 <span className="material-symbols-outlined text-sm font-bold">code</span>
               </div>
               <span className="text-sm tracking-[0.2em] font-bold text-white uppercase">CM.dev</span>
-            </div>
-
-            {/* Tabs (Absolute Center) */}
-            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-              <Tabs defaultValue="about" className="w-auto">
-                <TabsList className="bg-transparent border-none p-0 gap-2">
-                  <TabsTrigger
-                    value="about"
-                    onClick={() => scrollToSection("about")}
-                    className="text-sm tracking-wide"
-                  >
-                    About
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="expertise"
-                    onClick={() => scrollToSection("expertise")}
-                    className="text-sm tracking-wide"
-                  >
-                    Expertise
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="experience"
-                    onClick={() => scrollToSection("experience")}
-                    className="text-sm tracking-wide"
-                  >
-                    Experience
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="works"
-                    onClick={() => scrollToSection("works")}
-                    className="text-sm tracking-wide"
-                  >
-                    Works
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
             </div>
 
             {/* Contact Button / Mobile Menu (Right) */}
@@ -158,7 +143,6 @@ const Portfolio = () => {
 
           </div>
         </nav>
-
         <main className="relative z-10 pt-20">
           {/* Scroll Anchor for About */}
           <div id="about" className="absolute -top-20 left-0 w-full h-1"></div>

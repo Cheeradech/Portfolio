@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import TechPad from './components/TechPad';
 // import bigImage from './assets/BIG.png';
 import brImage from './assets/BR_transparent.png';
+import { AnimatedButton } from '@/components/ui/animated-button';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -94,9 +95,25 @@ const Portfolio = () => {
               <button onClick={() => scrollToSection("experience")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Experience</button>
               <button onClick={() => scrollToSection("works")} className="cursor-pointer text-sm font-medium text-slate-400 hover:text-white transition-colors duration-300 tracking-wide">Works</button>
             </div>
-            <button className="cursor-pointer hidden md:flex group relative px-6 py-2 bg-transparent border border-slate-700 hover:border-primary text-white text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:shadow-neon rounded-none">
-              <span className="relative z-10">Contact Me</span>
-            </button>
+            <AnimatedButton
+              className='bg-green-500 text-white hover:bg-green-600 transition-colors hidden md:flex'
+              variant='default'
+              size='default'
+              glow={true}
+              textEffect='normal'
+              uppercase={true}
+              rounded='custom'
+              asChild={false}
+              hideAnimations={false}
+              shimmerColor='#39FF14'
+              shimmerSize='0.15em'
+              shimmerDuration='3s'
+              borderRadius='100px'
+              background='rgba(0, 0, 0, 1)'
+              onClick={() => window.location.href = 'mailto:cheeradech.m@example.com'}
+            >
+              Contact Me
+            </AnimatedButton>
             <button className="cursor-pointer md:hidden text-white">
               <span className="material-symbols-outlined">menu</span>
             </button>

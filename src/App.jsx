@@ -177,14 +177,8 @@ const Portfolio = () => {
                         Cheeradech
                       </span>
                       <br />
-                      <span className="relative bg-gradient-to-r 
-                                        from-[#3B82F6] 
-                                        via-[#8B5CF6] 
-                                        to-[#22D3EE] 
-                                        bg-clip-text 
-                                        text-transparent 
-                                        purple-animate 
-                         drop-shadow-[0_0_20px_rgba(139,92,246,0.6)]">
+                      <span className="relative radial-wave-animate 
+                                        drop-shadow-[0_0_20px_rgba(139,92,246,0.6)]">
                         Makcharoen
                       </span>
                     </h1>

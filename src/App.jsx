@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import TechPad from './components/TechPad';
 // import bigImage from './assets/BIG.png';
@@ -32,6 +32,10 @@ const itemVariants = {
 
 const Portfolio = () => {
   const heroRef = useRef(null);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("about");
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -41,9 +45,44 @@ const Portfolio = () => {
   const blur = useTransform(scrollYProgress, [0, 1], ["blur(0px)", "blur(15px)"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
+  useEffect(() => {
+    const sections = ["about", "expertise", "experience", "works"];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px", // adjust thresholds
+      threshold: 0
+    };
+
+    const handleIntersect = (entries) => {
+      // If we're animating a click right now, ignore observer updates
+      if (isScrollingRef.current) return;
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, observerOptions);
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
+
+    isScrollingRef.current = true;
+    setActiveTab(id);
 
     const offset = 100;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
@@ -52,7 +91,7 @@ const Portfolio = () => {
     const duration = 400; // 0.4s for instant response
     let start = null;
 
-    // Easing function: easeOutQuint - Starts fast, decelerates smoothly
+    // Easing function: easeOutQuint
     const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
 
     const step = (timestamp) => {
@@ -64,6 +103,13 @@ const Portfolio = () => {
 
       if (progress < duration) {
         window.requestAnimationFrame(step);
+      } else {
+        // Clear any previous timeout
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+        // Add a safe buffer after scroll finishes to re-enable observer tracking
+        scrollTimeoutRef.current = setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 500);
       }
     };
 
@@ -87,7 +133,7 @@ const Portfolio = () => {
 
           {/* Tabs อยู่ absolute กึ่งกลางของ nav เต็มจอ */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-            <Tabs defaultValue="about" className="w-auto">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
               <TabsList className="bg-transparent border-none p-0 gap-2">
                 <TabsTrigger value="about" onClick={() => scrollToSection("about")} className="text-sm tracking-wide">
                   About

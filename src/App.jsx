@@ -251,45 +251,45 @@ const Portfolio = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="relative z-10 w-full max-w-6xl mx-auto flex flex-col justify-center items-center h-full max-h-[750px]"
+                className="relative z-10 w-full max-w-[1400px] xl:max-w-[1600px] mx-auto flex flex-col justify-center items-center h-full max-h-[850px]"
               >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 xl:gap-12 items-center relative w-full flex-1">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 xl:gap-16 items-center relative w-full flex-1">
                   {/* Left Column: Text */}
-                  <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8 order-2 lg:order-1 pt-8 lg:pt-0 z-20">
-                    <motion.div variants={itemVariants} className="space-y-2 md:space-y-3">
-                      <h1 className="text-5xl md:text-6xl xl:text-7xl font-display font-bold leading-[0.95] tracking-tight">
+                  <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 md:space-y-6 xl:space-y-8 order-2 lg:order-1 z-20">
+                    <motion.div variants={itemVariants} className="space-y-3 md:space-y-4">
+                      <h1 className="text-5xl md:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-tight">
                         <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black drop-shadow-2xl">
                           Cheeradech
                         </span>
                         <br />
                         <span className="relative radial-wave-animate 
-                                          drop-shadow-[0_0_20px_rgba(139,92,246,0.6)] text-4xl sm:text-5xl xl:text-6xl mt-2 block">
+                                          drop-shadow-[0_0_20px_rgba(139,92,246,0.6)] text-4xl md:text-6xl xl:text-7xl mt-2 block">
                           Makcharoen
                         </span>
                       </h1>
-                      <p className="text-primary font-medium tracking-[0.2em] text-sm md:text-base uppercase mt-4">
+                      <p className="text-primary font-medium tracking-[0.2em] text-xs md:text-sm xl:text-base uppercase mt-4 xl:mt-6">
                         Senior Executive Developer
                       </p>
                     </motion.div>
 
                     <motion.p
                       variants={itemVariants}
-                      className="max-w-md text-slate-400 text-base lg:text-lg xl:text-[1.1rem] font-light leading-relaxed"
+                      className="max-w-md xl:max-w-lg text-slate-400 text-base md:text-lg xl:text-xl font-light leading-relaxed"
                     >
                       Architecting high-performance digital ecosystems with visual stillness and precision engineering.
                     </motion.p>
 
-                    <motion.div variants={itemVariants} className="pt-2 w-full md:w-auto flex justify-center md:justify-start">
-                      <div className="flex flex-col items-center md:items-start gap-3">
-                        <div className="h-10 md:h-12 lg:h-14 w-[1px] bg-gradient-to-b from-primary to-transparent"></div>
-                        <span className="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest mt-1">Scroll / Explore</span>
+                    <motion.div variants={itemVariants} className="pt-3 xl:pt-6 w-full md:w-auto flex justify-center md:justify-start">
+                      <div className="flex flex-col items-center md:items-start gap-4">
+                        <div className="h-10 md:h-14 lg:h-16 xl:h-20 w-[1px] bg-gradient-to-b from-primary to-transparent"></div>
+                        <span className="text-[10px] md:text-xs xl:text-sm text-slate-500 uppercase tracking-widest mt-1">Scroll / Explore</span>
                       </div>
                     </motion.div>
                   </div>
 
                   {/* Right Column: Image */}
                   <div className="flex justify-center order-1 lg:order-2 z-10 w-full relative">
-                    <motion.div variants={itemVariants} className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-[22rem] md:h-[22rem] lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] group flex items-center justify-center lg:-ml-4 xl:ml-0">
+                    <motion.div variants={itemVariants} className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] xl:w-[38rem] xl:h-[38rem] group flex items-center justify-center lg:-ml-4 xl:ml-0">
 
                       {/* 🪐 Orbital System */}
                       <div className="absolute inset-0 pointer-events-none">
@@ -297,14 +297,14 @@ const Portfolio = () => {
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-blue-500/20 rounded-full"
                           style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
                           <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
-                            style={{ '--orbit-radius': '170px', '--orbit-duration': '8s' }}></div>
+                            style={{ '--orbit-radius': '180px', '--orbit-duration': '8s' }}></div>
                         </div>
 
                         {/* Orbit 2 */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-purple-500/20 rounded-full"
                           style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
                           <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
-                            style={{ '--orbit-radius': '200px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                            style={{ '--orbit-radius': '220px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
                         </div>
 
                         {/* Orbit 3 (Faint) */}
@@ -337,9 +337,9 @@ const Portfolio = () => {
                   </div>
 
                   {/* Absolute Terminal Overlay */}
-                  <div className="absolute z-30 flex justify-center w-[260px] sm:w-[320px] lg:w-[340px] xl:w-[380px] left-1/2 lg:left-1/2 lg:translate-x-[-65%] xl:translate-x-[-55%] bottom-[-15%] lg:bottom-[15%] xl:bottom-[15%] transform -translate-x-1/2 pointer-events-none">
+                  <div className="absolute z-30 flex justify-center w-[280px] sm:w-[340px] lg:w-[400px] xl:w-[460px] left-1/2 lg:left-1/2 lg:translate-x-[-65%] xl:translate-x-[-55%] bottom-[-10%] lg:bottom-[15%] xl:bottom-[15%] transform -translate-x-1/2 pointer-events-none">
                     <motion.div variants={itemVariants}
-                      className="terminal-box w-full p-3 lg:p-4 rounded-xl font-mono relative overflow-hidden"
+                      className="terminal-box w-full p-4 lg:p-5 rounded-xl font-mono relative overflow-hidden"
                       style={{
                         background: "rgba(10,10,12,0.8)",
                         backdropFilter: "blur(20px)",

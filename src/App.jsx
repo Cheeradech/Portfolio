@@ -287,8 +287,9 @@ const Portfolio = () => {
                   </div>
 
                   {/* Right Column: Image */}
-                  <div className="flex justify-center order-1 lg:order-2 z-10 w-full relative">
+                  <div className="flex justify-center order-1 lg:order-2 z-10 w-full relative md:mt-24 lg:mt-0">
                     <motion.div variants={itemVariants} className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] xl:w-[38rem] xl:h-[38rem] group flex items-center justify-center lg:-ml-4 xl:ml-0">
+
 
                       {/* 🪐 Orbital System */}
                       <div className="absolute inset-0 pointer-events-none">

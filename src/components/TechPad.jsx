@@ -232,7 +232,7 @@ export default function TechPad() {
       `}} />
 
             {/* Header */}
-            <header className="w-full py-4 text-center relative z-10 flex flex-col items-center mb-4 mt-0">
+            <header className="w-full py-4 text-center relative z-10 flex flex-col items-center mb-0 md:mb-4 mt-0">
                 <h1 className="text-5xl md:text-6xl font-black mb-2 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-500 uppercase font-sans drop-shadow-xl">
                     SKILLS
                 </h1>
@@ -242,7 +242,7 @@ export default function TechPad() {
             </header>
 
             <div
-                className="relative z-40 w-full max-w-5xl px-4 flex justify-center perspective-1200 scale-[0.55] md:scale-[0.75] lg:scale-[0.85] xl:scale-100" // Mobile: 0.55, Tablet: 0.75, Laptop: 0.85, Desktop: 1.0
+                className="relative z-40 w-full max-w-5xl px-4 flex justify-center perspective-1200 scale-[0.85] sm:scale-95 md:scale-[0.85] lg:scale-[0.95] xl:scale-100 origin-top -mb-32 sm:-mb-10 md:-mb-24 lg:-mb-10 xl:mb-0 mt-4 md:mt-8"
                 onClick={handleBoardClick}
                 onMouseMove={handleBoardMouseMove}
                 onMouseLeave={handleBoardMouseLeave}

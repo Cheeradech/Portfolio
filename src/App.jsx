@@ -40,9 +40,31 @@ const Portfolio = () => {
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+    if (!el) return;
+
+    const offset = 100;
+    const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
+    const duration = 400; // 0.4s for instant response
+    let start = null;
+
+    // Easing function: easeOutQuint - Starts fast, decelerates smoothly
+    const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percentage = Math.min(progress / duration, 1);
+
+      window.scrollTo(0, startPosition + distance * easeOutQuint(percentage));
+
+      if (progress < duration) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
   };
 
   return (

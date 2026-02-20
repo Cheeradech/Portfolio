@@ -240,7 +240,6 @@ const Portfolio = () => {
             <motion.div
               style={{
                 scale,
-                filter: blur,
                 opacity,
               }}
               className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-0 pb-12"

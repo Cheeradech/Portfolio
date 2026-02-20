@@ -178,8 +178,21 @@ const Portfolio = () => {
                 {/* Left Column: Text */}
                 <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:space-y-8 order-2 md:order-1">
                   <motion.div variants={itemVariants} className="space-y-2 md:space-y-4">
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-silver-gradient leading-tight">
-                      Cheeradech<br />Makcharoen
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight">
+                      <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black text-6xl md:text-8xl lg:text-8xl drop-shadow-2xl">
+                        Cheeradech
+                      </span>
+                      <br />
+                      <span className="relative bg-gradient-to-r 
+                                        from-[#3B82F6] 
+                                        via-[#8B5CF6] 
+                                        to-[#22D3EE] 
+                                        bg-clip-text 
+                                        text-transparent 
+                                        purple-animate 
+                         drop-shadow-[0_0_20px_rgba(139,92,246,0.6)]">
+                        Makcharoen
+                      </span>
                     </h1>
                     <p className="text-primary font-medium tracking-[0.2em] text-sm md:text-base uppercase">
                       Senior Executive Developer

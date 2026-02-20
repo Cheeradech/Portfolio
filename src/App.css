@@ -170,3 +170,40 @@
   color: transparent;
   animation: radial-pulse-wave 6s ease-in-out infinite;
 }
+
+@keyframes terminal-blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes terminal-float {
+  0% {
+    transform: rotateX(12deg) rotateY(-12deg) translateY(0px);
+  }
+
+  50% {
+    transform: rotateX(14deg) rotateY(-10deg) translateY(-8px);
+  }
+
+  100% {
+    transform: rotateX(12deg) rotateY(-12deg) translateY(0px);
+  }
+}
+
+.terminal-box {
+  animation: terminal-float 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.terminal-cursor {
+  animation: terminal-blink 1s infinite;
+}

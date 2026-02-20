@@ -30,11 +30,49 @@ const itemVariants = {
   },
 };
 
+const terminalLines = [
+  { text: 'num = "Helloworld"', type: "normal" },
+  { text: 'Helloworld ("Print")', type: "normal" },
+  { text: "", type: "normal" },
+  { text: "Traceback (most recent call last):", type: "error" },
+  { text: '  File "main.py", line 2, in <module>', type: "error" },
+  { text: '    Helloworld ("Print")', type: "error" },
+  { text: "NameError: name 'Helloworld' is not defined", type: "error" },
+];
+
 const Portfolio = () => {
   const heroRef = useRef(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
   const [activeTab, setActiveTab] = useState("about");
+
+  const [displayedLines, setDisplayedLines] = useState([]);
+  const [currentLine, setCurrentLine] = useState("");
+  const [lineIndex, setLineIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+
+  useEffect(() => {
+    if (lineIndex >= terminalLines.length) return;
+
+    if (charIndex < terminalLines[lineIndex].text.length) {
+      const timeout = setTimeout(() => {
+        setCurrentLine((prev) => prev + terminalLines[lineIndex].text[charIndex]);
+        setCharIndex((prev) => prev + 1);
+      }, 20);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setDisplayedLines((prev) => [
+          ...prev,
+          { text: currentLine, type: terminalLines[lineIndex].type },
+        ]);
+        setCurrentLine("");
+        setCharIndex(0);
+        setLineIndex((prev) => prev + 1);
+      }, 350);
+      return () => clearTimeout(timeout);
+    }
+  }, [charIndex, lineIndex]);
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -197,7 +235,7 @@ const Portfolio = () => {
           {/* About Section */}
           <section
             ref={heroRef}
-            className="relative h-[200vh] overflow-hidden"
+            className="relative h-[120vh] overflow-hidden"
           >
             <motion.div
               style={{
@@ -205,102 +243,171 @@ const Portfolio = () => {
                 filter: blur,
                 opacity,
               }}
-              className="sticky top-0 h-screen flex flex-col items-center justify-start px-6 pt-4 md:pt-20"
+              className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-0 pb-12"
             >
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-hero-glow rounded-full opacity-60 blur-3xl pointer-events-none"></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-hero-glow rounded-full opacity-50 blur-3xl pointer-events-none"></div>
 
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="show"
-                className="relative z-10 w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center"
+                className="relative z-10 w-full max-w-6xl mx-auto flex flex-col justify-center items-center h-full max-h-[750px]"
               >
-                {/* Left Column: Text */}
-                <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 md:space-y-8 order-2 md:order-1">
-                  <motion.div variants={itemVariants} className="space-y-2 md:space-y-4">
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold leading-[0.95] tracking-tight">
-                      <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black text-6xl md:text-8xl lg:text-8xl drop-shadow-2xl">
-                        Cheeradech
-                      </span>
-                      <br />
-                      <span className="relative radial-wave-animate 
-                                        drop-shadow-[0_0_20px_rgba(139,92,246,0.6)]">
-                        Makcharoen
-                      </span>
-                    </h1>
-                    <p className="text-primary font-medium tracking-[0.2em] text-sm md:text-base uppercase">
-                      Senior Executive Developer
-                    </p>
-                  </motion.div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 xl:gap-12 items-center relative w-full flex-1">
+                  {/* Left Column: Text */}
+                  <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 md:space-y-8 order-2 lg:order-1 pt-8 lg:pt-0 z-20">
+                    <motion.div variants={itemVariants} className="space-y-2 md:space-y-3">
+                      <h1 className="text-5xl md:text-6xl xl:text-7xl font-display font-bold leading-[0.95] tracking-tight">
+                        <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black drop-shadow-2xl">
+                          Cheeradech
+                        </span>
+                        <br />
+                        <span className="relative radial-wave-animate 
+                                          drop-shadow-[0_0_20px_rgba(139,92,246,0.6)] text-4xl sm:text-5xl xl:text-6xl mt-2 block">
+                          Makcharoen
+                        </span>
+                      </h1>
+                      <p className="text-primary font-medium tracking-[0.2em] text-sm md:text-base uppercase mt-4">
+                        Senior Executive Developer
+                      </p>
+                    </motion.div>
 
-                  <motion.p
-                    variants={itemVariants}
-                    className="max-w-md text-slate-400 text-lg md:text-xl font-light leading-relaxed"
-                  >
-                    Architecting high-performance digital ecosystems with visual stillness and precision engineering.
-                  </motion.p>
+                    <motion.p
+                      variants={itemVariants}
+                      className="max-w-md text-slate-400 text-base lg:text-lg xl:text-[1.1rem] font-light leading-relaxed"
+                    >
+                      Architecting high-performance digital ecosystems with visual stillness and precision engineering.
+                    </motion.p>
 
-                  <motion.div variants={itemVariants} className="pt-4 md:pt-8 w-full md:w-auto flex justify-center md:justify-start">
-                    <div className="flex flex-col items-center md:items-start gap-4">
-                      <div className="h-16 w-[1px] bg-gradient-to-b from-primary to-transparent"></div>
-                      <span className="text-xs text-slate-500 uppercase tracking-widest">Scroll / Explore</span>
-                    </div>
-                  </motion.div>
-                </div>
+                    <motion.div variants={itemVariants} className="pt-2 w-full md:w-auto flex justify-center md:justify-start">
+                      <div className="flex flex-col items-center md:items-start gap-3">
+                        <div className="h-10 md:h-12 lg:h-14 w-[1px] bg-gradient-to-b from-primary to-transparent"></div>
+                        <span className="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest mt-1">Scroll / Explore</span>
+                      </div>
+                    </motion.div>
+                  </div>
 
-                {/* Right Column: Image */}
-                <div className="flex justify-center md:justify-end order-1 md:order-2">
-                  <motion.div variants={itemVariants} className="relative w-64 h-64 md:w-[28rem] md:h-[28rem] lg:w-[32rem] lg:h-[32rem] group flex items-center justify-center z-20">
+                  {/* Right Column: Image */}
+                  <div className="flex justify-center order-1 lg:order-2 z-10 w-full relative">
+                    <motion.div variants={itemVariants} className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-[22rem] md:h-[22rem] lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] group flex items-center justify-center lg:-ml-4 xl:ml-0">
 
-                    {/* 🪐 Orbital System */}
-                    <div className="absolute inset-0 pointer-events-none">
-                      {/* Orbit 1 */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-blue-500/20 rounded-full"
-                        style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
-                        <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
-                          style={{ '--orbit-radius': '170px', '--orbit-duration': '8s' }}></div>
+                      {/* 🪐 Orbital System */}
+                      <div className="absolute inset-0 pointer-events-none">
+                        {/* Orbit 1 */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-blue-500/20 rounded-full"
+                          style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
+                          <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
+                            style={{ '--orbit-radius': '170px', '--orbit-duration': '8s' }}></div>
+                        </div>
+
+                        {/* Orbit 2 */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-purple-500/20 rounded-full"
+                          style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
+                          <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
+                            style={{ '--orbit-radius': '200px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                        </div>
+
+                        {/* Orbit 3 (Faint) */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] border border-cyan-500/10 rounded-full"
+                          style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
+                        </div>
                       </div>
 
-                      {/* Orbit 2 */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-purple-500/20 rounded-full"
-                        style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
-                        <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
-                          style={{ '--orbit-radius': '200px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                      {/* ✨ Floating Particles */}
+                      <div className="absolute inset-[-50px] pointer-events-none">
+                        <div className="absolute top-0 left-1/4 w-1 h-1 bg-white rounded-full floating" style={{ animationDelay: '0s' }}></div>
+                        <div className="absolute bottom-10 right-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full floating" style={{ animationDelay: '1s' }}></div>
+                        <div className="absolute top-1/3 right-0 w-1 h-1 bg-purple-300 rounded-full floating" style={{ animationDelay: '2s' }}></div>
                       </div>
 
-                      {/* Orbit 3 (Faint) */}
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] border border-cyan-500/10 rounded-full"
-                        style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
+                      {/* 🌠 Shooting Star */}
+                      <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
+
+                      {/* ✨ Glow Core */}
+                      <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full blur-3xl pointer-events-none pulse-glow"></div>
+
+                      {/* 🧑 Your Image */}
+                      <img
+                        alt="Professional executive portrait"
+                        className="relative w-[90%] h-[90%] rounded-full object-cover object-top contrast-125 brightness-110 drop-shadow-[0_0_30px_rgba(13,127,242,0.4)] hover:drop-shadow-[0_0_50px_rgba(13,127,242,0.6)] transition-all duration-700 hover:scale-[1.05] z-10 masking-image"
+                        src={brImage}
+                        style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
+                      />
+                    </motion.div>
+                  </div>
+
+                  {/* Absolute Terminal Overlay */}
+                  <div className="absolute z-30 flex justify-center w-[260px] sm:w-[320px] lg:w-[340px] xl:w-[380px] left-1/2 lg:left-1/2 lg:translate-x-[-65%] xl:translate-x-[-55%] bottom-[-15%] lg:bottom-[15%] xl:bottom-[15%] transform -translate-x-1/2 pointer-events-none">
+                    <motion.div variants={itemVariants}
+                      className="terminal-box w-full p-3 lg:p-4 rounded-xl font-mono relative overflow-hidden"
+                      style={{
+                        background: "rgba(10,10,12,0.8)",
+                        backdropFilter: "blur(20px)",
+                        border: "1px solid rgba(0,255,200,0.25)",
+                        boxShadow: `
+                          0 20px 40px rgba(0,0,0,0.7),
+                          0 0 20px rgba(0,255,200,0.1),
+                          inset 0 0 10px rgba(0,255,200,0.05)
+                        `,
+                        perspective: "1000px",
+                        pointerEvents: "auto"
+                      }}
+                    >
+                      {/* Top highlight */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: "25px",
+                          background: "linear-gradient(to bottom, rgba(255,255,255,0.1), transparent)",
+                          pointerEvents: "none",
+                        }}
+                      />
+
+                      {/* Mac dots */}
+                      <div className="flex gap-1.5 mb-2 relative z-10">
+                        <div className="w-2.5 h-2.5 bg-[#ff5f56] rounded-full" />
+                        <div className="w-2.5 h-2.5 bg-[#ffbd2e] rounded-full" />
+                        <div className="w-2.5 h-2.5 bg-[#27c93f] rounded-full" />
                       </div>
-                    </div>
 
-                    {/* ✨ Floating Particles */}
-                    <div className="absolute inset-[-50px] pointer-events-none">
-                      <div className="absolute top-0 left-1/4 w-1 h-1 bg-white rounded-full floating" style={{ animationDelay: '0s' }}></div>
-                      <div className="absolute bottom-10 right-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full floating" style={{ animationDelay: '1s' }}></div>
-                      <div className="absolute top-1/3 right-0 w-1 h-1 bg-purple-300 rounded-full floating" style={{ animationDelay: '2s' }}></div>
-                    </div>
+                      {/* Text */}
+                      <div className="text-left text-[10px] sm:text-[11px] xl:text-xs leading-[1.6] break-words relative z-10 bg-transparent">
+                        {displayedLines.map((line, i) => (
+                          <p
+                            key={i}
+                            className="my-0.5 whitespace-pre-wrap tracking-wide"
+                            style={{
+                              color: line.type === "error" ? "#ff4d4d" : "#00ff99",
+                              textShadow: line.type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px rgba(0,255,150,0.5)",
+                            }}
+                          >
+                            {line.text}
+                          </p>
+                        ))}
 
-                    {/* 🌠 Shooting Star */}
-                    <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
-
-                    {/* ✨ Glow Core */}
-                    <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full blur-3xl pointer-events-none pulse-glow"></div>
-
-                    {/* 🧑 Your Image */}
-                    <img
-                      alt="Professional executive portrait"
-                      className="relative w-[90%] h-[90%] rounded-full object-cover object-top contrast-125 brightness-110 drop-shadow-[0_0_30px_rgba(13,127,242,0.4)] hover:drop-shadow-[0_0_50px_rgba(13,127,242,0.6)] transition-all duration-700 hover:scale-[1.05] z-10 masking-image"
-                      src={brImage}
-                      style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
-                    />
-
-                  </motion.div>
+                        {lineIndex < terminalLines.length && (
+                          <p
+                            className="my-0.5 whitespace-pre-wrap tracking-wide"
+                            style={{
+                              color: terminalLines[lineIndex].type === "error" ? "#ff4d4d" : "#00ff99",
+                              textShadow: terminalLines[lineIndex].type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px rgba(0,255,150,0.5)",
+                            }}
+                          >
+                            {currentLine}
+                            <span className="terminal-cursor inline-block w-1.5 bg-current ml-1" style={{ height: '0.8em', verticalAlign: 'middle', animation: 'terminal-blink 1s infinite' }}></span>
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
 
               </motion.div>
             </motion.div>
-          </section>
+          </section >
 
           {/* Expertise Section */}
           {/* Expertise Section */}
@@ -440,10 +547,10 @@ const Portfolio = () => {
             </div>
           </motion.section>
 
-        </main>
+        </main >
 
         {/* Footer */}
-        <footer className="relative z-10 py-12 border-t border-white/5 bg-background-dark">
+        < footer className="relative z-10 py-12 border-t border-white/5 bg-background-dark" >
           <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex flex-col gap-1">
               <p className="text-slate-500 text-sm font-light">© 2024 Cheeradech Makcharoen.</p>
@@ -464,10 +571,10 @@ const Portfolio = () => {
               </a>
             </div>
           </div>
-        </footer>
+        </footer >
 
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

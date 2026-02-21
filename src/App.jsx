@@ -154,6 +154,26 @@ const Portfolio = () => {
     window.requestAnimationFrame(step);
   };
 
+  const renderTerminalLine = (text, type) => {
+    if (type === "error") return text;
+    const regex = /(num|"Helloworld"|"Print"|Helloworld|=|\(|\)|\s+)/g;
+    const parts = text.split(regex);
+    return parts.filter(Boolean).map((part, index) => {
+      if (part === 'num') return <span key={index} style={{ color: '#7CFC00' }}>{part}</span>;
+      if (part === '=') return <span key={index} style={{ color: '#E6E6E6' }}>{part}</span>;
+      if (part === '"Helloworld"') return <span key={index} style={{ color: '#FFC857' }}>{part}</span>;
+      if (part === 'Helloworld') return <span key={index} style={{ color: '#4FC1FF' }}>{part}</span>;
+      if (part === '"Print"') return <span key={index} style={{ color: '#C792EA' }}>{part}</span>;
+      if (part === '(' || part === ')') return <span key={index} style={{ color: '#E6E6E6' }}>{part}</span>;
+      if (part.trim() === '') return <span key={index}>{part}</span>;
+      if ('num'.startsWith(part)) return <span key={index} style={{ color: '#7CFC00' }}>{part}</span>;
+      if ('Helloworld'.startsWith(part)) return <span key={index} style={{ color: '#4FC1FF' }}>{part}</span>;
+      if ('"Helloworld"'.startsWith(part)) return <span key={index} style={{ color: '#FFC857' }}>{part}</span>;
+      if ('"Print"'.startsWith(part)) return <span key={index} style={{ color: '#C792EA' }}>{part}</span>;
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   return (
     <div className="dark">
       <div className="min-h-screen text-slate-200 overflow-x-clip selection:bg-primary selection:text-white relative">
@@ -381,10 +401,10 @@ const Portfolio = () => {
                             className="my-0.5 whitespace-pre-wrap tracking-wide"
                             style={{
                               color: line.type === "error" ? "#ff4d4d" : "#00ff99",
-                              textShadow: line.type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px rgba(0,255,150,0.5)",
+                              textShadow: line.type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
                             }}
                           >
-                            {line.text}
+                            {renderTerminalLine(line.text, line.type)}
                           </p>
                         ))}
 
@@ -393,10 +413,10 @@ const Portfolio = () => {
                             className="my-0.5 whitespace-pre-wrap tracking-wide"
                             style={{
                               color: terminalLines[lineIndex].type === "error" ? "#ff4d4d" : "#00ff99",
-                              textShadow: terminalLines[lineIndex].type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px rgba(0,255,150,0.5)",
+                              textShadow: terminalLines[lineIndex].type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
                             }}
                           >
-                            {currentLine}
+                            {renderTerminalLine(currentLine, terminalLines[lineIndex].type)}
                             <span className="terminal-cursor inline-block w-1.5 bg-current ml-1" style={{ height: '0.8em', verticalAlign: 'middle', animation: 'terminal-blink 1s infinite' }}></span>
                           </p>
                         )}

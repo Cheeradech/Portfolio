@@ -1,10 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, Suspense, lazy } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import TechPad from './components/TechPad';
+
+const TechPad = lazy(() => import('./components/TechPad'));
 // import bigImage from './assets/BIG.png';
 import brImage from './assets/BR_transparent.png';
 import { AnimatedButton } from '@/components/ui/animated-button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/animated-tabs";
+import Terminal from './components/Terminal';
 import './App.css';
 
 const containerVariants = {
@@ -30,15 +32,7 @@ const itemVariants = {
   },
 };
 
-const terminalLines = [
-  { text: 'num = "Helloworld"', type: "normal" },
-  { text: 'Helloworld ("Print")', type: "normal" },
-  { text: "", type: "normal" },
-  { text: "Traceback (most recent call last):", type: "error" },
-  { text: '  File "main.py", line 2, in <module>', type: "error" },
-  { text: '    Helloworld ("Print")', type: "error" },
-  { text: "NameError: name 'Helloworld' is not defined", type: "error" },
-];
+// Terminal lines moved to components/Terminal.jsx
 
 const Portfolio = () => {
   const heroRef = useRef(null);
@@ -46,33 +40,7 @@ const Portfolio = () => {
   const scrollTimeoutRef = useRef(null);
   const [activeTab, setActiveTab] = useState("about");
 
-  const [displayedLines, setDisplayedLines] = useState([]);
-  const [currentLine, setCurrentLine] = useState("");
-  const [lineIndex, setLineIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-
-  useEffect(() => {
-    if (lineIndex >= terminalLines.length) return;
-
-    if (charIndex < terminalLines[lineIndex].text.length) {
-      const timeout = setTimeout(() => {
-        setCurrentLine((prev) => prev + terminalLines[lineIndex].text[charIndex]);
-        setCharIndex((prev) => prev + 1);
-      }, 20);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setDisplayedLines((prev) => [
-          ...prev,
-          { text: currentLine, type: terminalLines[lineIndex].type },
-        ]);
-        setCurrentLine("");
-        setCharIndex(0);
-        setLineIndex((prev) => prev + 1);
-      }, 350);
-      return () => clearTimeout(timeout);
-    }
-  }, [charIndex, lineIndex]);
+  // Terminal state moved to components/Terminal.jsx
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -154,32 +122,14 @@ const Portfolio = () => {
     window.requestAnimationFrame(step);
   };
 
-  const renderTerminalLine = (text, type) => {
-    if (type === "error") return text;
-    const regex = /(num|"Helloworld"|"Print"|Helloworld|=|\(|\)|\s+)/g;
-    const parts = text.split(regex);
-    return parts.filter(Boolean).map((part, index) => {
-      if (part === 'num') return <span key={index} style={{ color: '#7CFC00' }}>{part}</span>;
-      if (part === '=') return <span key={index} style={{ color: '#E6E6E6' }}>{part}</span>;
-      if (part === '"Helloworld"') return <span key={index} style={{ color: '#FFC857' }}>{part}</span>;
-      if (part === 'Helloworld') return <span key={index} style={{ color: '#4FC1FF' }}>{part}</span>;
-      if (part === '"Print"') return <span key={index} style={{ color: '#C792EA' }}>{part}</span>;
-      if (part === '(' || part === ')') return <span key={index} style={{ color: '#E6E6E6' }}>{part}</span>;
-      if (part.trim() === '') return <span key={index}>{part}</span>;
-      if ('num'.startsWith(part)) return <span key={index} style={{ color: '#7CFC00' }}>{part}</span>;
-      if ('Helloworld'.startsWith(part)) return <span key={index} style={{ color: '#4FC1FF' }}>{part}</span>;
-      if ('"Helloworld"'.startsWith(part)) return <span key={index} style={{ color: '#FFC857' }}>{part}</span>;
-      if ('"Print"'.startsWith(part)) return <span key={index} style={{ color: '#C792EA' }}>{part}</span>;
-      return <span key={index}>{part}</span>;
-    });
-  };
+  // Terminal rendering logic moved to components/Terminal.jsx
 
   return (
     <div className="dark">
       <div className="min-h-screen text-slate-200 overflow-x-clip selection:bg-primary selection:text-white relative">
 
         {/* --- Global Fixed Background --- */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
+        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1280&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]"></div>
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
           <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full blur-[120px]"></div>
@@ -358,70 +308,7 @@ const Portfolio = () => {
 
                   {/* Absolute Terminal Overlay */}
                   <div className="absolute z-30 flex justify-center w-[280px] sm:w-[340px] lg:w-[400px] xl:w-[460px] left-1/2 lg:left-1/2 lg:translate-x-[-65%] xl:translate-x-[-55%] bottom-[-10%] lg:bottom-[15%] xl:bottom-[15%] transform -translate-x-1/2 pointer-events-none">
-                    <motion.div variants={itemVariants}
-                      className="terminal-box w-full p-4 lg:p-5 rounded-xl font-mono relative overflow-hidden"
-                      style={{
-                        background: "rgba(10,10,12,0.8)",
-                        backdropFilter: "blur(20px)",
-                        border: "1px solid rgba(0,255,200,0.25)",
-                        boxShadow: `
-                          0 20px 40px rgba(0,0,0,0.7),
-                          0 0 20px rgba(0,255,200,0.1),
-                          inset 0 0 10px rgba(0,255,200,0.05)
-                        `,
-                        perspective: "1000px",
-                        pointerEvents: "auto"
-                      }}
-                    >
-                      {/* Top highlight */}
-                      <div
-                        style={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          right: 0,
-                          height: "25px",
-                          background: "linear-gradient(to bottom, rgba(255,255,255,0.1), transparent)",
-                          pointerEvents: "none",
-                        }}
-                      />
-
-                      {/* Mac dots */}
-                      <div className="flex gap-1.5 mb-2 relative z-10">
-                        <div className="w-2.5 h-2.5 bg-[#ff5f56] rounded-full" />
-                        <div className="w-2.5 h-2.5 bg-[#ffbd2e] rounded-full" />
-                        <div className="w-2.5 h-2.5 bg-[#27c93f] rounded-full" />
-                      </div>
-
-                      {/* Text */}
-                      <div className="text-left text-[10px] sm:text-[11px] xl:text-xs leading-[1.6] break-words relative z-10 bg-transparent">
-                        {displayedLines.map((line, i) => (
-                          <p
-                            key={i}
-                            className="my-0.5 whitespace-pre-wrap tracking-wide"
-                            style={{
-                              color: line.type === "error" ? "#ff4d4d" : "#00ff99",
-                              textShadow: line.type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
-                            }}
-                          >
-                            {renderTerminalLine(line.text, line.type)}
-                          </p>
-                        ))}
-
-                        {lineIndex < terminalLines.length && (
-                          <p
-                            className="my-0.5 whitespace-pre-wrap tracking-wide"
-                            style={{
-                              color: terminalLines[lineIndex].type === "error" ? "#ff4d4d" : "#00ff99",
-                              textShadow: terminalLines[lineIndex].type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
-                            }}
-                          >
-                            {renderTerminalLine(currentLine, terminalLines[lineIndex].type)}
-                            <span className="terminal-cursor inline-block w-1.5 bg-current ml-1" style={{ height: '0.8em', verticalAlign: 'middle', animation: 'terminal-blink 1s infinite' }}></span>
-                          </p>
-                        )}
-                      </div>
-                    </motion.div>
+                    <Terminal itemVariants={itemVariants} />
                   </div>
                 </div>
 
@@ -430,8 +317,9 @@ const Portfolio = () => {
           </section >
 
           {/* Expertise Section */}
-          {/* Expertise Section */}
-          <TechPad />
+          <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500 font-mono text-sm tracking-widest uppercase animate-pulse">Initializing System...</div>}>
+            <TechPad />
+          </Suspense>
 
           {/* Experience Section */}
           <motion.section

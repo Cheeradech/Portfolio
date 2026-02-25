@@ -14,8 +14,8 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.4,
-      delayChildren: 0.5,
+      staggerChildren: 0.2,
+      delayChildren: 0.3,
     },
   },
 };
@@ -26,7 +26,7 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.2,
+      duration: 1.0,
       ease: [0.22, 1, 0.36, 1],
     },
   },
@@ -54,14 +54,32 @@ const Portfolio = () => {
   useEffect(() => {
     const sections = ["about", "expertise", "experience", "works"];
 
+    // Function to sync tab based on current scroll position (for refresh/load)
+    const syncActiveTab = () => {
+      if (isScrollingRef.current) return;
+
+      let currentSection = sections[0];
+      const scrollPos = window.scrollY + 250;
+
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (scrollPos >= top) {
+            currentSection = id;
+          }
+        }
+      }
+      setActiveTab(currentSection);
+    };
+
     const observerOptions = {
       root: null,
-      rootMargin: "-20% 0px -60% 0px", // adjust thresholds
+      rootMargin: "-45% 0px -45% 0px", // More balanced margin for section detection
       threshold: 0
     };
 
     const handleIntersect = (entries) => {
-      // If we're animating a click right now, ignore observer updates
       if (isScrollingRef.current) return;
 
       entries.forEach((entry) => {
@@ -73,14 +91,31 @@ const Portfolio = () => {
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
+    // Force scroll to top on refresh/load
+    window.history.scrollRestoration = 'manual';
+    window.scrollTo(0, 0);
+    setActiveTab("about");
 
-    return () => observer.disconnect();
+    // Give a small delay for DOM to stabilize (especially for lazy components)
+    const initTimeout = setTimeout(() => {
+      sections.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          observer.observe(element);
+        }
+      });
+      syncActiveTab();
+      window.scrollTo(0, 0); // Double check scroll to top after observer starts
+    }, 100);
+
+    // Also sync on manual scroll just in case
+    window.addEventListener('scroll', syncActiveTab, { passive: true });
+
+    return () => {
+      clearTimeout(initTimeout);
+      observer.disconnect();
+      window.removeEventListener('scroll', syncActiveTab);
+    };
   }, []);
 
   const scrollToSection = (id) => {
@@ -142,7 +177,7 @@ const Portfolio = () => {
           {/* Tabs อยู่ absolute กึ่งกลางของ nav เต็มจอ */}
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-auto">
-              <TabsList className="bg-transparent border-none p-0 gap-2">
+              <TabsList className="bg-transparent border-none p-0 gap-2 relative">
                 <TabsTrigger value="about" onClick={() => scrollToSection("about")} className="text-sm tracking-wide">
                   About
                 </TabsTrigger>
@@ -317,27 +352,47 @@ const Portfolio = () => {
           </section >
 
           {/* Expertise Section */}
-          <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500 font-mono text-sm tracking-widest uppercase animate-pulse">Initializing System...</div>}>
-            <TechPad />
-          </Suspense>
+          <div id="expertise" className="anchor-wrapper scroll-mt-24">
+            <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500 font-mono text-sm tracking-widest uppercase animate-pulse">Initializing System...</div>}>
+              <TechPad />
+            </Suspense>
+          </div>
 
           {/* Experience Section */}
           <motion.section
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
             className="py-32 relative z-0 bg-background-dark/50 scroll-mt-20" id="experience">
             <div className="max-w-[1000px] mx-auto px-6">
               <div className="mb-20 flex items-center justify-end gap-4">
                 <h2 className="text-2xl font-bold tracking-tight text-white text-right">EXECUTIVE TIMELINE</h2>
                 <div className="h-[1px] w-12 bg-primary"></div>
               </div>
-              <div className="relative space-y-12 md:space-y-16">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.2
+                    }
+                  }
+                }}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                className="relative space-y-12 md:space-y-16">
                 <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-primary/20 -translate-x-1/2"></div>
 
                 {/* Timeline Item 1 */}
-                <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
                   <div className="w-full md:w-[45%] md:text-right pl-14 md:pl-0 md:pr-8 order-2 md:order-1 mt-2 md:mt-0">
                     <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Chief Technology Officer</h3>
                     <p className="text-primary text-sm font-medium mt-1">TechFlow Enterprise Solutions</p>
@@ -347,10 +402,15 @@ const Portfolio = () => {
                   <div className="w-full md:w-[45%] pl-14 md:pl-8 text-left order-1 md:order-3">
                     <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300">2021 — Present</span>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Timeline Item 2 */}
-                <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
                   <div className="w-full md:w-[45%] md:text-right pl-14 md:pl-0 md:pr-8 order-1 md:order-1">
                     <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300">2018 — 2021</span>
                   </div>
@@ -360,10 +420,15 @@ const Portfolio = () => {
                     <p className="text-primary text-sm font-medium mt-1">Nova Systems Inc.</p>
                     <p className="text-slate-400 text-sm mt-3 leading-relaxed">Scaled the engineering team from 15 to 120 developers. Implemented agile methodologies and CI/CD pipelines resulting in 3x faster deployment cycles.</p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Timeline Item 3 */}
-                <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
                   <div className="w-full md:w-[45%] md:text-right pl-14 md:pl-0 md:pr-8 order-2 md:order-1 mt-2 md:mt-0">
                     <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">Senior Lead Architect</h3>
                     <p className="text-primary text-sm font-medium mt-1">Global FinTech Corp</p>
@@ -373,10 +438,15 @@ const Portfolio = () => {
                   <div className="w-full md:w-[45%] pl-14 md:pl-8 text-left order-1 md:order-3">
                     <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300">2015 — 2018</span>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Timeline Item 4 */}
-                <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    show: { opacity: 1, y: 0 }
+                  }}
+                  className="relative flex flex-col md:flex-row items-start md:items-center justify-between group">
                   <div className="w-full md:w-[45%] md:text-right pl-14 md:pl-0 md:pr-8 order-1 md:order-1">
                     <span className="inline-block px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-slate-300">2012 — 2015</span>
                   </div>
@@ -386,18 +456,18 @@ const Portfolio = () => {
                     <p className="text-primary text-sm font-medium mt-1">DataStream Analytics</p>
                     <p className="text-slate-400 text-sm mt-3 leading-relaxed">Optimized database query performance by 200%. Developed microservices architecture for real-time data processing.</p>
                   </div>
-                </div>
+                </motion.div>
 
-              </div>
+              </motion.div>
             </div>
           </motion.section>
 
           {/* Works Section */}
           <motion.section
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
             className="py-32 relative z-10 bg-background-dark scroll-mt-24" id="works">
             <div className="max-w-[1200px] mx-auto px-6">
               <div className="mb-20 flex flex-col items-center justify-center gap-4 text-center">
@@ -406,9 +476,27 @@ const Portfolio = () => {
                 <p className="text-slate-400 max-w-lg">High-impact projects defining the intersection of performance and aesthetics.</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0 },
+                  show: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.2
+                    }
+                  }
+                }}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Work Item 1 */}
-                <div className="group bg-background-dark border border-white/5 overflow-hidden relative">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9, y: 30 },
+                    show: { opacity: 1, scale: 1, y: 0 }
+                  }}
+                  className="group bg-background-dark border border-white/5 overflow-hidden relative">
                   <div className="aspect-video w-full overflow-hidden bg-slate-900 relative">
                     <img alt="Abstract blue data visualization dashboard interface" className="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz3vAKSjIvI_CsUX32bmR_cIr6QDLzlO3civ6WHvsinCI58jjXygaaF4d7JTSzNKVfHmnjG6Fwguy9fBVLC5eaxJjDCn8MWcwx0d70SbV883ES99ilZQGmmxYFhBFJLeCtrc_hUn2v1wLSrLXtFVqFbI1rp3YJ7n7V5WrN31jOgQd4OVjUv9ludVRkFfyxEucpx3nvz8PyMzbiuJoUQfSvHiXJAeRG8tVVoA35zZWiUiFjvWUTNBxDxmtkZxzpE-xvILyg0OJbtyE" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
@@ -420,10 +508,15 @@ const Portfolio = () => {
                       A high-frequency trading platform processing 10k transactions per second with sub-millisecond latency.
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Work Item 2 */}
-                <div className="group bg-background-dark border border-white/5 overflow-hidden relative">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9, y: 30 },
+                    show: { opacity: 1, scale: 1, y: 0 }
+                  }}
+                  className="group bg-background-dark border border-white/5 overflow-hidden relative">
                   <div className="aspect-video w-full overflow-hidden bg-slate-900 relative">
                     <img alt="Clean white server room with blue lighting" className="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiL1Jmn0Y6Y6jgt99aJ9WLFIHXnq7K4-HUDxXdyA2PqTh1o5bZCrrnMVB0lFzwEAsP-Bv6T9xi7jlbSVIKpr2_oJqqauKpQRhP_YZDUayOK0lJ2ji_fHbITYxLr0LlhkKHXTwQaCNAfpWmxMqJ1KF5yKR56Vs9WFXWPVw3EGotX8lyQxdMl8R9K4HlnThwDiBi5SZQdTeenWuQwe5CjbGpFA8PMfpzU8WVVsFztETfS-xjAwD4-A2W4KB2J6R69xrc8O27dUnyrEc" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
@@ -435,10 +528,15 @@ const Portfolio = () => {
                       Proprietary cloud orchestration tool reducing deployment costs by 35% for enterprise clients.
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Work Item 3 */}
-                <div className="group bg-background-dark border border-white/5 overflow-hidden relative">
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.9, y: 30 },
+                    show: { opacity: 1, scale: 1, y: 0 }
+                  }}
+                  className="group bg-background-dark border border-white/5 overflow-hidden relative">
                   <div className="aspect-video w-full overflow-hidden bg-slate-900 relative">
                     <img alt="Futuristic digital brain AI concept" className="w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsSHsUbkJUWdg-MDImz_KZH--e_pmILHujys5Fgwk8SEyuHoc2emQ6brjphUsTav8NwKCgbC2iddcmBA0ipaZDWS9s4yj41Gz6gwWlV6omYhxytBlcC7H3s3iWutOYuCufhVxUTkGA9ShgRLxkc3Rjmqc_kJBUWZg482BHNYYwEjzIF5SfvjvRzcmalNs7xG9HFa_GGsahdy5XIdmQLOri4WSDCnxcV6zCios-UBi6dd549RB-UBxn7eDtKJ8sCjtBMWzJsNC3jSQ" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
@@ -450,8 +548,8 @@ const Portfolio = () => {
                       Diagnostic support AI analyzing medical imaging with 98% accuracy compared to human experts.
                     </p>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
           </motion.section>
 

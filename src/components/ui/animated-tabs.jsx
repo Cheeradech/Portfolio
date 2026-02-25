@@ -23,7 +23,7 @@ export const Tabs = ({ defaultValue, value, onValueChange, className = "", child
 
     return (
         <TabsContext.Provider value={{ activeTab, handleTabChange }}>
-            <div className={`w-full ${className}`}>{children}</div>
+            <div className={`relative w-full ${className}`}>{children}</div>
         </TabsContext.Provider>
     );
 };

@@ -87,12 +87,12 @@ export default function TechPad() {
          * - justify-start → justify-center
          */
         <motion.div
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-            id="expertise"
-            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 scroll-mt-24 flex flex-col items-center justify-center font-['Inter',_sans-serif] selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, margin: "-100px" }}
+            id="expertise-content"
+            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center font-['Inter',_sans-serif] selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto"
         >
             <style dangerouslySetInnerHTML={{
                 __html: `
@@ -232,14 +232,20 @@ export default function TechPad() {
       `}} />
 
             {/* Header */}
-            <header className="w-full py-4 text-center relative z-10 flex flex-col items-center mb-0 md:mb-4 mt-0">
+            <motion.header
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="w-full py-4 text-center relative z-10 flex flex-col items-center mb-0 md:mb-4 mt-0"
+            >
                 <h1 className="text-5xl md:text-6xl font-black mb-2 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-500 uppercase font-sans drop-shadow-xl">
                     SKILLS
                 </h1>
                 <p className="text-[10px] md:text-xs text-neutral-500 font-bold tracking-[0.3em] font-mono uppercase">
                     // MACRO PAD INTERFACE V4.0 //
                 </p>
-            </header>
+            </motion.header>
 
             <div
                 className="relative z-40 w-full max-w-5xl px-4 flex justify-center perspective-1200 scale-[0.85] sm:scale-95 md:scale-[0.85] lg:scale-[0.95] xl:scale-100 origin-top -mb-32 sm:-mb-10 md:-mb-24 lg:-mb-10 xl:mb-0 mt-4 md:mt-8"
@@ -247,10 +253,34 @@ export default function TechPad() {
                 onMouseMove={handleBoardMouseMove}
                 onMouseLeave={handleBoardMouseLeave}
             >
-                <div ref={keyboardRef} className="keyboard-base relative z-50 pointer-events-auto ring-1 ring-white/10 flex flex-col gap-6">
+                <motion.div
+                    ref={keyboardRef}
+                    variants={{
+                        hidden: { opacity: 0, scale: 0.95, rotateX: 15 },
+                        show: {
+                            opacity: 1,
+                            scale: 1,
+                            rotateX: 10,
+                            transition: {
+                                staggerChildren: 0.2,
+                                delayChildren: 0.4
+                            }
+                        }
+                    }}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="keyboard-base relative z-50 pointer-events-auto ring-1 ring-white/10 flex flex-col gap-6"
+                >
 
                     {/* FRONTEND */}
-                    <div className="w-full">
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            show: { opacity: 1, y: 0 }
+                        }}
+                        className="w-full"
+                    >
                         <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">FRONTEND UNIT</h3>
                         <div className="numpad-layout">
                             {skillsData.filter(s => ['html', 'css', 'js', 'react', 'tailwind'].includes(s.id)).map((skill) => (
@@ -262,10 +292,16 @@ export default function TechPad() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* BACKEND */}
-                    <div className="w-full">
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            show: { opacity: 1, y: 0 }
+                        }}
+                        className="w-full"
+                    >
                         <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">BACKEND MODULE</h3>
                         <div className="numpad-layout">
                             {skillsData.filter(s => ['php', 'python', 'node'].includes(s.id)).map((skill) => (
@@ -277,10 +313,16 @@ export default function TechPad() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* DATABASE */}
-                    <div className="w-full">
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            show: { opacity: 1, y: 0 }
+                        }}
+                        className="w-full"
+                    >
                         <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">DATABASE STORAGE</h3>
                         <div className="numpad-layout">
                             {skillsData.filter(s => ['mongo', 'sqlite'].includes(s.id)).map((skill) => (
@@ -292,10 +334,16 @@ export default function TechPad() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* TOOLS */}
-                    <div className="w-full">
+                    <motion.div
+                        variants={{
+                            hidden: { opacity: 0, y: 20 },
+                            show: { opacity: 1, y: 0 }
+                        }}
+                        className="w-full"
+                    >
                         <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">OPERATIONS / TOOLS</h3>
                         <div className="numpad-layout">
                             {skillsData.filter(s => ['docker', 'postman', 'n8n'].includes(s.id)).map((skill) => (
@@ -307,7 +355,7 @@ export default function TechPad() {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Footer Status Bar */}
                     <div className="mt-2 flex justify-between items-center px-6 py-4 border-t border-white/10 bg-[#0c0c0e] rounded-b-xl relative overflow-hidden">
@@ -322,10 +370,8 @@ export default function TechPad() {
                             <i className="fas fa-keyboard text-neutral-600"></i> PRO-TACTILE
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
-
-
         </motion.div>
     );
 }

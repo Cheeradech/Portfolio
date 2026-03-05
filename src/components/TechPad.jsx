@@ -56,7 +56,7 @@ export default function TechPad() {
             if (v > 0.42 && !hasTriggered) {
                 setHasTriggered(true);
                 keyboardControls.start({
-                    x: 380, rotateY: -22, rotateX: 8, z: 60, scale: 0.9, rotateY: -360,
+                    x: 380, rotateX: 8, z: 60, scale: 0.9, rotateY: -382,
                     transition: { type: 'spring', stiffness: 50, damping: 15, mass: 1 }
                 });
             }
@@ -67,7 +67,7 @@ export default function TechPad() {
     const handleKeyboardMouseEnter = React.useCallback(() => {
         if (hasTriggered) {
             keyboardControls.start({
-                z: 80, rotateY: -18, rotateX: 6, scale: 0.92, rotateY: -360,
+                z: 80, rotateX: 6, scale: 0.92, rotateY: -378,
                 transition: { type: 'spring', stiffness: 80, damping: 20 }
             });
         } else {
@@ -85,7 +85,7 @@ export default function TechPad() {
         }
         if (hasTriggered) {
             keyboardControls.start({
-                z: 60, rotateY: -22, rotateX: 8, scale: 0.9, rotateY: -360,
+                z: 60, rotateX: 8, scale: 0.9, rotateY: -382,
                 transition: { type: 'spring', stiffness: 80, damping: 20 }
             });
         } else {

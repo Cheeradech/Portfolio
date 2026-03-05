@@ -1,26 +1,26 @@
 import React, { useRef } from 'react';
-import { motion, useScroll } from 'framer-motion';
+import { motion, useScroll, useAnimation } from 'framer-motion';
 
 const skillsData = [
-    { id: 'html', label: 'HTML5', colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
-    { id: 'css', label: 'CSS3', colorClass: 'color-css', icon: <i className="fab fa-css3-alt tech-icon text-5xl"></i> },
-    { id: 'js', label: 'JavaScript', colorClass: 'color-js', icon: <i className="fab fa-js tech-icon text-5xl"></i> },
-    { id: 'react', label: 'React', colorClass: 'color-react', icon: <i className="fab fa-react tech-icon text-5xl animate-[spin_12s_linear_infinite]"></i> },
+    { id: 'html', label: 'HTML5', description: 'พื้นฐานโครงสร้างเว็บไซต์ที่แข็งแกร่ง รองรับ SEO และ Semantic HTML', level: 90, stars: 5, colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
+    { id: 'css', label: 'CSS3', description: 'การจัดเลย์เอาท์ที่ซับซ้อน อนิเมชั่น และ Responsive Design ระดับสูง', level: 85, stars: 4, colorClass: 'color-css', icon: <i className="fab fa-css3-alt tech-icon text-5xl"></i> },
+    { id: 'js', label: 'JavaScript', description: 'ตรรกะโปรแกรมที่ซับซ้อน การจัดการสถานะ และการประมวลผลข้อมูลหนักๆ', level: 88, stars: 5, colorClass: 'color-js', icon: <i className="fab fa-js tech-icon text-5xl"></i> },
+    { id: 'react', label: 'React', description: 'การสร้าง Component ที่นำกลับมาใช้ใหม่ได้ และการจัดการ State ขนาดใหญ่', level: 92, stars: 5, colorClass: 'color-react', icon: <i className="fab fa-react tech-icon text-5xl animate-[spin_12s_linear_infinite]"></i> },
     {
-        id: 'tailwind', label: 'Tailwind CSS', colorClass: 'color-tailwind',
+        id: 'tailwind', label: 'Tailwind CSS', description: 'Utility-first CSS ที่ช่วยให้พัฒนา UI ได้รวดเร็วและคงเส้นคงวา', level: 95, stars: 5, colorClass: 'color-tailwind',
         icon: (
             <svg className="w-12 h-12 tech-icon" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"></path>
             </svg>
         )
     },
-    { id: 'php', label: 'PHP', colorClass: 'color-php', icon: <i className="fab fa-php tech-icon text-4xl"></i> },
-    { id: 'python', label: 'Python', colorClass: 'color-python', icon: <i className="fab fa-python tech-icon text-5xl"></i> },
-    { id: 'node', label: 'NodeJS', colorClass: 'color-node', icon: <i className="fab fa-node-js tech-icon text-5xl"></i> },
-    { id: 'docker', label: 'Docker', colorClass: 'color-docker', icon: <i className="fab fa-docker tech-icon text-5xl"></i> },
-    { id: 'mongo', label: 'MongoDB', colorClass: 'color-mongo', icon: <i className="fas fa-leaf tech-icon text-4xl"></i> },
+    { id: 'php', label: 'PHP', description: 'การพัฒนา Backend แบบดั้งเดิมและการสร้าง API สำหรับแอปพลิเคชัน', level: 75, stars: 3, colorClass: 'color-php', icon: <i className="fab fa-php tech-icon text-4xl"></i> },
+    { id: 'python', label: 'Python', description: 'ภาษาที่ใช้ในการวิเคราะห์ข้อมูล สคริปต์อัตโนมัติ และการพัฒนา AI', level: 82, stars: 4, colorClass: 'color-python', icon: <i className="fab fa-python tech-icon text-5xl"></i> },
+    { id: 'node', label: 'NodeJS', description: 'การสร้างเซิร์ฟเวอร์ที่รองรับการเชื่อมต่อจำนวนมากด้วย V8 Engine', level: 85, stars: 4, colorClass: 'color-node', icon: <i className="fab fa-node-js tech-icon text-5xl"></i> },
+    { id: 'docker', label: 'Docker', description: 'การจำลองสภาพแวดล้อมเพื่อให้โค้ดทำงานได้เหมือนกันในทุกที่', level: 80, stars: 4, colorClass: 'color-docker', icon: <i className="fab fa-docker tech-icon text-5xl"></i> },
+    { id: 'mongo', label: 'MongoDB', description: 'ฐานข้อมูล NoSQL แบบ Document oriented ที่ยืดหยุ่นและรวดเร็ว', level: 88, stars: 4, colorClass: 'color-mongo', icon: <i className="fas fa-leaf tech-icon text-4xl"></i> },
     {
-        id: 'sqlite', label: 'SQLite', colorClass: 'color-sqlite',
+        id: 'sqlite', label: 'SQLite', description: 'ฐานข้อมูลน้ำหนักเบาที่ฝังตัวได้ง่าย เหมาะสำหรับโปรเจคขนาดเล็กและกลาง', level: 90, stars: 5, colorClass: 'color-sqlite',
         icon: (
             <div className="flex flex-col items-center justify-center gap-1">
                 <svg className="w-10 h-10 tech-icon text-[#3b95ff]" fill="currentColor" viewBox="0 0 64 64">
@@ -31,8 +31,8 @@ const skillsData = [
             </div>
         )
     },
-    { id: 'postman', label: 'Postman', colorClass: 'color-postman', icon: <i className="fas fa-space-shuttle tech-icon text-4xl transform -rotate-45"></i> },
-    { id: 'n8n', label: 'n8n', colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
+    { id: 'postman', label: 'Postman', description: 'เครื่องมือทดสอบและจัดการ API ที่เป็นมาตรฐานสากล', level: 95, stars: 5, colorClass: 'color-postman', icon: <i className="fas fa-space-shuttle tech-icon text-4xl transform -rotate-45"></i> },
+    { id: 'n8n', label: 'n8n', description: 'การเชื่อมต่อ Workflow อัตโนมัติ (Automation) แบบ Low-code', level: 85, stars: 4, colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
 ];
 
 export default function TechPad() {
@@ -41,19 +41,60 @@ export default function TechPad() {
     const keyCapsRef = useRef(null);
     const tickingRef = useRef(false);
     const [hasTriggered, setHasTriggered] = React.useState(false);
+    const [activeSkill, setActiveSkill] = React.useState(null);
+    const keyboardControls = useAnimation();
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
     });
 
-    // Handle persistent trigger - lower threshold for more immediate response
+    // Drive the initial scroll-triggered animation via controls (not animate prop)
+    // so that mouseenter/mouseleave can layer on top without conflict
     React.useEffect(() => {
         const unsubscribe = scrollYProgress.onChange(v => {
-            if (v > 0.42) setHasTriggered(true);
+            if (v > 0.42 && !hasTriggered) {
+                setHasTriggered(true);
+                keyboardControls.start({
+                    x: 380, rotateY: -22, rotateX: 8, z: 60, scale: 0.9,
+                    transition: { type: 'spring', stiffness: 80, damping: 20 }
+                });
+            }
         });
         return () => unsubscribe();
-    }, [scrollYProgress]);
+    }, [scrollYProgress, hasTriggered, keyboardControls]);
+
+    const handleKeyboardMouseEnter = React.useCallback(() => {
+        if (hasTriggered) {
+            keyboardControls.start({
+                z: 80, rotateY: -18, rotateX: 6, scale: 0.92,
+                transition: { type: 'spring', stiffness: 80, damping: 20 }
+            });
+        } else {
+            keyboardControls.start({
+                scale: 1.03,
+                transition: { type: 'spring', stiffness: 80, damping: 20 }
+            });
+        }
+    }, [hasTriggered, keyboardControls]);
+
+    const handleKeyboardMouseLeave = React.useCallback(() => {
+        setActiveSkill(null);
+        if (keyCapsRef.current) {
+            keyCapsRef.current.forEach(cap => cap.classList.remove('key-hovered'));
+        }
+        if (hasTriggered) {
+            keyboardControls.start({
+                z: 60, rotateY: -22, rotateX: 8, scale: 0.9,
+                transition: { type: 'spring', stiffness: 80, damping: 20 }
+            });
+        } else {
+            keyboardControls.start({
+                scale: 1.0,
+                transition: { type: 'spring', stiffness: 80, damping: 20 }
+            });
+        }
+    }, [hasTriggered, keyboardControls]);
 
     // Details panel values driven by hasTriggered state
     const detailsOpacityValue = hasTriggered ? 1 : 0;
@@ -88,20 +129,30 @@ export default function TechPad() {
             if (!keyCapsRef.current) {
                 keyCapsRef.current = Array.from(board.querySelectorAll('[data-key-id]'));
             }
+            let hoveredId = null;
             keyCapsRef.current.forEach(cap => {
                 const rect = cap.getBoundingClientRect();
                 const isOver = mx >= rect.left && mx <= rect.right && my >= rect.top && my <= rect.bottom;
-                if (isOver) cap.classList.add('key-hovered');
-                else cap.classList.remove('key-hovered');
+                if (isOver) {
+                    hoveredId = cap.getAttribute('data-key-id');
+                }
             });
+
+            if (hoveredId) {
+                setActiveSkill(prev => {
+                    if (prev?.id !== hoveredId) {
+                        return skillsData.find(s => s.id === hoveredId) || prev;
+                    }
+                    return prev;
+                });
+            }
+
             tickingRef.current = false;
         });
     };
 
     const handleBoardMouseLeave = () => {
-        if (keyCapsRef.current) {
-            keyCapsRef.current.forEach(cap => cap.classList.remove('key-hovered'));
-        }
+        // handled by handleKeyboardMouseLeave on the wrapper instead
     };
 
     const handleKeyClick = (label) => {
@@ -288,26 +339,53 @@ export default function TechPad() {
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-1 bg-primary"></div>
-                            <span className="text-xs font-mono text-primary font-bold tracking-widest uppercase">Expertise Overview</span>
+                            <span className="text-xs font-mono text-primary font-bold tracking-widest uppercase">
+                                {activeSkill ? 'Skill Details' : 'Expertise Overview'}
+                            </span>
                         </div>
-                        <h2 className="text-4xl font-black text-white leading-tight uppercase font-sans">
-                            Precision <br />
-                            <span className="text-primary italic">Software</span> <br />
-                            Engineering
+                        {/* Fixed min-h prevents layout shift when switching between states */}
+                        <h2 className="text-4xl font-black text-white leading-tight uppercase font-sans min-h-[7rem]">
+                            {activeSkill ? (
+                                <>
+                                    <span className="text-primary">{activeSkill.label}</span>
+                                    <br />
+                                    <span>Mastery</span>
+                                </>
+                            ) : (
+                                <>
+                                    Precision <br />
+                                    <span className="text-primary italic">Software</span> <br />
+                                    Engineering
+                                </>
+                            )}
                         </h2>
-                        <p className="text-slate-400 text-sm leading-relaxed font-light">
-                            Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.
+                        <p className="text-slate-400 text-sm leading-relaxed font-light min-h-[3em]">
+                            {activeSkill ? activeSkill.description : 'Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.'}
                         </p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
                         <div className="space-y-1">
-                            <div className="text-2xl font-bold text-white font-mono">100+</div>
-                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">Components Built</div>
+                            <div className="text-2xl font-bold text-white font-mono h-8 flex items-center">
+                                {activeSkill ? `${activeSkill.level}%` : '100+'}
+                            </div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">
+                                {activeSkill ? 'Proficiency Level' : 'Components Built'}
+                            </div>
                         </div>
                         <div className="space-y-1">
-                            <div className="text-2xl font-bold text-white font-mono">99.9%</div>
-                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">Efficiency Rate</div>
+                            <div className="flex items-center gap-1 h-8">
+                                {activeSkill ? (
+                                    Array(5).fill(0).map((_, i) => (
+                                        <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-lg`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }}></i>
+                                    ))
+                                ) : (
+                                    <span className="text-2xl font-bold text-white font-mono">99.9%</span>
+                                )}
+                            </div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">
+                                {activeSkill ? 'Mastery Tier' : 'Efficiency Rate'}
+                            </div>
                         </div>
                     </div>
 
@@ -325,20 +403,14 @@ export default function TechPad() {
                 </motion.div>
 
                 <motion.div
-                    animate={{
-                        x: hasTriggered ? 380 : 0,
-                        rotateY: hasTriggered ? -22 : 0,
-                        rotateX: hasTriggered ? 8 : 0,
-                        z: hasTriggered ? 60 : 0,
-                        scale: hasTriggered ? 0.9 : 1.0
-                    }}
-                    whileHover={hasTriggered ? { z: 80, rotateY: -18, rotateX: 6, scale: 0.92 } : { scale: 1.03 }}
-                    transition={{ type: "spring", stiffness: 80, damping: 20 }}
+                    animate={keyboardControls}
+                    initial={{ x: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1 }}
                     style={{ transformOrigin: "center center", transformStyle: "preserve-3d", willChange: "transform" }}
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.75] sm:scale-90 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-20 sm:-mb-6 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onClick={handleBoardClick}
                     onMouseMove={handleBoardMouseMove}
-                    onMouseLeave={handleBoardMouseLeave}
+                    onMouseEnter={handleKeyboardMouseEnter}
+                    onMouseLeave={handleKeyboardMouseLeave}
                 >
                     <motion.div
                         ref={keyboardRef}
@@ -371,7 +443,7 @@ export default function TechPad() {
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['html', 'css', 'js', 'react', 'tailwind'].includes(s.id)).map((skill) => (
                                     <div key={skill.id} className="key-wrapper">
-                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass} ${activeSkill?.id === skill.id ? 'key-hovered' : ''}`} role="button">
                                             <div className="key-side"></div>
                                             <div className="key-top">{skill.icon}</div>
                                         </div>
@@ -392,7 +464,7 @@ export default function TechPad() {
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['php', 'python', 'node'].includes(s.id)).map((skill) => (
                                     <div key={skill.id} className="key-wrapper">
-                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass} ${activeSkill?.id === skill.id ? 'key-hovered' : ''}`} role="button">
                                             <div className="key-side"></div>
                                             <div className="key-top">{skill.icon}</div>
                                         </div>
@@ -413,7 +485,7 @@ export default function TechPad() {
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['mongo', 'sqlite'].includes(s.id)).map((skill) => (
                                     <div key={skill.id} className="key-wrapper">
-                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass} ${activeSkill?.id === skill.id ? 'key-hovered' : ''}`} role="button">
                                             <div className="key-side"></div>
                                             <div className="key-top">{skill.icon}</div>
                                         </div>
@@ -434,7 +506,7 @@ export default function TechPad() {
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['docker', 'postman', 'n8n'].includes(s.id)).map((skill) => (
                                     <div key={skill.id} className="key-wrapper">
-                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass} ${activeSkill?.id === skill.id ? 'key-hovered' : ''}`} role="button">
                                             <div className="key-side"></div>
                                             <div className="key-top">{skill.icon}</div>
                                         </div>

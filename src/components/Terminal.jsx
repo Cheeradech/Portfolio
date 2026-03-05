@@ -86,8 +86,8 @@ const Terminal = ({ itemVariants }) => {
                 {displayedLines.map((line, i) => (
                     <p key={i} className="my-0.5 whitespace-pre-wrap tracking-wide"
                         style={{
-                            color: line.type === "error" ? "#ff4d4d" : "#00ff99",
-                            textShadow: line.type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
+                            color: line.type === "error" ? "#ff3333" : "#00ff99",
+                            textShadow: line.type === "error" ? "0 0 8px rgba(255,0,0,0.9), 0 0 2px rgba(255,255,255,0.3)" : "0 0 5px currentColor",
                         }}
                     >
                         {renderTerminalLine(line.text, line.type)}
@@ -96,8 +96,8 @@ const Terminal = ({ itemVariants }) => {
                 {lineIndex < terminalLines.length && (
                     <p className="my-0.5 whitespace-pre-wrap tracking-wide"
                         style={{
-                            color: terminalLines[lineIndex].type === "error" ? "#ff4d4d" : "#00ff99",
-                            textShadow: terminalLines[lineIndex].type === "error" ? "0 0 5px rgba(255,0,0,0.6)" : "0 0 5px currentColor",
+                            color: terminalLines[lineIndex].type === "error" ? "#ff3333" : "#00ff99",
+                            textShadow: terminalLines[lineIndex].type === "error" ? "0 0 8px rgba(255,0,0,0.9), 0 0 2px rgba(255,255,255,0.3)" : "0 0 5px currentColor",
                         }}
                     >
                         {renderTerminalLine(currentLine, terminalLines[lineIndex].type)}

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 const skillsData = [
     { id: 'html', label: 'HTML5', colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
@@ -36,7 +36,28 @@ const skillsData = [
 ];
 
 export default function TechPad() {
+    const containerRef = useRef(null);
     const keyboardRef = useRef(null);
+    const [hasTriggered, setHasTriggered] = React.useState(false);
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start end", "end start"]
+    });
+
+    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+    // Handle persistent trigger - lower threshold for more immediate response
+    React.useEffect(() => {
+        const unsubscribe = scrollYProgress.onChange(v => {
+            if (v > 0.42) setHasTriggered(true);
+        });
+        return () => unsubscribe();
+    }, [scrollYProgress]);
+
+    // Desktop Transformations (Fluid mapping for details) - Now using hasTriggered for persistence
+    const detailsOpacityValue = hasTriggered ? 1 : 0;
+    const detailsXValue = hasTriggered ? 0 : -100;
 
     const handleBoardClick = (e) => {
         const board = keyboardRef.current;
@@ -79,20 +100,14 @@ export default function TechPad() {
     };
 
     return (
-        /*
-         * ✅ FIX scroll/visibility:
-         * - ลบ min-h-screen ออก → section สูงแค่พอดีกับ content
-         * - เปลี่ยน pt-20 pb-96 → pt-32 pb-40 (nav bar คือ 80px = 20 units)
-         * - scroll-mt-20 ให้ scroll หยุดพอดีใต้ nav bar (80px)
-         * - justify-start → justify-center
-         */
         <motion.div
+            ref={containerRef}
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, margin: "-100px" }}
             id="expertise-content"
-            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center font-['Inter',_sans-serif] selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto"
+            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center font-['Inter',_sans-serif] selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
         >
             <style dangerouslySetInnerHTML={{
                 __html: `
@@ -105,21 +120,20 @@ export default function TechPad() {
                 0 0 0 2px rgba(255,255,255,0.03) inset,
                 0 20px 40px rgba(0,0,0,0.6),
                 0 0 0 1px #000;
-            border-radius: 24px;
-            padding: 24px;
-            transform: rotateY(-8deg) rotateX(10deg) scale(0.92);
+            border-radius: 20px;
+            padding: 16px;
             transform-style: preserve-3d;
-            border-bottom: 14px solid #050506;
+            border-bottom: 12px solid #050506;
             position: relative;
             cursor: pointer;
         }
         .numpad-layout {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-            padding: 20px;
+            gap: 12px;
+            padding: 12px;
             background: #111113;
-            border-radius: 16px;
+            border-radius: 12px;
             box-shadow: 
                 inset 0 2px 10px rgba(0,0,0,0.8),
                 inset 0 0 0 1px rgba(255,255,255,0.02),
@@ -128,8 +142,8 @@ export default function TechPad() {
         }
         .key-wrapper {
             position: relative;
-            width: 84px;
-            height: 84px;
+            width: 82px;
+            height: 82px;
             transform-style: preserve-3d;
         }
         .key-cap {
@@ -226,8 +240,11 @@ export default function TechPad() {
         .color-n8n.key-hovered .key-top { background: linear-gradient(180deg, #362028 0%, #1f1014 100%); }
         .color-n8n span { text-shadow: 0 0 2px #b31d4e; }
         @media (max-width: 768px) {
-            .numpad-layout { grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 12px; }
-            .key-wrapper { width: 76px; height: 76px; }
+            .numpad-layout { grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 10px; }
+            .key-wrapper { width: 64px; height: 64px; }
+            .animation-container { flex-direction: column !important; }
+            .details-panel { width: 100% !important; margin-bottom: 2rem; position: relative !important; left: 0 !important; opacity: 1 !important; transform: none !important; }
+            .keyboard-wrapper { transform: none !important; width: 100% !important; margin-bottom: 0 !important; }
         }
       `}} />
 
@@ -247,129 +264,190 @@ export default function TechPad() {
                 </p>
             </motion.header>
 
-            <div
-                className="relative z-40 w-full max-w-5xl px-4 flex justify-center perspective-1200 scale-[0.85] sm:scale-95 md:scale-[0.85] lg:scale-[0.95] xl:scale-100 origin-top -mb-32 sm:-mb-10 md:-mb-24 lg:-mb-10 xl:mb-0 mt-4 md:mt-8"
-                onClick={handleBoardClick}
-                onMouseMove={handleBoardMouseMove}
-                onMouseLeave={handleBoardMouseLeave}
-            >
+            <div className="w-full max-w-7xl px-4 md:px-12 flex flex-col md:flex-row items-center justify-center animation-container relative [perspective:2000px]">
+
+                {/* Information Details Panel (Revealed on Scroll) */}
                 <motion.div
-                    ref={keyboardRef}
-                    variants={{
-                        hidden: { opacity: 0, scale: 0.95, rotateX: 15 },
-                        show: {
-                            opacity: 1,
-                            scale: 1,
-                            rotateX: 10,
-                            transition: {
-                                staggerChildren: 0.2,
-                                delayChildren: 0.4
-                            }
-                        }
+                    animate={{
+                        opacity: detailsOpacityValue,
+                        x: detailsXValue,
+                        y: hasTriggered ? 0 : 20
                     }}
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true }}
-                    className="keyboard-base relative z-50 pointer-events-auto ring-1 ring-white/10 flex flex-col gap-6"
+                    transition={{ type: "spring", stiffness: 40, damping: 20 }}
+                    className="details-panel hidden md:flex flex-col gap-8 w-1/3 absolute left-12 z-20"
                 >
-
-                    {/* FRONTEND */}
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            show: { opacity: 1, y: 0 }
-                        }}
-                        className="w-full"
-                    >
-                        <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">FRONTEND UNIT</h3>
-                        <div className="numpad-layout">
-                            {skillsData.filter(s => ['html', 'css', 'js', 'react', 'tailwind'].includes(s.id)).map((skill) => (
-                                <div key={skill.id} className="key-wrapper">
-                                    <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
-                                        <div className="key-side"></div>
-                                        <div className="key-top">{skill.icon}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* BACKEND */}
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            show: { opacity: 1, y: 0 }
-                        }}
-                        className="w-full"
-                    >
-                        <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">BACKEND MODULE</h3>
-                        <div className="numpad-layout">
-                            {skillsData.filter(s => ['php', 'python', 'node'].includes(s.id)).map((skill) => (
-                                <div key={skill.id} className="key-wrapper">
-                                    <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
-                                        <div className="key-side"></div>
-                                        <div className="key-top">{skill.icon}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* DATABASE */}
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            show: { opacity: 1, y: 0 }
-                        }}
-                        className="w-full"
-                    >
-                        <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">DATABASE STORAGE</h3>
-                        <div className="numpad-layout">
-                            {skillsData.filter(s => ['mongo', 'sqlite'].includes(s.id)).map((skill) => (
-                                <div key={skill.id} className="key-wrapper">
-                                    <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
-                                        <div className="key-side"></div>
-                                        <div className="key-top">{skill.icon}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* TOOLS */}
-                    <motion.div
-                        variants={{
-                            hidden: { opacity: 0, y: 20 },
-                            show: { opacity: 1, y: 0 }
-                        }}
-                        className="w-full"
-                    >
-                        <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">OPERATIONS / TOOLS</h3>
-                        <div className="numpad-layout">
-                            {skillsData.filter(s => ['docker', 'postman', 'n8n'].includes(s.id)).map((skill) => (
-                                <div key={skill.id} className="key-wrapper">
-                                    <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
-                                        <div className="key-side"></div>
-                                        <div className="key-top">{skill.icon}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Footer Status Bar */}
-                    <div className="mt-2 flex justify-between items-center px-6 py-4 border-t border-white/10 bg-[#0c0c0e] rounded-b-xl relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                    <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="relative w-2 h-2">
-                                <div className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse"></div>
-                            </div>
-                            <span className="text-[0.7rem] font-mono text-emerald-500/90 uppercase tracking-[0.2em] font-bold">System Online</span>
+                            <div className="w-10 h-1 bg-primary"></div>
+                            <span className="text-xs font-mono text-primary font-bold tracking-widest uppercase">Expertise Overview</span>
                         </div>
-                        <div className="text-[0.7rem] font-mono text-neutral-500 font-bold tracking-widest flex items-center gap-2">
-                            <i className="fas fa-keyboard text-neutral-600"></i> PRO-TACTILE
+                        <h2 className="text-4xl font-black text-white leading-tight uppercase font-sans">
+                            Precision <br />
+                            <span className="text-primary italic">Software</span> <br />
+                            Engineering
+                        </h2>
+                        <p className="text-slate-400 text-sm leading-relaxed font-light">
+                            Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
+                        <div className="space-y-1">
+                            <div className="text-2xl font-bold text-white font-mono">100+</div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">Components Built</div>
+                        </div>
+                        <div className="space-y-1">
+                            <div className="text-2xl font-bold text-white font-mono">99.9%</div>
+                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">Efficiency Rate</div>
                         </div>
                     </div>
+
+                    <div className="p-5 bg-white/5 rounded-2xl border border-white/5 backdrop-blur-md">
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className="material-symbols-outlined text-primary text-sm">terminal</span>
+                            <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">System Core</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 font-mono leading-relaxed">
+                            {'>'} Initializing module cluster... <br />
+                            {'>'} Optimizing performance assets... <br />
+                            {'>'} Security handshake complete.
+                        </p>
+                    </div>
+                </motion.div>
+
+                <motion.div
+                    animate={{
+                        x: hasTriggered ? 380 : 0,
+                        rotateY: hasTriggered ? -22 : 0,
+                        rotateX: hasTriggered ? 8 : 0,
+                        z: hasTriggered ? 60 : 0,
+                        scale: hasTriggered ? 0.9 : 1.0 // Increased scale
+                    }}
+                    whileHover={hasTriggered ? { z: 80, rotateY: -18, rotateX: 6, scale: 0.92 } : { scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 45, damping: 18 }}
+                    style={{ transformOrigin: "center center", transformStyle: "preserve-3d" }}
+                    className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.75] sm:scale-90 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-20 sm:-mb-6 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
+                    onClick={handleBoardClick}
+                    onMouseMove={handleBoardMouseMove}
+                    onMouseLeave={handleBoardMouseLeave}
+                >
+                    <motion.div
+                        ref={keyboardRef}
+                        variants={{
+                            hidden: { opacity: 0, scale: 0.95 },
+                            show: {
+                                opacity: 1,
+                                scale: 1,
+                                transition: {
+                                    staggerChildren: 0.2,
+                                    delayChildren: 0.4
+                                }
+                            }
+                        }}
+                        initial="hidden"
+                        whileInView="show"
+                        viewport={{ once: true }}
+                        className="keyboard-base relative z-50 pointer-events-auto ring-1 ring-white/10 flex flex-col gap-6"
+                    >
+
+                        {/* FRONTEND */}
+                        <motion.div
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                show: { opacity: 1, y: 0 }
+                            }}
+                            className="w-full"
+                        >
+                            <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">FRONTEND UNIT</h3>
+                            <div className="numpad-layout">
+                                {skillsData.filter(s => ['html', 'css', 'js', 'react', 'tailwind'].includes(s.id)).map((skill) => (
+                                    <div key={skill.id} className="key-wrapper">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                            <div className="key-side"></div>
+                                            <div className="key-top">{skill.icon}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* BACKEND */}
+                        <motion.div
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                show: { opacity: 1, y: 0 }
+                            }}
+                            className="w-full"
+                        >
+                            <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">BACKEND MODULE</h3>
+                            <div className="numpad-layout">
+                                {skillsData.filter(s => ['php', 'python', 'node'].includes(s.id)).map((skill) => (
+                                    <div key={skill.id} className="key-wrapper">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                            <div className="key-side"></div>
+                                            <div className="key-top">{skill.icon}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* DATABASE */}
+                        <motion.div
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                show: { opacity: 1, y: 0 }
+                            }}
+                            className="w-full"
+                        >
+                            <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">DATABASE STORAGE</h3>
+                            <div className="numpad-layout">
+                                {skillsData.filter(s => ['mongo', 'sqlite'].includes(s.id)).map((skill) => (
+                                    <div key={skill.id} className="key-wrapper">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                            <div className="key-side"></div>
+                                            <div className="key-top">{skill.icon}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* TOOLS */}
+                        <motion.div
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                show: { opacity: 1, y: 0 }
+                            }}
+                            className="w-full"
+                        >
+                            <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">OPERATIONS / TOOLS</h3>
+                            <div className="numpad-layout">
+                                {skillsData.filter(s => ['docker', 'postman', 'n8n'].includes(s.id)).map((skill) => (
+                                    <div key={skill.id} className="key-wrapper">
+                                        <div data-key-id={skill.id} data-key-label={skill.label} aria-label={skill.label} className={`key-cap ${skill.colorClass}`} role="button">
+                                            <div className="key-side"></div>
+                                            <div className="key-top">{skill.icon}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </motion.div>
+
+                        {/* Footer Status Bar */}
+                        <div className="mt-2 flex justify-between items-center px-6 py-4 border-t border-white/10 bg-[#0c0c0e] rounded-b-xl relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                            <div className="flex items-center gap-3">
+                                <div className="relative w-2 h-2">
+                                    <div className="absolute inset-0 rounded-full bg-emerald-500 animate-pulse"></div>
+                                </div>
+                                <span className="text-[0.7rem] font-mono text-emerald-500/90 uppercase tracking-[0.2em] font-bold">System Online</span>
+                            </div>
+                            <div className="text-[0.7rem] font-mono text-neutral-500 font-bold tracking-widest flex items-center gap-2">
+                                <i className="fas fa-keyboard text-neutral-600"></i> PRO-TACTILE
+                            </div>
+                        </div>
+                    </motion.div>
                 </motion.div>
             </div>
         </motion.div>

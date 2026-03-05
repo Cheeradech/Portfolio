@@ -37,7 +37,12 @@ const Contact = () => {
 
                         <div className="space-y-5">
                             {/* Box 1: Email */}
-                            <div className="flex items-center gap-4 group cursor-pointer" onClick={() => window.location.href = 'mailto:tatsana.33@gmail.com'}>
+                            <motion.div
+                                className="flex items-center gap-4 group cursor-pointer"
+                                onClick={() => window.location.href = 'mailto:tatsana.33@gmail.com'}
+                                whileHover={{ scale: 1.02, x: 5 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                            >
                                 <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/20 transition-all duration-300">
                                     <span className="material-symbols-outlined text-lg">mail</span>
                                 </div>
@@ -45,10 +50,14 @@ const Contact = () => {
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Email</p>
                                     <span className="text-base md:text-lg font-medium text-white group-hover:text-blue-400 transition-colors">tatsana.33@gmail.com</span>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Box 2: Phone */}
-                            <div className="flex items-center gap-4 group">
+                            <motion.div
+                                className="flex items-center gap-4 group cursor-pointer"
+                                whileHover={{ scale: 1.02, x: 5 }}
+                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                            >
                                 <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/20 transition-all duration-300">
                                     <span className="material-symbols-outlined text-lg">call</span>
                                 </div>
@@ -56,32 +65,47 @@ const Contact = () => {
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Phone</p>
                                     <span className="text-base md:text-lg font-medium text-white group-hover:text-blue-400 transition-colors">+66 99 039 7967</span>
                                 </div>
-                            </div>
+                            </motion.div>
 
                             {/* Section: Social Media */}
                             <div className="pt-6 mt-6 border-t border-white/5">
                                 <h4 className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-4">Connect With Me</h4>
                                 <div className="flex gap-3">
                                     {/* GitHub */}
-                                    <a href="#" className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300">
+                                    <motion.a href="#"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                    >
                                         <i className="fab fa-github text-lg"></i>
-                                    </a>
+                                    </motion.a>
                                     {/* Facebook */}
-                                    <a href="#" className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300">
+                                    <motion.a href="#"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                    >
                                         <i className="fab fa-facebook text-lg"></i>
-                                    </a>
+                                    </motion.a>
                                     {/* Instagram */}
-                                    <a href="#" className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-pink-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300">
+                                    <motion.a href="#"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-pink-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                    >
                                         <i className="fab fa-instagram text-lg"></i>
-                                    </a>
+                                    </motion.a>
                                     {/* TikTok */}
-                                    <a href="#" className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300">
+                                    <motion.a href="#"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                    >
                                         <i className="fab fa-tiktok text-lg"></i>
-                                    </a>
+                                    </motion.a>
                                     {/* LINE */}
-                                    <a href="#" className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300">
+                                    <motion.a href="#"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                    >
                                         <i className="fab fa-line text-lg"></i>
-                                    </a>
+                                    </motion.a>
                                 </div>
                             </div>
                         </div>

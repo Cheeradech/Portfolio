@@ -56,8 +56,8 @@ export default function TechPad() {
             if (v > 0.42 && !hasTriggered) {
                 setHasTriggered(true);
                 keyboardControls.start({
-                    x: 380, rotateY: -22, rotateX: 8, z: 60, scale: 0.9,
-                    transition: { type: 'spring', stiffness: 80, damping: 20 }
+                    x: 380, rotateY: -22, rotateX: 8, z: 60, scale: 0.9, rotateY: -360,
+                    transition: { type: 'spring', stiffness: 50, damping: 15, mass: 1 }
                 });
             }
         });
@@ -67,7 +67,7 @@ export default function TechPad() {
     const handleKeyboardMouseEnter = React.useCallback(() => {
         if (hasTriggered) {
             keyboardControls.start({
-                z: 80, rotateY: -18, rotateX: 6, scale: 0.92,
+                z: 80, rotateY: -18, rotateX: 6, scale: 0.92, rotateY: -360,
                 transition: { type: 'spring', stiffness: 80, damping: 20 }
             });
         } else {
@@ -85,7 +85,7 @@ export default function TechPad() {
         }
         if (hasTriggered) {
             keyboardControls.start({
-                z: 60, rotateY: -22, rotateX: 8, scale: 0.9,
+                z: 60, rotateY: -22, rotateX: 8, scale: 0.9, rotateY: -360,
                 transition: { type: 'spring', stiffness: 80, damping: 20 }
             });
         } else {
@@ -404,7 +404,7 @@ export default function TechPad() {
 
                 <motion.div
                     animate={keyboardControls}
-                    initial={{ x: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1 }}
+                    initial={{ x: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1, rotate: 0 }}
                     style={{ transformOrigin: "center center", transformStyle: "preserve-3d", willChange: "transform" }}
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.75] sm:scale-90 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-20 sm:-mb-6 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onClick={handleBoardClick}

@@ -38,6 +38,8 @@ const skillsData = [
 export default function TechPad() {
     const containerRef = useRef(null);
     const keyboardRef = useRef(null);
+    const keyCapsRef = useRef(null);
+    const tickingRef = useRef(false);
     const [hasTriggered, setHasTriggered] = React.useState(false);
 
     const { scrollYProgress } = useScroll({
@@ -77,20 +79,29 @@ export default function TechPad() {
 
     const handleBoardMouseMove = (e) => {
         const board = keyboardRef.current;
-        if (!board) return;
-        const keyCaps = board.querySelectorAll('[data-key-id]');
-        keyCaps.forEach(cap => {
-            const rect = cap.getBoundingClientRect();
-            const isOver = e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom;
-            if (isOver) cap.classList.add('key-hovered');
-            else cap.classList.remove('key-hovered');
+        if (!board || tickingRef.current) return;
+        const mx = e.clientX;
+        const my = e.clientY;
+        tickingRef.current = true;
+        requestAnimationFrame(() => {
+            // Cache keyCaps once
+            if (!keyCapsRef.current) {
+                keyCapsRef.current = Array.from(board.querySelectorAll('[data-key-id]'));
+            }
+            keyCapsRef.current.forEach(cap => {
+                const rect = cap.getBoundingClientRect();
+                const isOver = mx >= rect.left && mx <= rect.right && my >= rect.top && my <= rect.bottom;
+                if (isOver) cap.classList.add('key-hovered');
+                else cap.classList.remove('key-hovered');
+            });
+            tickingRef.current = false;
         });
     };
 
     const handleBoardMouseLeave = () => {
-        const board = keyboardRef.current;
-        if (!board) return;
-        board.querySelectorAll('[data-key-id]').forEach(cap => cap.classList.remove('key-hovered'));
+        if (keyCapsRef.current) {
+            keyCapsRef.current.forEach(cap => cap.classList.remove('key-hovered'));
+        }
     };
 
     const handleKeyClick = (label) => {

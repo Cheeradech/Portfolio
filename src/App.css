@@ -152,26 +152,26 @@
 
 @keyframes radial-pulse-wave {
   0% {
-    background-size: 150% 150%;
-    background-position: center;
+    background-position: 0% 50%;
   }
 
   50% {
-    background-size: 250% 250%;
+    background-position: 100% 50%;
   }
 
   100% {
-    background-size: 150% 150%;
+    background-position: 0% 50%;
   }
 }
 
 .radial-wave-animate {
-  background: radial-gradient(circle, #3B82F6 20%, #8B5CF6 50%, #22D3EE 80%);
-  background-size: 200% 200%;
+  background: linear-gradient(90deg, #3B82F6, #8B5CF6, #22D3EE, #3B82F6);
+  background-size: 300% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: radial-pulse-wave 6s ease-in-out infinite;
+  animation: radial-pulse-wave 5s linear infinite;
+  will-change: background-position;
 }
 
 @keyframes terminal-blink {
@@ -190,15 +190,15 @@
 
 @keyframes terminal-float {
   0% {
-    transform: rotateX(12deg) rotateY(-12deg) translateY(0px);
+    transform: rotateX(12deg) rotateY(-12deg) translate3d(0, 0px, 0);
   }
 
   50% {
-    transform: rotateX(14deg) rotateY(-10deg) translateY(-8px);
+    transform: rotateX(14deg) rotateY(-10deg) translate3d(0, -8px, 0);
   }
 
   100% {
-    transform: rotateX(12deg) rotateY(-12deg) translateY(0px);
+    transform: rotateX(12deg) rotateY(-12deg) translate3d(0, 0px, 0);
   }
 }
 
@@ -206,6 +206,7 @@
   animation: terminal-float 8s ease-in-out infinite;
   transform-style: preserve-3d;
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 .terminal-cursor {

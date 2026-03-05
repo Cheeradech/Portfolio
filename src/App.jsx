@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Experience from './components/Experience';
 import PortfolioWorks from './components/PortfolioWorks';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './App.css';
 
@@ -48,7 +49,7 @@ const Portfolio = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
-    const sections = ["about", "expertise", "experience", "works"];
+    const sections = ["about", "expertise", "experience", "works", "contact"];
 
     // Function to sync tab based on current scroll position (for refresh/load)
     const syncActiveTab = () => {
@@ -187,6 +188,8 @@ const Portfolio = () => {
           <Experience />
 
           <PortfolioWorks />
+
+          <Contact />
 
         </main >
 

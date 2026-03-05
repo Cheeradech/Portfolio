@@ -51,7 +51,7 @@ const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
                         shimmerDuration='3s'
                         borderRadius='100px'
                         background='rgba(0, 0, 0, 1)'
-                        onClick={() => window.location.href = 'mailto:cheeradech.m@example.com'}
+                        onClick={() => scrollToSection('contact')}
                     >
                         Contact Me
                     </AnimatedButton>

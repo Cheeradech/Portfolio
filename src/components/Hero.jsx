@@ -16,7 +16,7 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                 }}
                 className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-0 pb-12"
             >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-hero-glow rounded-full opacity-50 blur-3xl pointer-events-none"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-hero-glow rounded-full opacity-50 blur-3xl pointer-events-none" style={{ willChange: 'transform' }}></div>
 
                 <motion.div
                     variants={containerVariants}
@@ -94,16 +94,31 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 {/* 🌠 Shooting Star */}
                                 <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
-                                {/* ✨ Glow Core - static, no animation for perf */}
-                                <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full pointer-events-none" style={{ filter: 'blur(40px)' }}></div>
+                                {/* ✨ Glow Core - static pseudo-glow via box-shadow wrapper */}
+                                <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full pointer-events-none" style={{ filter: 'blur(40px)', willChange: 'transform' }}></div>
 
-                                {/* 🧑 Your Image */}
-                                <img
-                                    alt="Professional executive portrait"
-                                    className="relative w-[90%] h-[90%] rounded-full object-cover object-top contrast-125 brightness-110 drop-shadow-[0_0_30px_rgba(13,127,242,0.4)] hover:drop-shadow-[0_0_50px_rgba(13,127,242,0.6)] transition-all duration-700 hover:scale-[1.05] z-10 masking-image"
-                                    src={brImage}
-                                    style={{ maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)' }}
-                                />
+                                {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
+                                <div
+                                    className="relative w-[90%] h-[90%] z-10 rounded-full group/img"
+                                    style={{ willChange: 'transform' }}
+                                >
+                                    {/* Glow ring — box-shadow is GPU-composited, no repaint */}
+                                    <div
+                                        className="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100"
+                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.35)', willChange: 'opacity' }}
+                                    />
+                                    <img
+                                        alt="Professional executive portrait"
+                                        className="w-full h-full rounded-full object-cover object-top brightness-110 contrast-[1.15] transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
+                                        src={brImage}
+                                        style={{
+                                            maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                                            WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                                            willChange: 'transform',
+                                            backfaceVisibility: 'hidden',
+                                        }}
+                                    />
+                                </div>
                             </motion.div>
                         </div>
 

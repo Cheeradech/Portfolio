@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 
 const skillsData = [
     { id: 'html', label: 'HTML5', colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
@@ -45,8 +45,6 @@ export default function TechPad() {
         offset: ["start end", "end start"]
     });
 
-    const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
     // Handle persistent trigger - lower threshold for more immediate response
     React.useEffect(() => {
         const unsubscribe = scrollYProgress.onChange(v => {
@@ -55,7 +53,7 @@ export default function TechPad() {
         return () => unsubscribe();
     }, [scrollYProgress]);
 
-    // Desktop Transformations (Fluid mapping for details) - Now using hasTriggered for persistence
+    // Details panel values driven by hasTriggered state
     const detailsOpacityValue = hasTriggered ? 1 : 0;
     const detailsXValue = hasTriggered ? 0 : -100;
 
@@ -321,11 +319,11 @@ export default function TechPad() {
                         rotateY: hasTriggered ? -22 : 0,
                         rotateX: hasTriggered ? 8 : 0,
                         z: hasTriggered ? 60 : 0,
-                        scale: hasTriggered ? 0.9 : 1.0 // Increased scale
+                        scale: hasTriggered ? 0.9 : 1.0
                     }}
-                    whileHover={hasTriggered ? { z: 80, rotateY: -18, rotateX: 6, scale: 0.92 } : { scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 45, damping: 18 }}
-                    style={{ transformOrigin: "center center", transformStyle: "preserve-3d" }}
+                    whileHover={hasTriggered ? { z: 80, rotateY: -18, rotateX: 6, scale: 0.92 } : { scale: 1.03 }}
+                    transition={{ type: "spring", stiffness: 80, damping: 20 }}
+                    style={{ transformOrigin: "center center", transformStyle: "preserve-3d", willChange: "transform" }}
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.75] sm:scale-90 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-20 sm:-mb-6 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onClick={handleBoardClick}
                     onMouseMove={handleBoardMouseMove}

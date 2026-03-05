@@ -5,14 +5,17 @@
 
 @layer base {
     html {
-        /* ใช้ CSS แทน Script Smooth Scroll เดิม */
-        scroll-behavior: smooth;
+        /* Smooth scroll handled by JS requestAnimationFrame for better perf */
+        scroll-behavior: auto;
     }
 
     body {
         font-family: 'Manrope', sans-serif;
         background-color: #000000;
         color: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
 }
 

@@ -158,11 +158,10 @@ const Portfolio = () => {
       <div className="min-h-screen text-slate-200 overflow-x-clip selection:bg-primary selection:text-white relative">
 
         {/* --- Global Fixed Background --- */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1280&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]"></div>
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full blur-[120px]"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-900/10 rounded-full blur-[100px]"></div>
+        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]" style={{ willChange: 'transform' }}></div>
+        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden" style={{ willChange: 'transform' }}>
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full" style={{ filter: 'blur(80px)' }}></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-900/10 rounded-full" style={{ filter: 'blur(70px)' }}></div>
         </div>
 
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} scrollToSection={scrollToSection} />

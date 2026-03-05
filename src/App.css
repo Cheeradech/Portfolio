@@ -91,6 +91,7 @@
 
 .orbiting-element {
   animation: orbit var(--orbit-duration, 10s) linear infinite;
+  will-change: transform;
 }
 
 @keyframes float {
@@ -107,6 +108,7 @@
 
 .floating {
   animation: float 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes shooting-star {
@@ -127,6 +129,7 @@
 
 .shooting-star {
   animation: shooting-star 3s linear infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes pulse-glow {
@@ -200,8 +203,9 @@
 }
 
 .terminal-box {
-  animation: terminal-float 6s ease-in-out infinite;
+  animation: terminal-float 8s ease-in-out infinite;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .terminal-cursor {

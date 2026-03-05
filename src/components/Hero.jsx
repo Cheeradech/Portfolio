@@ -12,6 +12,7 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                 style={{
                     scale,
                     opacity,
+                    willChange: 'transform, opacity',
                 }}
                 className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-0 pb-12"
             >
@@ -93,8 +94,8 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 {/* 🌠 Shooting Star */}
                                 <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
-                                {/* ✨ Glow Core */}
-                                <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full blur-3xl pointer-events-none pulse-glow"></div>
+                                {/* ✨ Glow Core - static, no animation for perf */}
+                                <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full pointer-events-none" style={{ filter: 'blur(40px)' }}></div>
 
                                 {/* 🧑 Your Image */}
                                 <img

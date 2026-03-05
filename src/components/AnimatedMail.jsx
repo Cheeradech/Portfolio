@@ -65,7 +65,7 @@ const AnimatedMail = () => {
             <div className="relative w-[500px] h-[400px] flex items-center justify-center">
 
                 {/* Background Blobs (ปรับ blur ธรรมดาแทน backdrop-blur ลดการกินทรัพยากร) */}
-                <div className="absolute w-[450px] h-[350px] bg-[#EBE4FC]/5 blur-3xl rounded-[40%_60%_70%_30%/40%_50%_60%_50%] z-0 border border-white/5" style={{ willChange: 'transform' }}></div>
+                <div className="absolute w-[450px] h-[350px] rounded-[40%_60%_70%_30%/40%_50%_60%_50%] z-0 border border-white/5" style={{ background: 'radial-gradient(circle, rgba(235,228,252,0.08) 0%, rgba(235,228,252,0) 70%)' }}></div>
 
                 {/* จรวด/เครื่องบินกระดาษ */}
                 <div className="absolute z-50 animate-rocket pointer-events-none">
@@ -82,7 +82,7 @@ const AnimatedMail = () => {
                     <div className="absolute inset-0 bg-[#3C22B8] rounded-b-md z-10"></div>
 
                     {/* ฝาซองด้านบน (พับได้) */}
-                    <div className="absolute top-0 left-0 w-full h-[140px] bg-[#5338D6] clip-flap-top animate-flap origin-top z-10 drop-shadow-lg rounded-t-sm"></div>
+                    <div className="absolute top-0 left-0 w-full h-[140px] bg-[#5338D6] clip-flap-top animate-flap origin-top z-10 rounded-t-sm"></div>
 
                     {/* กระดาษจดหมาย */}
                     <div className="absolute bottom-[20px] left-[5%] w-[90%] h-[180px] bg-[#EEF2F9] rounded-t-md z-20 flex flex-col p-6 space-y-3 animate-letter border border-gray-100 shadow-sm">
@@ -99,7 +99,7 @@ const AnimatedMail = () => {
                         {/* ขวา */}
                         <div className="absolute inset-0 bg-[#5338D6] clip-flap-right rounded-br-md"></div>
                         {/* ล่าง */}
-                        <div className="absolute inset-0 bg-[#4F33D1] clip-flap-bottom rounded-b-md drop-shadow-[0_-5px_5px_rgba(0,0,0,0.05)]"></div>
+                        <div className="absolute inset-0 bg-[#4F33D1] clip-flap-bottom rounded-b-md"></div>
                     </div>
 
                     {/* ไอคอน @ และ Contact Card */}

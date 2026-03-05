@@ -5,9 +5,9 @@ const TechPad = lazy(() => import('./components/TechPad'));
 import brImage from './assets/BR_transparent.png';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Experience from './components/Experience';
-import PortfolioWorks from './components/PortfolioWorks';
-import Contact from './components/Contact';
+const Experience = lazy(() => import('./components/Experience'));
+const PortfolioWorks = lazy(() => import('./components/PortfolioWorks'));
+const Contact = lazy(() => import('./components/Contact'));
 import Footer from './components/Footer';
 import './App.css';
 
@@ -45,7 +45,7 @@ const Portfolio = () => {
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   useEffect(() => {
@@ -157,10 +157,10 @@ const Portfolio = () => {
       <div className="min-h-screen text-slate-200 overflow-x-clip selection:bg-primary selection:text-white relative">
 
         {/* --- Global Fixed Background --- */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]" style={{ willChange: 'transform' }}></div>
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden" style={{ willChange: 'transform' }}>
-          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-blue-900/10 rounded-full" style={{ filter: 'blur(80px)' }}></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-900/10 rounded-full" style={{ filter: 'blur(70px)' }}></div>
+        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]"></div>
+        <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(30,58,138,0.15) 0%, rgba(30,58,138,0) 70%)' }}></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(124,45,18,0.15) 0%, rgba(124,45,18,0) 70%)' }}></div>
         </div>
 
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} scrollToSection={scrollToSection} />
@@ -185,11 +185,11 @@ const Portfolio = () => {
             </Suspense>
           </div>
 
-          <Experience />
-
-          <PortfolioWorks />
-
-          <Contact />
+          <Suspense fallback={<div className="h-[50vh] flex items-center justify-center text-slate-500 font-mono tracking-widest uppercase text-xs animate-pulse">Initializing Interface...</div>}>
+            <Experience />
+            <PortfolioWorks />
+            <Contact />
+          </Suspense>
 
         </main >
 

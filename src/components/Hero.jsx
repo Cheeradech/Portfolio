@@ -12,11 +12,10 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                 style={{
                     scale,
                     opacity,
-                    willChange: 'transform, opacity',
                 }}
                 className="sticky top-0 h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-0 pb-12"
             >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-hero-glow rounded-full opacity-50 blur-3xl pointer-events-none" style={{ willChange: 'transform' }}></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full opacity-50 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0) 70%)' }}></div>
 
                 <motion.div
                     variants={containerVariants}
@@ -29,12 +28,11 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                         <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 md:space-y-6 xl:space-y-8 order-2 lg:order-1 z-20">
                             <motion.div variants={itemVariants} className="space-y-3 md:space-y-4">
                                 <h1 className="text-5xl md:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-tight">
-                                    <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black drop-shadow-2xl">
+                                    <span className="bg-gradient-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black drop-shadow-xl">
                                         Cheeradech
                                     </span>
                                     <br />
-                                    <span className="relative radial-wave-animate 
-                                    drop-shadow-[0_0_20px_rgba(139,92,246,0.6)] text-4xl md:text-6xl xl:text-7xl mt-2 block">
+                                    <span className="relative radial-wave-animate text-4xl md:text-6xl xl:text-7xl mt-2 block" style={{ textShadow: '0 0 20px rgba(139,92,246,0.5)' }}>
                                         Makcharoen
                                     </span>
                                 </h1>
@@ -95,26 +93,24 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 <div className="absolute w-40 h-[2px] bg-gradient-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
                                 {/* ✨ Glow Core - static pseudo-glow via box-shadow wrapper */}
-                                <div className="absolute w-[100%] h-[100%] bg-blue-500/10 rounded-full pointer-events-none" style={{ filter: 'blur(40px)', willChange: 'transform' }}></div>
+                                <div className="absolute w-[140%] h-[140%] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0) 70%)' }}></div>
 
                                 {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
                                 <div
                                     className="relative w-[90%] h-[90%] z-10 rounded-full group/img"
-                                    style={{ willChange: 'transform' }}
                                 >
                                     {/* Glow ring — box-shadow is GPU-composited, no repaint */}
                                     <div
                                         className="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100"
-                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.35)', willChange: 'opacity' }}
+                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.35)' }}
                                     />
                                     <img
                                         alt="Professional executive portrait"
-                                        className="w-full h-full rounded-full object-cover object-top brightness-110 contrast-[1.15] transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
+                                        className="w-full h-full rounded-full object-cover object-top transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
                                         src={brImage}
                                         style={{
                                             maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
                                             WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                                            willChange: 'transform',
                                             backfaceVisibility: 'hidden',
                                         }}
                                     />

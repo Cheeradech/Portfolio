@@ -64,10 +64,10 @@ const Terminal = ({ itemVariants }) => {
         <motion.div variants={itemVariants}
             className="terminal-box w-full p-4 lg:p-5 rounded-xl font-mono relative overflow-hidden"
             style={{
-                background: "rgba(10,10,12,0.8)",
-                backdropFilter: "blur(20px)",
+                background: "rgba(10,10,12,0.85)",
+                backdropFilter: "blur(8px)",
                 border: "1px solid rgba(0,255,200,0.25)",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,200,0.1), inset 0 0 10px rgba(0,255,200,0.05)",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.8), 0 0 10px rgba(0,255,200,0.1)",
                 perspective: "1000px",
                 pointerEvents: "auto"
             }}

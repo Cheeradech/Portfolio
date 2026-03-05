@@ -121,32 +121,30 @@ const Portfolio = () => {
     isScrollingRef.current = true;
     setActiveTab(id);
 
-    const offset = 100;
+    const offset = 80;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
     const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
-    const duration = 400; // 0.4s for instant response
+    const duration = 850; // Increased for a smoother feel
     let start = null;
 
-    // Easing function: easeOutQuint
-    const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5);
+    // Easing function: easeInOutQuart for more natural momentum
+    const easeInOutQuart = (t) => t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
 
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = timestamp - start;
       const percentage = Math.min(progress / duration, 1);
 
-      window.scrollTo(0, startPosition + distance * easeOutQuint(percentage));
+      window.scrollTo(0, startPosition + distance * easeInOutQuart(percentage));
 
       if (progress < duration) {
         window.requestAnimationFrame(step);
       } else {
-        // Clear any previous timeout
         if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-        // Add a safe buffer after scroll finishes to re-enable observer tracking
         scrollTimeoutRef.current = setTimeout(() => {
           isScrollingRef.current = false;
-        }, 500);
+        }, 150); // Shorter buffer needed with smoother easing
       }
     };
 

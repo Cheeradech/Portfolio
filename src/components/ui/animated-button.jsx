@@ -24,7 +24,7 @@ export const AnimatedButton = ({
 }) => {
     // Determine base styles
     const baseStyles = cn(
-        'relative inline-flex items-center justify-center overflow-hidden font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer',
+        'relative inline-flex items-center justify-center overflow-hidden transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary cursor-pointer',
         uppercase ? 'uppercase' : '',
         rounded === 'full' ? 'rounded-full' : rounded === 'custom' ? '' : 'rounded-md',
         // We handle size via inner padding primarily, but base size sets font/padding too
@@ -91,7 +91,7 @@ export const AnimatedButton = ({
                 style={{ borderRadius: `calc(${borderRadius} - 2px)` }}
             >
                 {/* Content */}
-                <span className="relative z-10 flex items-center gap-2 text-white">
+                <span className="relative z-10 flex items-center gap-2 text-white font-[inherit] text-[13px] md:text-sm">
                     {children}
                 </span>
             </div>

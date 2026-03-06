@@ -4,7 +4,6 @@ export const translations = {
             contact: 'Contact Me',
             about: 'About',
             expertise: 'Expertise',
-            experience: 'Experience',
             works: 'Works',
         },
         hero: {
@@ -33,15 +32,6 @@ export const translations = {
             expPeriod: '2023 – Present',
             educationDescription: 'Specialized in Human-Computer Interaction and Web Technologies. 3.5 GPA.',
             experienceDescription: 'Building full-stack web applications using React, Node.js, and modern cloud infrastructure.',
-        },
-        experience: {
-            title: 'Executive Timeline',
-            descriptions: [
-                'Spearheaded digital transformation for a Fortune 500 logistics firm. Reduced operational costs by 40% through AI-driven automation.',
-                'Scaled the engineering team from 15 to 120 developers. Implemented agile methodologies and CI/CD pipelines resulting in 3x faster deployment cycles.',
-                'Designed the core banking ledger system handling $5B+ daily transactions. Ensured 99.999% uptime and zero-trust security compliance.',
-                'Optimized database query performance by 200%. Developed microservices architecture for real-time data processing.',
-            ],
         },
         expertise: {
             sectionTitle: 'SKILLS',
@@ -85,7 +75,6 @@ export const translations = {
             contact: 'ติดต่อฉัน',
             about: 'เกี่ยวกับ',
             expertise: 'ทักษะ',
-            experience: 'ประสบการณ์',
             works: 'ผลงาน',
         },
         hero: {
@@ -114,15 +103,6 @@ export const translations = {
             expPeriod: '2566 – ปัจจุบัน',
             educationDescription: 'เชี่ยวชาญด้าน Human-Computer Interaction และเทคโนโลยีเว็บ เกรดเฉลี่ย 3.5',
             experienceDescription: 'สร้างเว็บแอปพลิเคชัน Full-stack ด้วย React, Node.js และโครงสร้างพื้นฐานคลาวด์สมัยใหม่',
-        },
-        experience: {
-            title: 'ไทม์ไลน์',
-            descriptions: [
-                'นำการเปลี่ยนแปลงดิจิทัลให้บริษัท Fortune 500 ด้านโลจิสติกส์ ลดต้นทุนการดำเนินงาน 40% ด้วยระบบอัตโนมัติ AI',
-                'ขยายทีมวิศวกรจาก 15 เป็น 120 คน นำวิธีการ Agile และ CI/CD ทำให้วงจรการ Deploy เร็วขึ้น 3 เท่า',
-                'ออกแบบระบบบัญชีธนาคารหลักที่รองรับธุรกรรม 5 พันล้านดอลลาร์/วัน รับประกัน Uptime 99.999%',
-                'ปรับปรุงประสิทธิภาพการค้นหาฐานข้อมูล 200% พัฒนาสถาปัตยกรรม Microservices สำหรับการประมวลผลข้อมูลแบบเรียลไทม์',
-            ],
         },
         expertise: {
             sectionTitle: 'ทักษะ',

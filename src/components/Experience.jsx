@@ -2,6 +2,7 @@
 import { motion as Motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import SectionHeader from './ui/SectionHeader';
 
 const experienceItems = [
     { title: 'Chief Technology Officer', company: 'TechFlow Enterprise Solutions', period: '2021 â€“ Present' },
@@ -22,11 +23,9 @@ const Experience = () => {
             viewport={{ once: true, margin: "-100px" }}
             className="py-32 relative z-0 bg-background-dark/50 scroll-mt-20" id="experience">
             <div className="max-w-[1000px] mx-auto px-6">
-                <div className="mb-20 flex items-center justify-center gap-4">
-                    <div className="h-[1px] w-12 bg-primary"></div>
-                    <h2 className="text-3xl font-bold tracking-tight text-white text-center uppercase">{translations[lang].experience.title}</h2>
-                    <div className="h-[1px] w-12 bg-primary"></div>
-                </div>
+                <SectionHeader
+                    title={translations[lang].experience.title}
+                />
                 <Motion.div
                     variants={{
                         hidden: { opacity: 0 },

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import SectionHeader from './ui/SectionHeader';
 
 const About = () => {
     const [activeTab, setActiveTab] = useState('education');
@@ -31,7 +32,7 @@ const About = () => {
     };
 
     return (
-        <section className="relative pt-56 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden">
+        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden" style={{ contain: 'layout style' }}>
             {/* Decorative blobs */}
             <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-[-10%] right-[-10%] w-120 h-120 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
@@ -39,22 +40,10 @@ const About = () => {
             <div className="max-w-6xl mx-auto relative z-10">
 
                 {/* Section header */}
-                <Motion.div
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                    className="mb-16"
-                >
-                    <div className="mb-4 flex items-center justify-center gap-4">
-                        <div className="h-[1px] w-12 bg-primary"></div>
-                        <h2 className="text-3xl font-bold tracking-tight text-white text-center uppercase">{t.title}</h2>
-                        <div className="h-[1px] w-12 bg-primary"></div>
-                    </div>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-base leading-relaxed text-center">
-                        {t.subtitle}
-                    </p>
-                </Motion.div>
+                <SectionHeader
+                    title={t.title}
+                    subtitle={t.subtitle}
+                />
 
                 {/* Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -66,6 +55,7 @@ const About = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                         className="lg:col-span-7 space-y-8 bg-slate-800/40 backdrop-blur-xl border border-white/10 p-8 md:p-10 rounded-2xl shadow-2xl transition-transform duration-500 hover:-translate-y-1"
+                        style={{ transform: 'translateZ(0)', willChange: 'transform, opacity' }}
                     >
                         {/* Bio */}
                         <div className="space-y-4">
@@ -105,18 +95,18 @@ const About = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                         className="lg:col-span-5 relative"
+                        style={{ transform: 'translateZ(0)', willChange: 'transform, opacity' }}
                     >
                         {/* Tab switcher */}
-                        <div className="bg-slate-800/40 backdrop-blur-xl border border-white/10 p-1.5 rounded-2xl flex mb-6 shadow-md">
+                        <div className="bg-slate-800/40 backdrop-blur-xl border border-white/10 p-1.5 rounded-2xl flex mb-6 shadow-md" style={{ transform: 'translateZ(0)' }}>
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`flex-1 text-center py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                                        activeTab === tab.id
-                                            ? 'bg-slate-700 text-white font-semibold shadow-sm'
-                                            : 'text-slate-400 hover:text-white'
-                                    }`}
+                                    className={`flex-1 text-center py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${activeTab === tab.id
+                                        ? 'bg-slate-700 text-white font-semibold shadow-sm'
+                                        : 'text-slate-400 hover:text-white'
+                                        }`}
                                 >
                                     {tab.label}
                                 </button>
@@ -124,7 +114,7 @@ const About = () => {
                         </div>
 
                         {/* Tab content card */}
-                        <div className="bg-slate-800/40 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl min-h-65">
+                        <div className="bg-slate-800/40 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl min-h-65" style={{ transform: 'translateZ(0)' }}>
                             {/* Timeline glow line */}
                             <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-linear-to-b from-primary via-primary/40 to-transparent" />
                             <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-primary blur-sm opacity-40" />

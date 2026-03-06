@@ -10,7 +10,6 @@ const Contact = () => {
     return (
         <section id="contact" className="py-16 md:py-20 relative z-10 scroll-mt-20">
             <div className="max-w-[1200px] mx-auto px-6">
-
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
                     {/* Left: Contact Info & Socials */}
@@ -28,7 +27,7 @@ const Contact = () => {
                                 {`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');`}
                             </style>
                             <h3
-                                className="text-4xl md:text-5xl lg:text-[4.5rem] font-semibold text-[#f8f9fa] tracking-tight leading-[1.15] mb-6"
+                                className="text-4xl md:text-5xl lg:text-[4.5rem] font-semibold text-[#f8f9fa] tracking-normal leading-[1.2] mb-6 py-2"
                                 style={{ fontFamily: lang === 'en' ? "'Playfair Display', Georgia, serif" : "'Sarabun', sans-serif" }}
                             >
                                 {t.heading}

@@ -9,8 +9,9 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
     const t = translations[lang].hero;
     return (
         <section
+            id="hero"
             ref={heroRef}
-            className="relative h-[120vh] overflow-hidden"
+            className="relative h-[105vh] overflow-hidden"
         >
             <Motion.div
                 style={{

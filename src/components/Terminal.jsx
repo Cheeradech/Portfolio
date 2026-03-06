@@ -69,7 +69,10 @@ const Terminal = ({ itemVariants }) => {
                 border: "1px solid rgba(0,255,200,0.25)",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.8), 0 0 10px rgba(0,255,200,0.1)",
                 perspective: "1000px",
-                pointerEvents: "auto"
+                pointerEvents: "auto",
+                // Pre-allocate full height so Terminal doesn't grow upward as lines type in
+                // 7 lines × ~1.6em line-height × ~11px font + padding + header ≈ 165px
+                minHeight: "168px",
             }}
         >
             <div style={{
@@ -106,6 +109,7 @@ const Terminal = ({ itemVariants }) => {
                 )}
             </div>
         </motion.div>
+
     );
 };
 

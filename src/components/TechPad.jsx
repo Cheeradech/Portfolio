@@ -26,12 +26,12 @@ const skillsData = [
     {
         id: 'sqlite', label: 'SQLite', description: 'ฐานข้อมูลน้ำหนักเบาที่ฝังตัวได้ง่าย เหมาะสำหรับโปรเจคขนาดเล็กและกลาง', level: 90, stars: 5, colorClass: 'color-sqlite',
         icon: (
-            <div className="flex flex-col items-center justify-center gap-1">
-                <svg className="w-10 h-10 tech-icon text-[#3b95ff]" fill="currentColor" viewBox="0 0 64 64">
+            <div className="flex flex-col items-center justify-center gap-0.5">
+                <svg className="w-7 h-7 tech-icon text-[#3b95ff]" fill="currentColor" viewBox="0 0 64 64">
                     <path d="M57.6,18.5c-4.4-6.4-11.2-10.4-16-12.7C55.6,2.2,56,5.8,51.8,9.4c-3.8,3.2-12.8,2.3-17.8,6.6C26.5,22.4,26.8,32.2,27,39.9 c0.1,2.5,0.4,5,1.2,7.3c-2.4-0.3-4.9-0.9-7.2-1.8c-12-4.5-17.3-13.6-17.3-13.6l-2.4,4.2c0,0,5.8,11.8,20.4,17.3 c3.4,1.3,7,2.1,10.6,2.5c11.6,1.2,19.9-7.2,23.3-10.8c2.9-3.1,6.8-9.6,7.5-13.8C63.6,28.2,62,24.9,57.6,18.5z"></path>
-                    <path d="M37.8,47.8c-0.8-2.3-1.1-4.8-1.2-7.3c-0.2-7.7-0.5-17.5,7-23.9c2.3-1.9,5.2-3,7.9-3.4c-2.8-5-7.4-7.9-10.3-9.3 c-0.6-0.3-1.3-0.5-2-0.6c-4.2-0.8-7.7,1.8-8.5,2.5c-4.4,3.7-6.8,8.2-7.4,13.6c-0.6,5.1,1.2,16.5,12.8,26.4c0.5,0.4,1,0.9,1.5,1.3 C37.6,47.4,37.7,47.6,37.8,47.8z"></path>
+                    <path d="M37.8,47.8c-0.8-2.3-1.1-4.8-1.2-7.3c-0.2-7.7-0.5-17.5,7-23.9c2.3-1.9,5.2-3,7.9-3.4 c-2.8-5-7.4-7.9-10.3-9.3 c-0.6-0.3-1.3-0.5-2-0.6c-4.2-0.8-7.7,1.8-8.5,2.5c-4.4,3.7-6.8,8.2-7.4,13.6c-0.6,5.1,1.2,16.5,12.8,26.4c0.5,0.4,1,0.9,1.5,1.3 C37.6,47.4,37.7,47.6,37.8,47.8z"></path>
                 </svg>
-                <span className="text-[0.6rem] font-black tracking-widest leading-none tech-icon text-[#3b95ff]">SQLITE</span>
+                <span className="text-[0.5rem] font-black tracking-widest leading-none text-[#3b95ff]">SQLITE</span>
             </div>
         )
     },
@@ -67,13 +67,19 @@ export default function TechPad() {
     const { lang } = useLanguage();
     const te = translations[lang].expertise;
 
+    // Detect touch/mobile device — no hover on touch screens
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
     });
 
     React.useEffect(() => {
-        const unsubscribe = scrollYProgress.onChange(v => {
+        // Skip 3D animation on mobile — no hover exists there
+        if (isMobile) return;
+
+        const unsubscribe = scrollYProgress.on("change", v => {
             if (v > 0.42 && !hasTriggered) {
                 setHasTriggered(true);
                 keyboardControls.start({
@@ -83,9 +89,10 @@ export default function TechPad() {
             }
         });
         return () => unsubscribe();
-    }, [scrollYProgress, hasTriggered, keyboardControls]);
+    }, [scrollYProgress, hasTriggered, keyboardControls, isMobile]);
 
     const handleKeyboardMouseEnter = React.useCallback(() => {
+        if (isMobile) return;
         if (hasTriggered) {
             keyboardControls.start({
                 z: 80, rotateX: 6, scale: 0.92, rotateY: -378,
@@ -97,11 +104,11 @@ export default function TechPad() {
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         }
-    }, [hasTriggered, keyboardControls]);
+    }, [hasTriggered, keyboardControls, isMobile]);
 
     const handleKeyboardMouseLeave = useCallback(() => {
+        if (isMobile) return;
         setActiveSkill(null);
-        // Reset cached keyCaps so it's re-queried on next mousemove
         keyCapsRef.current = null;
         if (hasTriggered) {
             keyboardControls.start({
@@ -114,16 +121,16 @@ export default function TechPad() {
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         }
-    }, [hasTriggered, keyboardControls]);
+    }, [hasTriggered, keyboardControls, isMobile]);
 
     const handleBoardMouseMove = useCallback((e) => {
+        if (isMobile) return; // Mouse hover — skip on touch
         const board = keyboardRef.current;
         if (!board || tickingRef.current) return;
         const mx = e.clientX;
         const my = e.clientY;
         tickingRef.current = true;
         requestAnimationFrame(() => {
-            // Cache keyCaps once per mouse-enter session
             if (!keyCapsRef.current) {
                 keyCapsRef.current = Array.from(board.querySelectorAll('[data-key-id]'));
             }
@@ -144,25 +151,38 @@ export default function TechPad() {
             }
             tickingRef.current = false;
         });
-    }, []);
+    }, [isMobile]);
 
+    // Unified click/tap handler — works on both desktop and mobile
     const handleBoardClick = useCallback((e) => {
         const board = keyboardRef.current;
         if (!board) return;
         if (!keyCapsRef.current) {
             keyCapsRef.current = Array.from(board.querySelectorAll('[data-key-id]'));
         }
+
+        // Get coordinates — support both mouse and touch events
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
         for (const cap of keyCapsRef.current) {
             const rect = cap.getBoundingClientRect();
-            if (e.clientX >= rect.left && e.clientX <= rect.right &&
-                e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            if (clientX >= rect.left && clientX <= rect.right &&
+                clientY >= rect.top && clientY <= rect.bottom) {
                 cap.classList.add('key-pressed');
                 setTimeout(() => cap.classList.remove('key-pressed'), 150);
-                console.log(`Actuated: ${cap.getAttribute('data-key-label')}`);
+
+                // On mobile: update activeSkill via tap
+                if (isMobile) {
+                    const tappedId = cap.getAttribute('data-key-id');
+                    setActiveSkill(prev =>
+                        prev?.id === tappedId ? null : skillsData.find(s => s.id === tappedId) ?? null
+                    );
+                }
                 break;
             }
         }
-    }, []);
+    }, [isMobile]);
 
     const detailsOpacityValue = hasTriggered ? 1 : 0;
     const detailsXValue = hasTriggered ? 0 : -100;
@@ -183,8 +203,70 @@ export default function TechPad() {
                 subtitle={te.craftingDesc}
             />
 
+            {/* ── Mobile Info Card (visible on mobile/tablet only, sticky below navbar) ── */}
+            <div className="lg:hidden w-full max-w-md px-4 mb-6 sticky top-20 z-50">
+                <motion.div
+                    key={activeSkill?.id ?? 'default'}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md"
+                    style={{ transform: 'translateZ(0)' }}
+                >
+                    {activeSkill ? (
+                        <>
+                            {/* Badge */}
+                            <div className="flex items-center gap-2 mb-3">
+                                <div className="w-8 h-[2px] bg-gradient-to-r from-primary to-transparent rounded-full" />
+                                <span className="text-[10px] font-mono text-primary/80 font-bold tracking-[0.25em] uppercase">ACTIVE SKILL</span>
+                            </div>
+                            {/* Name */}
+                            <h2
+                                className="text-3xl font-black uppercase leading-none tracking-wide mb-3"
+                                style={{
+                                    background: 'linear-gradient(135deg, #ffffff 0%, #94b8ff 50%, #0d7ff2 100%)',
+                                    WebkitBackgroundClip: 'text',
+                                    WebkitTextFillColor: 'transparent',
+                                    backgroundClip: 'text',
+                                    filter: 'drop-shadow(0 0 12px rgba(13,127,242,0.3))',
+                                }}
+                            >
+                                {activeSkill.label}
+                            </h2>
+                            <div className="h-px w-full bg-gradient-to-r from-primary/60 via-primary/20 to-transparent mb-4 rounded-full" />
+                            {/* Stats */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <div className="text-xl font-bold text-white font-mono">{activeSkill.level}%</div>
+                                    <div className="text-[10px] text-slate-500 uppercase tracking-widest">{te.proficiencyLevel}</div>
+                                </div>
+                                <div>
+                                    <div className="flex items-center gap-0.5">
+                                        {Array(5).fill(0).map((_, i) => (
+                                            <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-sm`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }} />
+                                        ))}
+                                    </div>
+                                    <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">{te.masteryTier}</div>
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="material-symbols-outlined text-primary text-sm">touch_app</span>
+                                <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">Tap a key to explore</span>
+                            </div>
+                            <h2 className="text-2xl font-black text-white leading-tight uppercase">
+                                {te.precision} <span className="text-primary italic">{te.software}</span> {te.engineering}
+                            </h2>
+                        </>
+                    )}
+                </motion.div>
+            </div>
+
             <div className="w-full max-w-7xl px-4 md:px-12 flex flex-col md:flex-row items-center justify-center animation-container relative [perspective:2000px]">
 
+                {/* ── Desktop Details Panel (hidden on mobile) ── */}
                 <motion.div
                     animate={{
                         opacity: detailsOpacityValue,
@@ -192,7 +274,7 @@ export default function TechPad() {
                         y: hasTriggered ? 0 : 20
                     }}
                     transition={{ type: "spring", stiffness: 35, damping: 22 }}
-                    className="details-panel hidden md:flex flex-col gap-8 w-1/3 absolute left-12 z-20"
+                    className="details-panel hidden lg:flex flex-col gap-8 w-1/3 absolute left-12 z-20"
                 >
                     <div className="space-y-5">
                         {/* Badge label */}
@@ -207,13 +289,10 @@ export default function TechPad() {
                         <div className="relative min-h-[7rem] flex flex-col justify-center">
                             {activeSkill ? (
                                 <div className="relative">
-                                    {/* Decorative top line */}
                                     <div className="flex items-center gap-2 mb-3">
                                         <div className="w-1 h-6 bg-primary rounded-full shadow-[0_0_8px_rgba(13,127,242,0.8)]"></div>
                                         <div className="w-px h-4 bg-primary/40 rounded-full"></div>
                                     </div>
-
-                                    {/* Main name */}
                                     <h2
                                         className="text-5xl font-black uppercase leading-none tracking-wide"
                                         style={{
@@ -227,8 +306,6 @@ export default function TechPad() {
                                     >
                                         {activeSkill.label}
                                     </h2>
-
-                                    {/* Glow underline */}
                                     <div className="mt-3 h-px w-full bg-gradient-to-r from-primary/80 via-primary/30 to-transparent rounded-full"></div>
                                     <div className="mt-0.5 h-px w-2/3 bg-gradient-to-r from-primary/30 to-transparent rounded-full"></div>
                                 </div>
@@ -280,13 +357,19 @@ export default function TechPad() {
                     </div>
                 </motion.div>
 
+                {/* ── Keyboard ── */}
                 <motion.div
-                    animate={keyboardControls}
+                    animate={isMobile ? {} : keyboardControls}
                     initial={{ x: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1, rotate: 0 }}
-                    style={{ transformOrigin: "center center", transformStyle: "preserve-3d", willChange: "transform" }}
-                    className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.75] sm:scale-90 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-20 sm:-mb-6 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
+                    style={{
+                        transformOrigin: "center center",
+                        transformStyle: isMobile ? "flat" : "preserve-3d",
+                        willChange: "transform"
+                    }}
+                    className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.88] xs:scale-[0.92] sm:scale-95 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-10 xs:-mb-8 sm:-mb-4 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onMouseMove={handleBoardMouseMove}
                     onClick={handleBoardClick}
+                    onTouchEnd={handleBoardClick}
                     onMouseEnter={handleKeyboardMouseEnter}
                     onMouseLeave={handleKeyboardMouseLeave}
                 >
@@ -362,3 +445,5 @@ export default function TechPad() {
         </motion.div>
     );
 }
+
+

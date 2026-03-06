@@ -52,10 +52,10 @@ export const AnimatedButton = ({
             className={baseStyles}
             style={{
                 borderRadius: borderRadius,
-                // The glow is now handled by a separate element or box-shadow
-                boxShadow: glow ? `0 0 25px 2px ${shimmerColor}80, 0 0 50px 0px ${shimmerColor}40` : 'none', // Increased glow
-                background: 'transparent', // Let the inner layers handle BG
-                padding: '2px', // Space for the border beam
+                boxShadow: glow ? `0 0 25px 2px ${shimmerColor}80, 0 0 50px 0px ${shimmerColor}40` : 'none',
+                background: 'transparent',
+                padding: '2px',
+                position: 'relative', // Required for Framer Motion scroll offset calculation
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

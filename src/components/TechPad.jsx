@@ -67,8 +67,20 @@ export default function TechPad() {
     const { lang } = useLanguage();
     const te = translations[lang].expertise;
 
-    // Detect touch/mobile device — no hover on touch screens
-    const isMobile = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
+    // Detect if layout should be mobile (Touch screen OR width < 1024px, the lg breakpoint)
+    const [isMobile, setIsMobile] = React.useState(
+        typeof window !== 'undefined' ? (window.innerWidth < 1024 || window.matchMedia('(hover: none)').matches) : false
+    );
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 1024 || window.matchMedia('(hover: none)').matches);
+        };
+        // Throttle resize handler if needed, but a simple window size check is fast.
+        window.addEventListener('resize', handleResize, { passive: true });
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -359,7 +371,7 @@ export default function TechPad() {
 
                 {/* ── Keyboard ── */}
                 <motion.div
-                    animate={isMobile ? {} : keyboardControls}
+                    animate={isMobile ? { x: 0, y: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1, rotate: 0 } : keyboardControls}
                     initial={{ x: 0, rotateY: 0, rotateX: 0, z: 0, scale: 1, rotate: 0 }}
                     style={{
                         transformOrigin: "center center",

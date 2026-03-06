@@ -134,6 +134,7 @@ const Portfolio = () => {
     // 1. Cancel any existing animation frame to prevent "lag stack"
     if (scrollRafRef.current) {
       cancelAnimationFrame(scrollRafRef.current);
+      scrollRafRef.current = null;
     }
 
     isScrollingRef.current = true;
@@ -141,35 +142,18 @@ const Portfolio = () => {
 
     const offset = 80;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
-    const startPosition = window.scrollY;
-    const distance = targetPosition - startPosition;
 
-    // Snappier duration for rapid interaction, but high-order easing for smoothness
-    const duration = 800;
-    let start = null;
+    // Use native browser smooth scrolling on the compositor thread (fast, 0-lag, silky smooth)
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
 
-    // Easing: easeOutExpo combined with a standard cubic for "fast start, smooth finish"
-    const easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-    const step = (timestamp) => {
-      if (!start) start = timestamp;
-      const progress = timestamp - start;
-      const percentage = Math.min(progress / duration, 1);
-
-      window.scrollTo(0, startPosition + distance * easeInOutCubic(percentage));
-
-      if (progress < duration) {
-        scrollRafRef.current = window.requestAnimationFrame(step);
-      } else {
-        scrollRafRef.current = null;
-        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-        scrollTimeoutRef.current = setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50); // Minimal buffer for faster responsiveness
-      }
-    };
-
-    scrollRafRef.current = window.requestAnimationFrame(step);
+    // Reset scrolling state after typical smooth scroll duration ends
+    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 700);
   };
 
   return (

@@ -11,14 +11,14 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
         <section
             id="hero"
             ref={heroRef}
-            className="relative h-[105vh] overflow-hidden"
+            className="relative min-h-screen xl:h-[105vh] overflow-hidden"
         >
             <Motion.div
                 style={{
                     scale,
                     opacity,
                 }}
-                className="sticky top-0 h-auto min-h-screen lg:h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-12 pt-20 pb-12 lg:pt-0"
+                className="relative xl:sticky top-0 h-auto min-h-screen xl:h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 pt-24 pb-16 md:pt-0"
             >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 rounded-full opacity-50 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0) 70%)' }}></div>
 
@@ -26,11 +26,11 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                     variants={containerVariants}
                     initial="hidden"
                     animate="show"
-                    className="relative z-10 w-full max-w-350 xl:max-w-400 mx-auto flex flex-col justify-center items-center h-auto lg:h-full max-h-none lg:max-h-212.5"
+                    className="relative z-10 w-full max-w-350 xl:max-w-400 mx-auto flex flex-col justify-center items-center h-auto md:h-full max-h-none md:max-h-212.5"
                 >
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 xl:gap-16 items-center relative w-full flex-1 pb-0 lg:pb-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 xl:gap-16 items-center relative w-full flex-1 pb-0 md:pb-0">
                         {/* Left Column: Text */}
-                        <div className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 md:space-y-6 xl:space-y-8 order-2 lg:order-1 z-20">
+                        <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-5 md:space-y-6 xl:space-y-8 order-2 md:order-1 z-20">
                             <Motion.div variants={itemVariants} className="space-y-3 md:space-y-4">
                                 <h1 className="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-display font-bold leading-[0.95] tracking-tight">
                                     <span className="bg-linear-to-b from-[#F3F4F6] via-[#D1D5DB] to-[#9CA3AF] bg-clip-text text-transparent font-black drop-shadow-xl">
@@ -62,8 +62,8 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                         </div>
 
                         {/* Right Column: Image */}
-                        <div className="flex justify-center order-1 lg:order-2 z-10 w-full relative mt-8 sm:mt-16 md:mt-24 lg:mt-0">
-                            <Motion.div variants={itemVariants} className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-md md:h-112 lg:w-lg lg:h-128 xl:w-152 xl:h-152 group flex items-center justify-center lg:-ml-4 xl:ml-0">
+                        <div className="flex justify-center order-1 md:order-2 z-10 w-full relative mt-8 sm:mt-16 md:mt-0">
+                            <Motion.div variants={itemVariants} className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-lg md:h-128 xl:w-152 xl:h-152 group flex items-center justify-center md:-ml-4 xl:ml-0">
 
                                 {/* 🪐 Orbital System */}
                                 <div className="absolute inset-0 pointer-events-none">

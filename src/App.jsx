@@ -142,18 +142,35 @@ const Portfolio = () => {
 
     const offset = 80;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
+    const startPosition = window.scrollY;
+    const distance = targetPosition - startPosition;
 
-    // Use native browser smooth scrolling on the compositor thread (fast, 0-lag, silky smooth)
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
+    // Use a fixed FAST duration (450ms) so it snaps rapidly without lingering on heavy GPU sections
+    const duration = 450;
+    let start = null;
 
-    // Reset scrolling state after typical smooth scroll duration ends
-    if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-    scrollTimeoutRef.current = setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 700);
+    // easeOutQuart: extremely snappy start, buttery soft landing
+    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percentage = Math.min(progress / duration, 1);
+
+      window.scrollTo(0, startPosition + distance * easeOutQuart(percentage));
+
+      if (progress < duration) {
+        scrollRafRef.current = window.requestAnimationFrame(step);
+      } else {
+        scrollRafRef.current = null;
+        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+        scrollTimeoutRef.current = setTimeout(() => {
+          isScrollingRef.current = false;
+        }, 50);
+      }
+    };
+
+    scrollRafRef.current = window.requestAnimationFrame(step);
   };
 
   return (

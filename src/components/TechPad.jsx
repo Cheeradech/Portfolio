@@ -208,7 +208,7 @@ export default function TechPad() {
             viewport={{ once: true, margin: "-100px" }}
             id="expertise-content"
             className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
-            style={{ contain: 'layout style', willChange: 'transform, opacity' }}
+            style={{ willChange: 'transform, opacity' }}
         >
             <SectionHeader
                 title={te.sectionTitle}

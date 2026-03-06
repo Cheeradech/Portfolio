@@ -32,7 +32,7 @@ const About = () => {
     };
 
     return (
-        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden" style={{ contain: 'layout style' }}>
+        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden">
             {/* Decorative blobs */}
             <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-[-10%] right-[-10%] w-120 h-120 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />

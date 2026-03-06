@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/animated-tabs";
 import { AnimatedButton } from '@/components/ui/animated-button';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
+import CountryFlag from './ui/CountryFlag';
 
 const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
     const { lang, setLang } = useLanguage();
@@ -52,22 +53,22 @@ const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
                         <div className="flex items-center bg-slate-900/70 border border-white/10 rounded-full p-0.5 sm:p-1 gap-0.5">
                             <button
                                 onClick={() => setLang('en')}
-                                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${lang === 'en'
+                                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${lang === 'en'
                                     ? 'bg-slate-700 text-white shadow-sm'
                                     : 'text-slate-400 hover:text-white'
                                     }`}
                             >
-                                <span className="text-xs sm:text-sm leading-none">🇬🇧</span>
+                                <CountryFlag country="en" className="w-5 h-3.5 sm:w-6 sm:h-4 object-cover rounded-sm" />
                                 <span className="hidden xs:inline">EN</span>
                             </button>
                             <button
                                 onClick={() => setLang('th')}
-                                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${lang === 'th'
+                                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${lang === 'th'
                                     ? 'bg-slate-700 text-white shadow-sm'
                                     : 'text-slate-400 hover:text-white'
                                     }`}
                             >
-                                <span className="text-xs sm:text-sm leading-none">🇹🇭</span>
+                                <CountryFlag country="th" className="w-5 h-3.5 sm:w-6 sm:h-4 object-cover rounded-sm" />
                                 <span className="hidden xs:inline">TH</span>
                             </button>
                         </div>

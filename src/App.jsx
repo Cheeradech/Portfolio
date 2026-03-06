@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect, Suspense, lazy } from 'react';
 import { useScroll, useTransform } from 'framer-motion';
+import { LanguageProvider } from './context/LanguageContext';
 
 const TechPad = lazy(() => import('./components/TechPad'));
 import brImage from './assets/BR_transparent.png';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import About from './components/About';
 const Experience = lazy(() => import('./components/Experience'));
 const PortfolioWorks = lazy(() => import('./components/PortfolioWorks'));
 const Contact = lazy(() => import('./components/Contact'));
@@ -38,7 +40,7 @@ const Portfolio = () => {
   const heroRef = useRef(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("about");
+  const [activeTab, setActiveTab] = useState("");
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -55,7 +57,7 @@ const Portfolio = () => {
     const syncActiveTab = () => {
       if (isScrollingRef.current) return;
 
-      let currentSection = sections[0];
+      let currentSection = "";
       const scrollPos = window.scrollY + 250;
 
       for (const id of sections) {
@@ -91,7 +93,7 @@ const Portfolio = () => {
     // Force scroll to top on refresh/load
     window.history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
-    setActiveTab("about");
+    setActiveTab("");
 
     // Give a small delay for DOM to stabilize (especially for lazy components)
     const initTimeout = setTimeout(() => {
@@ -166,9 +168,6 @@ const Portfolio = () => {
         <Navbar activeTab={activeTab} setActiveTab={setActiveTab} scrollToSection={scrollToSection} />
 
         <main className="relative z-10 pt-20">
-          {/* Scroll Anchor for About */}
-          <div id="about" className="absolute -top-20 left-0 w-full h-1"></div>
-
           <Hero
             heroRef={heroRef}
             scale={scale}
@@ -177,6 +176,11 @@ const Portfolio = () => {
             itemVariants={itemVariants}
             brImage={brImage}
           />
+
+          {/* About Section */}
+          <div id="about" className="scroll-mt-20">
+            <About />
+          </div>
 
           {/* Expertise Section */}
           <div id="expertise" className="anchor-wrapper scroll-mt-24">
@@ -200,4 +204,10 @@ const Portfolio = () => {
   );
 };
 
-export default Portfolio;
+const App = () => (
+  <LanguageProvider>
+    <Portfolio />
+  </LanguageProvider>
+);
+
+export default App;

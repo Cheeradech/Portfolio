@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useAnimation } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 
 const skillsData = [
     { id: 'html', label: 'HTML5', description: 'พื้นฐานโครงสร้างเว็บไซต์ที่แข็งแกร่ง รองรับ SEO และ Semantic HTML', level: 90, stars: 5, colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
@@ -43,6 +45,8 @@ export default function TechPad() {
     const [hasTriggered, setHasTriggered] = React.useState(false);
     const [activeSkill, setActiveSkill] = React.useState(null);
     const keyboardControls = useAnimation();
+    const { lang } = useLanguage();
+    const te = translations[lang].expertise;
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -167,7 +171,7 @@ export default function TechPad() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, margin: "-100px" }}
             id="expertise-content"
-            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center font-['Inter',_sans-serif] selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
+            className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
         >
             <style dangerouslySetInnerHTML={{
                 __html: `
@@ -309,20 +313,21 @@ export default function TechPad() {
       `}} />
 
             {/* Header */}
-            <motion.header
+            <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="w-full py-4 text-center relative z-10 flex flex-col items-center mb-0 md:mb-4 mt-0"
+                className="w-full px-6 mb-8 mt-0 relative z-10"
             >
-                <h1 className="text-5xl md:text-6xl font-black mb-2 tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-neutral-300 to-neutral-500 uppercase font-sans drop-shadow-xl">
-                    SKILLS
-                </h1>
-                <p className="text-[10px] md:text-xs text-neutral-500 font-bold tracking-[0.3em] font-mono uppercase">
-                    // MACRO PAD INTERFACE V4.0 //
-                </p>
-            </motion.header>
+                <div className="max-w-[1000px] mx-auto">
+                    <div className="mb-4 flex items-center justify-center gap-4">
+                        <div className="h-[1px] w-12 bg-primary"></div>
+                        <h2 className="text-3xl font-bold tracking-tight text-white text-center uppercase">{te.sectionTitle}</h2>
+                        <div className="h-[1px] w-12 bg-primary"></div>
+                    </div>
+                </div>
+            </motion.div>
 
             <div className="w-full max-w-7xl px-4 md:px-12 flex flex-col md:flex-row items-center justify-center animation-container relative [perspective:2000px]">
 
@@ -340,7 +345,7 @@ export default function TechPad() {
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-1 bg-primary"></div>
                             <span className="text-xs font-mono text-primary font-bold tracking-widest uppercase">
-                                {activeSkill ? 'Skill Details' : 'Expertise Overview'}
+                                {activeSkill ? te.skillDetails : te.overview}
                             </span>
                         </div>
                         {/* Fixed min-h prevents layout shift when switching between states */}
@@ -349,18 +354,18 @@ export default function TechPad() {
                                 <>
                                     <span className="text-primary">{activeSkill.label}</span>
                                     <br />
-                                    <span>Mastery</span>
+                                    <span>{te.mastery}</span>
                                 </>
                             ) : (
                                 <>
-                                    Precision <br />
-                                    <span className="text-primary italic">Software</span> <br />
-                                    Engineering
+                                    {te.precision} <br />
+                                    <span className="text-primary italic">{te.software}</span> <br />
+                                    {te.engineering}
                                 </>
                             )}
                         </h2>
                         <p className="text-slate-400 text-sm leading-relaxed font-light min-h-[3em]">
-                            {activeSkill ? activeSkill.description : 'Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.'}
+                            {activeSkill ? activeSkill.description : te.craftingDesc}
                         </p>
                     </div>
 
@@ -370,7 +375,7 @@ export default function TechPad() {
                                 {activeSkill ? `${activeSkill.level}%` : '100+'}
                             </div>
                             <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                {activeSkill ? 'Proficiency Level' : 'Components Built'}
+                                {activeSkill ? te.proficiencyLevel : te.componentsBuilt}
                             </div>
                         </div>
                         <div className="space-y-1">
@@ -384,7 +389,7 @@ export default function TechPad() {
                                 )}
                             </div>
                             <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                {activeSkill ? 'Mastery Tier' : 'Efficiency Rate'}
+                                {activeSkill ? te.masteryTier : te.efficiencyRate}
                             </div>
                         </div>
                     </div>

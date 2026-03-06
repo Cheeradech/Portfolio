@@ -10,7 +10,7 @@
     }
 
     body {
-        font-family: 'Manrope', sans-serif;
+        font-family: 'Manrope', 'Sarabun', sans-serif;
         background-color: #000000;
         color: #ffffff;
         -webkit-font-smoothing: antialiased;

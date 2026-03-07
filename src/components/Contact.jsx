@@ -4,11 +4,11 @@ import AnimatedMail from './AnimatedMail';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 
-const Contact = () => {
+const Contact = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].contact;
     return (
-        <section id="contact" className="py-16 md:py-20 relative z-10 scroll-mt-20">
+        <section id="contact" className="py-16 md:py-20 relative z-10 scroll-mt-20" style={{ contain: 'layout style' }}>
             <div className="max-w-[1200px] mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
@@ -154,6 +154,6 @@ const Contact = () => {
             </div>
         </section>
     );
-};
+});
 
 export default Contact;

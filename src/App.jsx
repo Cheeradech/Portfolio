@@ -210,12 +210,12 @@ const Portfolio = () => {
           />
 
           {/* About Section */}
-          <div id="about" className="scroll-mt-20">
+          <div id="about" className="scroll-mt-20 cv-section">
             <About />
           </div>
 
           {/* Expertise Section */}
-          <div id="expertise" className="anchor-wrapper scroll-mt-24">
+          <div id="expertise" className="anchor-wrapper scroll-mt-24 cv-section">
             <Suspense fallback={<div className="h-96 flex items-center justify-center text-slate-500 font-mono text-sm tracking-widest uppercase animate-pulse">Initializing System...</div>}>
               <TechPad />
             </Suspense>

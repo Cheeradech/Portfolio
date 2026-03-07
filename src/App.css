@@ -147,6 +147,7 @@
 
 .pulse-glow {
   animation: pulse-glow 4s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes radial-pulse-wave {
@@ -171,6 +172,7 @@
   color: transparent;
   animation: radial-pulse-wave 5s linear infinite;
   will-change: background-position;
+  backface-visibility: hidden;
 }
 
 @keyframes terminal-blink {

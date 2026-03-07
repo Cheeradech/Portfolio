@@ -208,6 +208,7 @@ export default function TechPad() {
             viewport={{ once: true, margin: "-100px" }}
             id="expertise-content"
             className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
+            style={{ contain: 'layout style', isolation: 'isolate' }}
         >
             <SectionHeader
                 title={te.sectionTitle}
@@ -351,7 +352,7 @@ export default function TechPad() {
                         </div>
                     </div>
 
-                        <div className="p-5 bg-slate-800/70 rounded-2xl border border-white/5">
+                    <div className="p-5 bg-slate-800/70 rounded-2xl border border-white/5">
                         <div className="flex items-center gap-3 mb-3">
                             <span className="material-symbols-outlined text-primary text-sm">terminal</span>
                             <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">System Core</span>
@@ -388,8 +389,8 @@ export default function TechPad() {
                                 opacity: 1,
                                 scale: 1,
                                 transition: {
-                                    staggerChildren: 0.15,
-                                    delayChildren: 0.3
+                                    staggerChildren: 0.04,
+                                    delayChildren: 0.1
                                 }
                             }
                         }}

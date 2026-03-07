@@ -10,7 +10,7 @@ const workItems = [
     { title: 'Cognito AI', category: 'Machine Learning / Health', img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDsSHsUbkJUWdg-MDImz_KZH--e_pmILHujys5Fgwk8SEyuHoc2emQ6brjphUsTav8NwKCgbC2iddcmBA0ipaZDWS9s4yj41Gz6gwWlV6omYhxytBlcC7H3s3iWutOYuCufhVxUTkGA9ShgRLxkc3Rjmqc_kJBUWZg482BHNYYwEjzIF5SfvjvRzcmalNs7xG9HFa_GGsahdy5XIdmQLOri4WSDCnxcV6zCios-UBi6dd549RB-UBxn7eDtKJ8sCjtBMWzJsNC3jSQ", alt: "Futuristic digital brain AI concept" },
 ];
 
-const PortfolioWorks = () => {
+const PortfolioWorks = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].works;
     const descriptions = t.descriptions;
@@ -21,7 +21,9 @@ const PortfolioWorks = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             viewport={{ once: true, margin: "-100px" }}
-            className="pt-24 pb-48 relative z-10 bg-background-dark scroll-mt-24 min-h-[90vh] flex flex-col justify-center" id="works">
+            className="pt-24 pb-48 relative z-10 bg-background-dark scroll-mt-24 min-h-[90vh] flex flex-col justify-center" id="works"
+            style={{ contain: 'layout style' }}
+        >
             <div className="max-w-[1200px] mx-auto px-6">
                 <SectionHeader
                     title={t.title}
@@ -63,8 +65,8 @@ const PortfolioWorks = () => {
                     ))}
                 </motion.div>
             </div>
-        </motion.section>
+        </motion.section >
     );
-};
+});
 
 export default PortfolioWorks;

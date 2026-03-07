@@ -83,4 +83,16 @@
     .hover-lift:hover {
         transform: translateY(-5px);
     }
+
+    /* ── Section-level rendering optimization ──────────────────────────────
+       content-visibility:auto tells Chrome to completely SKIP layout+paint
+       for any section that is off-screen. This is the single biggest FPS
+       win available without touching any UI or visual styles.
+       contain-intrinsic-size gives the browser a size hint so scrollbar
+       height stays correct even when content is skipped.
+    ─────────────────────────────────────────────────────────────────────── */
+    .cv-section {
+        content-visibility: auto;
+        contain-intrinsic-size: 0 700px;
+    }
 }

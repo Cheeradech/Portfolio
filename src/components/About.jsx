@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion as Motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
 
-const About = () => {
+const About = React.memo(() => {
     const [activeTab, setActiveTab] = useState('education');
     const { lang } = useLanguage();
     const t = translations[lang].about;
-
+    const handleTab = useCallback((id) => setActiveTab(id), []);
     const tabs = [
         { id: 'experience', label: t.tabExperience },
         { id: 'education', label: t.tabEducation },
@@ -32,7 +32,7 @@ const About = () => {
     };
 
     return (
-        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden">
+        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden" style={{ contain: 'layout style' }}>
 
             <div className="max-w-6xl mx-auto relative z-10">
 
@@ -97,7 +97,7 @@ const About = () => {
                             {tabs.map((tab) => (
                                 <button
                                     key={tab.id}
-                                    onClick={() => setActiveTab(tab.id)}
+                                    onClick={() => handleTab(tab.id)}
                                     className={`flex-1 text-center py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${activeTab === tab.id
                                         ? 'bg-slate-700 text-white font-semibold shadow-sm'
                                         : 'text-slate-400 hover:text-white'
@@ -165,6 +165,6 @@ const About = () => {
             </div>
         </section>
     );
-};
+});
 
 export default About;

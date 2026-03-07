@@ -75,7 +75,7 @@ const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
 
                         {/* Desktop Contact Button */}
                         <AnimatedButton
-                            className='text-white hidden lg:flex font-black'
+                            className='text-white hidden lg:flex font-black whitespace-nowrap'
                             variant='default'
                             size='default'
                             glow={true}

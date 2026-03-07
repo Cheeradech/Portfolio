@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect, Suspense, lazy } from 'react';
-import { useScroll, useTransform } from 'framer-motion';
+import React, { useRef, useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 
 const TechPad = lazy(() => import('./components/TechPad'));
@@ -12,6 +11,7 @@ const Contact = lazy(() => import('./components/Contact'));
 import Footer from './components/Footer';
 import './App.css';
 
+// ── Module-level constants (never change, no ref needed) ──
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -35,37 +35,43 @@ const itemVariants = {
   },
 };
 
-const Portfolio = () => {
-  const heroRef = useRef(null);
+// ─────────────────────────────────────────────────────────────────────────────
+// NavController — isolated component that manages activeTab state.
+// Scroll events only cause THIS component to re-render, NOT the whole page.
+// ─────────────────────────────────────────────────────────────────────────────
+const NavController = React.memo(({ scrollToSection }) => {
+  const [activeTab, setActiveTab] = useState('');
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef(null);
-  const [activeTab, setActiveTab] = useState("");
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
+  // Expose a stable setter that outer scrollToSection can call
+  const setTabRef = useRef(setActiveTab);
+  setTabRef.current = setActiveTab;
 
-  const scale = 1;
-  const opacity = 1;
+  // Tell Portfolio's scrollToSection how to update tab
+  useEffect(() => {
+    window.__setNavTab = (id) => setTabRef.current(id);
+    window.__setScrolling = (v) => { isScrollingRef.current = v; };
+    window.__scrollTimeoutRef = scrollTimeoutRef;
+    return () => {
+      delete window.__setNavTab;
+      delete window.__setScrolling;
+      delete window.__scrollTimeoutRef;
+    };
+  }, []);
 
   useEffect(() => {
-    const sections = ["about", "expertise", "works", "contact"];
+    const sections = ['about', 'expertise', 'works', 'contact'];
 
-    // Function to sync tab based on current scroll position (for refresh/load)
     const syncActiveTab = () => {
       if (isScrollingRef.current) return;
-
-      let currentSection = "";
+      let currentSection = '';
       const scrollPos = window.scrollY + 250;
-
       for (const id of sections) {
         const el = document.getElementById(id);
         if (el) {
           const top = el.getBoundingClientRect().top + window.scrollY;
-          if (scrollPos >= top) {
-            currentSection = id;
-          }
+          if (scrollPos >= top) currentSection = id;
         }
       }
       setActiveTab(currentSection);
@@ -73,40 +79,32 @@ const Portfolio = () => {
 
     const observerOptions = {
       root: null,
-      rootMargin: "-45% 0px -45% 0px", // More balanced margin for section detection
-      threshold: 0
+      rootMargin: '-45% 0px -45% 0px',
+      threshold: 0,
     };
 
     const handleIntersect = (entries) => {
       if (isScrollingRef.current) return;
-
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveTab(entry.target.id);
-        }
+        if (entry.isIntersecting) setActiveTab(entry.target.id);
       });
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
 
-    // Force scroll to top on refresh/load
     window.history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
-    setActiveTab("");
+    setActiveTab('');
 
-    // Give a small delay for DOM to stabilize (especially for lazy components)
     const initTimeout = setTimeout(() => {
       sections.forEach((id) => {
         const element = document.getElementById(id);
-        if (element) {
-          observer.observe(element);
-        }
+        if (element) observer.observe(element);
       });
       syncActiveTab();
-      window.scrollTo(0, 0); // Double check scroll to top after observer starts
+      window.scrollTo(0, 0);
     }, 100);
 
-    // Also sync on manual scroll just in case - throttled for performance
     let lastScrollTime = 0;
     const throttledSync = () => {
       const now = Date.now();
@@ -125,53 +123,67 @@ const Portfolio = () => {
     };
   }, []);
 
+  return (
+    <Navbar
+      activeTab={activeTab}
+      setActiveTab={setActiveTab}
+      scrollToSection={scrollToSection}
+    />
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Portfolio — main layout. No activeTab state here = no re-render on scroll.
+// ─────────────────────────────────────────────────────────────────────────────
+const Portfolio = () => {
+  const heroRef = useRef(null);
   const scrollRafRef = useRef(null);
 
-  const scrollToSection = (id) => {
+  // useCallback → stable reference across renders (won't cause NavController to re-render)
+  const scrollToSection = useCallback((id) => {
     const el = document.getElementById(id);
     if (!el) return;
 
-    // 1. Cancel any existing animation frame to prevent "lag stack"
     if (scrollRafRef.current) {
       cancelAnimationFrame(scrollRafRef.current);
       scrollRafRef.current = null;
     }
 
-    isScrollingRef.current = true;
-    setActiveTab(id);
+    // Update Navbar tab without re-rendering Portfolio
+    if (window.__setNavTab) window.__setNavTab(id);
+    if (window.__setScrolling) window.__setScrolling(true);
 
     const offset = 80;
     const targetPosition = el.getBoundingClientRect().top + window.scrollY - offset;
     const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
-
-    // Use a fixed FAST duration (450ms) so it snaps rapidly without lingering on heavy GPU sections
     const duration = 450;
     let start = null;
 
-    // easeOutQuart: extremely snappy start, buttery soft landing
     const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
 
     const step = (timestamp) => {
       if (!start) start = timestamp;
       const progress = timestamp - start;
       const percentage = Math.min(progress / duration, 1);
-
       window.scrollTo(0, startPosition + distance * easeOutQuart(percentage));
 
       if (progress < duration) {
         scrollRafRef.current = window.requestAnimationFrame(step);
       } else {
         scrollRafRef.current = null;
-        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
-        scrollTimeoutRef.current = setTimeout(() => {
-          isScrollingRef.current = false;
-        }, 50);
+        const ref = window.__scrollTimeoutRef;
+        if (ref) {
+          if (ref.current) clearTimeout(ref.current);
+          ref.current = setTimeout(() => {
+            if (window.__setScrolling) window.__setScrolling(false);
+          }, 50);
+        }
       }
     };
 
     scrollRafRef.current = window.requestAnimationFrame(step);
-  };
+  }, []);
 
   return (
     <div className="dark">
@@ -184,13 +196,14 @@ const Portfolio = () => {
           <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(124,45,18,0.15) 0%, rgba(124,45,18,0) 70%)' }}></div>
         </div>
 
-        <Navbar activeTab={activeTab} setActiveTab={setActiveTab} scrollToSection={scrollToSection} />
+        {/* Navbar is isolated — scroll events only re-render NavController */}
+        <NavController scrollToSection={scrollToSection} />
 
         <main className="relative z-10 pt-20">
           <Hero
             heroRef={heroRef}
-            scale={scale}
-            opacity={opacity}
+            scale={1}
+            opacity={1}
             containerVariants={containerVariants}
             itemVariants={itemVariants}
             brImage={brImage}
@@ -213,12 +226,12 @@ const Portfolio = () => {
             <Contact />
           </Suspense>
 
-        </main >
+        </main>
 
         <Footer />
 
-      </div >
-    </div >
+      </div>
+    </div>
   );
 };
 

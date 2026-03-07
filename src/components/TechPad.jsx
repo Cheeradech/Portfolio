@@ -88,11 +88,11 @@ export default function TechPad() {
     });
 
     React.useEffect(() => {
-        // Skip 3D animation on mobile — no hover exists there
-        if (isMobile) return;
+        // Skip when not needed — once triggered, unsubscribe entirely to stop per-frame scroll cost
+        if (isMobile || hasTriggered) return;
 
         const unsubscribe = scrollYProgress.on("change", v => {
-            if (v > 0.42 && !hasTriggered) {
+            if (v > 0.42) {
                 setHasTriggered(true);
                 keyboardControls.start({
                     x: 380, rotateX: 8, z: 60, scale: 0.9, rotateY: -382,
@@ -208,7 +208,6 @@ export default function TechPad() {
             viewport={{ once: true, margin: "-100px" }}
             id="expertise-content"
             className="relative z-30 w-full pt-20 pb-20 md:pt-24 md:pb-40 flex flex-col items-center justify-center selection:bg-indigo-500 selection:text-white bg-transparent pointer-events-auto overflow-hidden"
-            style={{ willChange: 'transform, opacity' }}
         >
             <SectionHeader
                 title={te.sectionTitle}
@@ -222,8 +221,7 @@ export default function TechPad() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="bg-white/5 border border-white/10 rounded-2xl p-5 backdrop-blur-md"
-                    style={{ transform: 'translateZ(0)' }}
+                    className="bg-slate-800/70 border border-white/10 rounded-2xl p-5"
                 >
                     {activeSkill ? (
                         <>
@@ -240,7 +238,6 @@ export default function TechPad() {
                                     WebkitBackgroundClip: 'text',
                                     WebkitTextFillColor: 'transparent',
                                     backgroundClip: 'text',
-                                    filter: 'drop-shadow(0 0 12px rgba(13,127,242,0.3))',
                                 }}
                             >
                                 {activeSkill.label}
@@ -312,8 +309,6 @@ export default function TechPad() {
                                             WebkitBackgroundClip: 'text',
                                             WebkitTextFillColor: 'transparent',
                                             backgroundClip: 'text',
-                                            textShadow: 'none',
-                                            filter: 'drop-shadow(0 0 20px rgba(13,127,242,0.3))',
                                         }}
                                     >
                                         {activeSkill.label}
@@ -356,7 +351,7 @@ export default function TechPad() {
                         </div>
                     </div>
 
-                    <div className="p-5 bg-white/5 rounded-2xl border border-white/5 backdrop-blur-md">
+                        <div className="p-5 bg-slate-800/70 rounded-2xl border border-white/5">
                         <div className="flex items-center gap-3 mb-3">
                             <span className="material-symbols-outlined text-primary text-sm">terminal</span>
                             <span className="text-[10px] font-mono text-slate-300 tracking-widest uppercase">System Core</span>
@@ -376,7 +371,7 @@ export default function TechPad() {
                     style={{
                         transformOrigin: "center center",
                         transformStyle: isMobile ? "flat" : "preserve-3d",
-                        willChange: "transform"
+                        willChange: isMobile ? 'auto' : 'transform'
                     }}
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.88] xs:scale-[0.92] sm:scale-95 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-10 xs:-mb-8 sm:-mb-4 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onMouseMove={handleBoardMouseMove}

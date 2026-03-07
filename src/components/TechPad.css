@@ -3,6 +3,7 @@
 }
 
 .keyboard-base {
+    will-change: transform;
     background: linear-gradient(175deg, #1a1a1c 0%, #0d0d0f 100%);
     box-shadow:
         0 50px 100px -20px rgba(0, 0, 0, 0.9),
@@ -15,7 +16,6 @@
     border-bottom: 12px solid #050506;
     position: relative;
     cursor: pointer;
-    will-change: transform;
 }
 
 .numpad-layout {
@@ -47,7 +47,6 @@
     transform-style: preserve-3d;
     transition: transform 0.15s cubic-bezier(0.2, 0.6, 0.3, 1);
     cursor: pointer;
-    will-change: transform;
     pointer-events: none;
 }
 
@@ -106,7 +105,6 @@
     transform: translateZ(1px);
     z-index: 10;
     position: relative;
-    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
     pointer-events: none;
 }
 

@@ -95,7 +95,7 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 </div>
 
                                 {/* 🌠 Shooting Star */}
-                                <div className="absolute w-40 h-0.5 bg-linear-to-r from-white via-cyan-400 to-transparent blur-[1px] shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
+                                <div className="absolute w-40 h-0.5 bg-linear-to-r from-white via-cyan-400 to-transparent shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
                                 {/* ✨ Glow Core - static pseudo-glow via box-shadow wrapper */}
                                 <div className="absolute w-[140%] h-[140%] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0) 70%)' }}></div>

@@ -3,6 +3,7 @@ import { motion, useScroll, useAnimation } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
+import nextIcon from '../assets/next.png';
 import './TechPad.css';
 
 const skillsData = [
@@ -18,6 +19,7 @@ const skillsData = [
             </svg>
         )
     },
+    { id: 'nextjs', label: 'Next.js', description: 'React Framework สำหรับสร้างเว็บแอปพลิเคชันแบบ Full-stack ด้วย Server-side Rendering', level: 88, stars: 5, colorClass: 'color-nextjs', icon: <img src="https://assets.streamlinehq.com/image/private/w_240,h_240,ar_1/f_auto/v1/icons/development/next.js-5pbwgh1hsskyitb8feqocm.png/next.js-i3y01dzo77a8k265oje1cl.png?_a=DATAiZAAZAA0" alt="Next.js" className="w-12 h-12 tech-icon object-contain" style={{ filter: 'brightness(0) invert(1)' }} /> },
     { id: 'php', label: 'PHP', description: 'การพัฒนา Backend แบบดั้งเดิมและการสร้าง API สำหรับแอปพลิเคชัน', level: 75, stars: 3, colorClass: 'color-php', icon: <i className="fab fa-php tech-icon text-4xl"></i> },
     { id: 'python', label: 'Python', description: 'ภาษาที่ใช้ในการวิเคราะห์ข้อมูล สคริปต์อัตโนมัติ และการพัฒนา AI', level: 82, stars: 4, colorClass: 'color-python', icon: <i className="fab fa-python tech-icon text-5xl"></i> },
     { id: 'node', label: 'NodeJS', description: 'การสร้างเซิร์ฟเวอร์ที่รองรับการเชื่อมต่อจำนวนมากด้วย V8 Engine', level: 85, stars: 4, colorClass: 'color-node', icon: <i className="fab fa-node-js tech-icon text-5xl"></i> },
@@ -35,6 +37,7 @@ const skillsData = [
             </div>
         )
     },
+    { id: 'supabase', label: 'Supabase', description: 'แพลตฟอร์ม Backend-as-a-Service ครบวงจร พร้อมฐานข้อมูล PostgreSQL และ Authentication', level: 85, stars: 4, colorClass: 'color-supabase', icon: <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/supabase-icon-kpjasdqlnu8exakst6f44r.png/supabase-icon-5uqgeeqeknngv9las8zeef.png?_a=DATAiZAAZAA0" alt="Supabase" className="w-12 h-12 tech-icon object-contain" /> },
     { id: 'postman', label: 'Postman', description: 'เครื่องมือทดสอบและจัดการ API ที่เป็นมาตรฐานสากล', level: 95, stars: 5, colorClass: 'color-postman', icon: <i className="fas fa-space-shuttle tech-icon text-4xl transform -rotate-45"></i> },
     { id: 'n8n', label: 'n8n', description: 'การเชื่อมต่อ Workflow อัตโนมัติ (Automation) แบบ Low-code', level: 85, stars: 4, colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
 ];
@@ -402,7 +405,7 @@ export default function TechPad() {
                         <div className="w-full">
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">FRONTEND UNIT</h3>
                             <div className="numpad-layout">
-                                {skillsData.filter(s => ['html', 'css', 'js', 'react', 'tailwind'].includes(s.id)).map((skill) => (
+                                {skillsData.filter(s => ['html', 'css', 'js', 'react', 'nextjs', 'tailwind'].includes(s.id)).map((skill) => (
                                     <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
                                 ))}
                             </div>
@@ -420,7 +423,7 @@ export default function TechPad() {
                         <div className="w-full">
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">DATABASE STORAGE</h3>
                             <div className="numpad-layout">
-                                {skillsData.filter(s => ['mongo', 'sqlite'].includes(s.id)).map((skill) => (
+                                {skillsData.filter(s => ['mongo', 'sqlite', 'supabase'].includes(s.id)).map((skill) => (
                                     <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
                                 ))}
                             </div>

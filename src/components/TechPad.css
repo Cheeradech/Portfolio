@@ -160,6 +160,21 @@
     text-shadow: 0 0 2px #008caf;
 }
 
+.color-nextjs .key-top {
+    color: #ffffff;
+    border-bottom: 2px solid #000000;
+}
+
+.color-nextjs.key-hovered .key-top {
+    background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+}
+
+.color-nextjs i,
+.color-nextjs svg {
+    text-shadow: 0 0 2px #ffffff;
+    filter: drop-shadow(0 0 2px #ffffff);
+}
+
 .color-tailwind .key-top {
     color: #38bdf8;
     border-bottom: 2px solid #0e7490;
@@ -253,6 +268,19 @@
 
 .color-sqlite svg {
     filter: drop-shadow(0 0 1px #0066b3);
+}
+
+.color-supabase .key-top {
+    color: #3ecf8e;
+    border-bottom: 2px solid #248256;
+}
+
+.color-supabase.key-hovered .key-top {
+    background: linear-gradient(180deg, #1e3629 0%, #0f1c15 100%);
+}
+
+.color-supabase img {
+    filter: drop-shadow(0 0 2px #32a873);
 }
 
 .color-node .key-top {

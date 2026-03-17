@@ -8,7 +8,7 @@ export const translations = {
         },
         hero: {
             role: 'Full-Stack Developer',
-            subtitle: 'Architecting high-performance digital ecosystems with visual stillness and precision engineering.',
+            subtitle: 'I am a student ready to learn and develop.',
             scroll: 'Scroll / Explore',
         },
         about: {

@@ -39,35 +39,26 @@ const Contact = React.memo(() => {
 
                         <div className="space-y-5">
                             {/* Box 1: Email */}
-                            <motion.div
-                                className="flex items-center gap-4 group cursor-pointer"
-                                onClick={() => window.location.href = 'mailto:tatsana.33@gmail.com'}
-                                whileHover={{ scale: 1.02, x: 5 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            >
-                                <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/20 transition-all duration-300">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400">
                                     <span className="material-symbols-outlined text-lg">mail</span>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Email</p>
-                                    <span className="text-base md:text-lg font-medium text-white group-hover:text-blue-400 transition-colors">tatsana.33@gmail.com</span>
+                                    <span className="text-base md:text-lg font-medium text-white">Cheeradech.work@gmail.com</span>
                                 </div>
-                            </motion.div>
+                            </div>
 
                             {/* Box 2: Phone */}
-                            <motion.div
-                                className="flex items-center gap-4 group cursor-pointer"
-                                whileHover={{ scale: 1.02, x: 5 }}
-                                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                            >
-                                <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/20 transition-all duration-300">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400">
                                     <span className="material-symbols-outlined text-lg">call</span>
                                 </div>
                                 <div>
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Phone</p>
-                                    <span className="text-base md:text-lg font-medium text-white group-hover:text-blue-400 transition-colors">+66 99 039 7967</span>
+                                    <span className="text-base md:text-lg font-medium text-white">0830339150</span>
                                 </div>
-                            </motion.div>
+                            </div>
 
                             {/* Section: Social Media */}
                             <div className="pt-6 mt-6 border-t border-white/5">

@@ -93,7 +93,9 @@ const Contact = React.memo(() => {
                                         <i className="fab fa-tiktok text-lg"></i>
                                     </motion.a>
                                     {/* LINE */}
-                                    <motion.a href="#"
+                                    <motion.a href="https://line.me/ti/p/5wHCpzMrCy"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -5 }}
                                         className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
                                     >

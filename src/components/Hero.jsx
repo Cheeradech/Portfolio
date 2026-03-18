@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion as Motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import Terminal from './Terminal';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
@@ -7,6 +8,18 @@ import { translations } from '../translations';
 const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImage }) => {
     const { lang } = useLanguage();
     const t = translations[lang].hero;
+
+    const scrollToAbout = () => {
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+            const offset = 80;
+            const targetPosition = aboutSection.getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
     return (
         <section
             id="hero"
@@ -52,6 +65,24 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                             >
                                 {t.subtitle}
                             </Motion.p>
+
+                            {/* Animated Down Arrow to About */}
+                            <Motion.div 
+                                variants={itemVariants}
+                                className="flex flex-col items-center w-full max-w-md xl:max-w-lg -translate-x-6 md:-translate-x-12 xl:-translate-x-24 gap-2 mt-2 cursor-pointer group"
+                                onClick={scrollToAbout}
+                            >
+                                <span className="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest group-hover:text-primary transition-colors duration-300">
+                                    Click
+                                </span>
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/40 transition-all duration-300" />
+                                    <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-600/50 bg-slate-800/30 backdrop-blur-sm flex items-center justify-center group-hover:border-primary/50 group-hover:bg-slate-800/50 transition-all duration-300">
+                                        <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-slate-400 group-hover:text-primary group-hover:translate-y-0.5 transition-all duration-300 animate-bounce" />
+                                    </div>
+                                </div>
+                                <div className="w-px h-8 bg-gradient-to-b from-primary/50 to-transparent group-hover:h-10 transition-all duration-300" />
+                            </Motion.div>
 
                             <Motion.div variants={itemVariants} className="hidden xl:flex pt-3 xl:pt-6 w-full md:w-auto justify-center md:justify-start">
                                 <div className="flex flex-col items-center md:items-start gap-4">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedMail from './AnimatedMail';
 import { useLanguage } from '../context/LanguageContext';
@@ -7,6 +7,37 @@ import { translations } from '../translations';
 const Contact = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].contact;
+    const [status, setStatus] = useState('idle');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        setStatus('submitting');
+
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('https://formsubmit.co/ajax/31dc829c716b6484d806865c79036305', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                form.reset();
+                setTimeout(() => setStatus('idle'), 5000);
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 5000);
+            }
+        } catch (error) {
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 5000);
+        }
+    };
+
     return (
         <section id="contact" className="py-16 md:py-20 relative z-10 scroll-mt-20" style={{ contain: 'layout style' }}>
             <div className="max-w-[1200px] mx-auto px-6">
@@ -27,7 +58,7 @@ const Contact = React.memo(() => {
                                 {`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');`}
                             </style>
                             <h3
-                                className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#f8f9fa] tracking-normal leading-[1.3] mb-6 py-2"
+                                className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[3rem] font-medium text-white tracking-tight leading-[1.2] mb-6 py-2 w-full max-w-[95%] lg:max-w-[500px]"
                                 style={{ fontFamily: lang === 'en' ? "'Playfair Display', Georgia, serif" : "'Sarabun', sans-serif" }}
                             >
                                 {t.heading}
@@ -43,9 +74,11 @@ const Contact = React.memo(() => {
                                 <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400">
                                     <span className="material-symbols-outlined text-lg">mail</span>
                                 </div>
-                                <div>
+                                <div className="flex flex-col">
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Email</p>
-                                    <span className="text-base md:text-lg font-medium text-white">Cheeradech.work@gmail.com</span>
+                                    <a href="mailto:Cheeradech.work@gmail.com" className="text-base md:text-lg font-medium text-white hover:text-blue-400 transition-colors selection:bg-blue-500/40 selection:text-white cursor-text">
+                                        Cheeradech.work@gmail.com
+                                    </a>
                                 </div>
                             </div>
 
@@ -54,9 +87,11 @@ const Contact = React.memo(() => {
                                 <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400">
                                     <span className="material-symbols-outlined text-lg">call</span>
                                 </div>
-                                <div>
+                                <div className="flex flex-col">
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Phone</p>
-                                    <span className="text-base md:text-lg font-medium text-white">0830339150</span>
+                                    <span className="text-base md:text-lg font-medium text-white">
+                                        0830339150
+                                    </span>
                                 </div>
                             </div>
 
@@ -85,13 +120,6 @@ const Contact = React.memo(() => {
                                     >
                                         <i className="fab fa-instagram text-lg"></i>
                                     </motion.a>
-                                    {/* TikTok */}
-                                    <motion.a href="#"
-                                        whileHover={{ scale: 1.1, y: -5 }}
-                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
-                                    >
-                                        <i className="fab fa-tiktok text-lg"></i>
-                                    </motion.a>
                                     {/* LINE */}
                                     <motion.a href="https://line.me/ti/p/5wHCpzMrCy"
                                         target="_blank"
@@ -114,30 +142,65 @@ const Contact = React.memo(() => {
                         viewport={{ once: true }}
                         className="h-full flex items-center"
                     >
-                        <form className="w-full bg-[#0a0a0c] border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl relative">
+                        <form onSubmit={handleSubmit} className="w-full bg-[#0a0a0c] border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl relative">
                             <div className="space-y-5">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Name</label>
-                                        <input type="text" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderName} />
+                                        <input type="text" name="name" required className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderName} />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Email</label>
-                                        <input type="email" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder="john@example.com" />
+                                        <input type="email" name="email" required className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder="john@example.com" />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Subject</label>
-                                    <input type="text" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderSubject} />
+                                    <input type="text" name="_subject" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderSubject} />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Message</label>
-                                    <textarea rows="4" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 resize-none placeholder:text-slate-700" placeholder={t.formPlaceholderMessage}></textarea>
+                                    <textarea name="message" required rows="4" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 resize-none placeholder:text-slate-700" placeholder={t.formPlaceholderMessage}></textarea>
                                 </div>
                                 <div className="pt-2">
-                                    <button type="button" className="w-full py-4 bg-[#111114] hover:bg-[#1a1a20] border border-white/5 hover:border-white/10 text-white rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 group/btn hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]">
-                                        <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-slate-300 group-hover/btn:text-white transition-colors">{t.sendButton}</span>
-                                        <span className="material-symbols-outlined text-[16px] group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300 text-slate-400 group-hover/btn:text-white">send</span>
+                                    <input type="hidden" name="_captcha" value="false" />
+                                    <input type="hidden" name="_template" value="table" />
+                                    <button 
+                                        type="submit" 
+                                        disabled={status === 'submitting'}
+                                        className={`w-full py-4 bg-[#111114] hover:bg-[#1a1a20] border border-white/5 hover:border-white/10 text-white rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 group/btn cursor-pointer ${
+                                            status === 'success' ? 'border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.2)]' : 
+                                            status === 'submitting' ? 'opacity-80 pointer-events-none' : 'hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]'
+                                        }`}
+                                    >
+                                        {status === 'idle' && (
+                                            <>
+                                                <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-slate-300 group-hover/btn:text-white transition-colors">{t.sendButton}</span>
+                                                <span className="material-symbols-outlined text-[16px] group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300 text-slate-400 group-hover/btn:text-white">send</span>
+                                            </>
+                                        )}
+                                        {status === 'submitting' && (
+                                            <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-blue-400 flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
+                                                Sending...
+                                            </span>
+                                        )}
+                                        {status === 'success' && (
+                                            <motion.span 
+                                                initial={{ scale: 0.8, opacity: 0 }}
+                                                animate={{ scale: 1, opacity: 1 }}
+                                                className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-emerald-400 flex items-center gap-2"
+                                            >
+                                                <span className="material-symbols-outlined text-[18px]">check_circle</span>
+                                                Message Sent
+                                            </motion.span>
+                                        )}
+                                        {status === 'error' && (
+                                            <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-red-400 flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-[16px]">error</span>
+                                                Error Occurred
+                                            </span>
+                                        )}
                                     </button>
                                 </div>
                             </div>

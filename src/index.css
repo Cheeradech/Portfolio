@@ -101,4 +101,16 @@
         content-visibility: auto;
         contain-intrinsic-size: 0 700px;
     }
+
+    /* Fix Chrome Autofill white background bug */
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px #050505 inset !important;
+        -webkit-text-fill-color: #f8f9fa !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }

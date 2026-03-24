@@ -4,7 +4,7 @@ export const translations = {
             contact: 'Contact Me',
             about: 'About',
             expertise: 'Expertise',
-            works: 'Works',
+            works: 'Projects',
         },
         hero: {
             role: 'Full-Stack Developer',
@@ -49,7 +49,7 @@ export const translations = {
             craftingDesc: 'Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.',
         },
         works: {
-            title: 'Selected Works',
+            title: 'Selected Projects',
             subtitle: 'High-impact projects defining the intersection of performance and aesthetics.',
             descriptions: [
                 'A high-frequency trading platform processing 10k transactions per second with sub-millisecond latency.',
@@ -75,7 +75,7 @@ export const translations = {
             contact: 'ติดต่อฉัน',
             about: 'เกี่ยวกับ',
             expertise: 'ทักษะ',
-            works: 'ผลงาน',
+            works: 'โปรเจค',
         },
         hero: {
             role: 'นักพัฒนา Full-Stack',
@@ -120,7 +120,7 @@ export const translations = {
             craftingDesc: 'สร้างระบบที่โมดูลาร์และประสิทธิภาพสูง โดยมุ่งเน้นประสบการณ์ผู้ใช้และสถาปัตยกรรมที่แข็งแกร่ง',
         },
         works: {
-            title: 'ผลงานที่เลือกสรร',
+            title: 'โปรเจคที่เลือกสรร',
             subtitle: 'โปรเจคที่มีผลกระทบสูง ผสมผสานระหว่างประสิทธิภาพและความสวยงาม',
             descriptions: [
                 'แพลตฟอร์มการซื้อขายความถี่สูง รองรับ 10,000 ธุรกรรมต่อวินาที ด้วยเวลาตอบสนองต่ำกว่ามิลลิวินาที',

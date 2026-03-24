@@ -127,7 +127,113 @@ const PortfolioWorks = React.memo(() => {
                         subtitle={t.subtitle}
                     />
 
-                    <div ref={containerRef} className="relative mt-20 pt-10 pb-10">
+                    {/* --- Featured Projects Mockup --- */}
+                    <div className="mt-16 mb-32 relative z-20">
+                        {/* Masterpiece Header */}
+                        <div className="flex flex-col items-center justify-center mb-16 relative z-20">
+                            <div className="relative group cursor-default">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 rounded-full blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-300 animate-pulse"></div>
+                                <div className="relative flex items-center gap-4 px-6 md:px-10 py-3 md:py-4 bg-[#0a0a0e]/90 border border-amber-500/30 rounded-full backdrop-blur-xl shadow-[0_8px_32px_rgba(245,158,11,0.2)]">
+                                    <div className="w-6 md:w-12 h-px bg-gradient-to-r from-transparent to-amber-500/80"></div>
+                                    <span 
+                                        className="text-sm md:text-base font-black tracking-[0.2em] md:tracking-[0.25em] uppercase"
+                                        style={{
+                                            background: 'linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #b45309 100%)',
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent',
+                                            backgroundClip: 'text',
+                                        }}
+                                    >
+                                        {lang === 'th' ? 'โปรเจคที่ภาคภูมิใจ' : 'Proudest Masterpieces'}
+                                    </span>
+                                    <div className="w-6 md:w-12 h-px bg-gradient-to-l from-transparent to-amber-500/80"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                            {workItems.slice(0, 2).map((item, idx) => (
+                                <motion.div
+                                    key={`featured-${idx}`}
+                                    initial={{ opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true, margin: "-50px" }}
+                                    transition={{ duration: 0.6, delay: idx * 0.2 }}
+                                    onClick={() => openModal(item)}
+                                    className="group relative rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-2xl"
+                                >
+                                    {/* Image Container */}
+                                    <div className="relative aspect-video overflow-hidden bg-black/50">
+                                        <img 
+                                            src={item.img} 
+                                            alt={item.title} 
+                                            className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                                        />
+                                        {/* Gradient Overlay */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                                        
+                                        {/* Content on Image */}
+                                        <div className="absolute w-full bottom-0 left-0 p-6 lg:p-8">
+                                            <div className="flex items-center gap-3 mb-4">
+                                                <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(37,99,235,0.8)] animate-pulse"></span>
+                                                <span className="text-[9px] text-white/90 font-mono tracking-widest uppercase bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-lg">Mockup Project</span>
+                                            </div>
+                                            <div className="transform xl:translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                                                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 tracking-wide group-hover:text-primary transition-colors duration-300 drop-shadow-md">
+                                                    {item.title}
+                                                </h3>
+                                                <p className="text-sm text-slate-200/90 font-light line-clamp-2 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-500 drop-shadow-sm">
+                                                    {lang === 'th' ? item.descTh : item.descEn}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="absolute top-5 right-5 bg-black/50 backdrop-blur-md p-3 rounded-full text-white/90 md:opacity-0 group-hover:opacity-100 md:scale-75 group-hover:scale-100 transition-all duration-500">
+                                            <Maximize2 size={20} />
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                    {/* --- End of Featured Projects Mockup --- */}
+
+                    {/* --- Other Projects Heading --- */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.6 }}
+                        className="mt-40 mb-20 relative z-20 flex flex-col items-center justify-center text-center"
+                    >
+                        <div className="relative group cursor-default">
+                            {/* Animated Background Glow */}
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-1000 group-hover:duration-300"></div>
+                            
+                            {/* Inner Capsule */}
+                            <div className="relative inline-flex items-center gap-4 px-8 py-3.5 rounded-full border border-white/20 bg-[#0a0a0e]/90 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                                {/* Ping Dot */}
+                                <span className="relative flex h-2.5 w-2.5">
+                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-70"></span>
+                                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.9)]"></span>
+                                </span>
+                                
+                                <span 
+                                    className="text-sm md:text-base font-black tracking-[0.3em] uppercase"
+                                    style={{
+                                        background: 'linear-gradient(to right, #ffffff, #a5c8ff, #3b82f6)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        backgroundClip: 'text',
+                                    }}
+                                >
+                                    Other Experiences
+                                </span>
+                            </div>
+                        </div>
+                    </motion.div>
+
+                    <div ref={containerRef} className="relative mt-8 pt-10 pb-10">
                         {/* Center Line Trunk (Base Faded) */}
                         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-[2px] bg-white/10 -translate-x-1/2"></div>
                         <div className="block md:hidden absolute left-4 top-0 bottom-0 w-[2px] bg-white/10"></div>
@@ -190,7 +296,7 @@ const PortfolioWorks = React.memo(() => {
 
                                     {/* Content Wrapping */}
                                     <div className={`w-full pl-10 md:pl-0 ${isEven ? 'md:pr-14 md:text-right md:col-start-1 md:col-end-2' : 'md:pl-14 md:col-start-2 md:col-end-3'}`}>
-                                        <div className="w-full aspect-[16/10] rounded-2xl overflow-hidden mb-8 bg-slate-800/20 relative shadow-lg border border-white/5 group-hover:border-primary/30 transition-all duration-500">
+                                        <div className="w-full aspect-video rounded-2xl overflow-hidden mb-8 bg-slate-800/20 relative shadow-lg border border-white/5 group-hover:border-primary/30 transition-all duration-500">
                                             <img
                                                 alt={item.alt}
                                                 className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"

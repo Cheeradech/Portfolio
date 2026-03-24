@@ -177,8 +177,9 @@ export default function TechPad() {
         }
 
         // Get coordinates — support both mouse and touch events
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
+        const clientX = touch ? touch.clientX : e.clientX;
+        const clientY = touch ? touch.clientY : e.clientY;
 
         for (const cap of keyCapsRef.current) {
             const rect = cap.getBoundingClientRect();

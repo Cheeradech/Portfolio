@@ -66,28 +66,13 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 {t.subtitle}
                             </Motion.p>
 
-                            {/* Animated Down Arrow to About */}
+                            {/* Terminal Component - Flowing Layout */}
                             <Motion.div 
-                                variants={itemVariants}
-                                className="flex flex-col items-center w-full max-w-md xl:max-w-lg -translate-x-6 md:-translate-x-12 xl:-translate-x-24 gap-2 mt-2 cursor-pointer group"
-                                onClick={scrollToAbout}
+                                variants={itemVariants} 
+                                className="w-full mt-6 sm:mt-8 md:mt-10 pointer-events-none flex justify-center md:justify-start"
                             >
-                                <span className="text-[10px] md:text-xs text-slate-500 uppercase tracking-widest group-hover:text-primary transition-colors duration-300">
-                                    Click
-                                </span>
-                                <div className="relative">
-                                    <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl group-hover:bg-primary/40 transition-all duration-300" />
-                                    <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-full border border-slate-600/50 bg-slate-800/30 backdrop-blur-sm flex items-center justify-center group-hover:border-primary/50 group-hover:bg-slate-800/50 transition-all duration-300">
-                                        <ChevronDown className="w-5 h-5 md:w-6 md:h-6 text-slate-400 group-hover:text-primary group-hover:translate-y-0.5 transition-all duration-300 animate-bounce" />
-                                    </div>
-                                </div>
-                                <div className="w-px h-8 bg-gradient-to-b from-primary/50 to-transparent group-hover:h-10 transition-all duration-300" />
-                            </Motion.div>
-
-                            <Motion.div variants={itemVariants} className="hidden xl:flex pt-3 xl:pt-6 w-full md:w-auto justify-center md:justify-start">
-                                <div className="flex flex-col items-center md:items-start gap-4">
-                                    <div className="h-10 md:h-14 lg:h-16 xl:h-20 w-px bg-linear-to-b from-primary to-transparent"></div>
-                                    <span className="text-[10px] md:text-xs xl:text-sm text-slate-500 uppercase tracking-widest mt-1">{t.scroll}</span>
+                                <div className="w-full max-w-[90%] sm:max-w-sm md:max-w-[380px] xl:max-w-[450px]">
+                                    <Terminal itemVariants={itemVariants} />
                                 </div>
                             </Motion.div>
                         </div>
@@ -154,18 +139,7 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                             </Motion.div>
                         </div>
 
-                        {/* Terminal — flows in document on mobile, absolute overlay on desktop */}
-                        {/* Mobile & Tablet: show below content as regular block */}
-                        <div className="xl:hidden order-3 w-full flex justify-center mt-4 pointer-events-none px-2">
-                            <div className="w-full max-w-xs xs:max-w-sm sm:max-w-md">
-                                <Terminal itemVariants={itemVariants} />
-                            </div>
-                        </div>
 
-                        {/* Desktop (Wide Screens): absolute positioned overlay */}
-                        <div className="hidden xl:flex absolute z-30 justify-center xl:w-115 left-1/2 xl:translate-x-[-55%] xl:bottom-[15%] transform -translate-x-1/2 pointer-events-none">
-                            <Terminal itemVariants={itemVariants} />
-                        </div>
                     </div>
                 </Motion.div>
             </Motion.div>

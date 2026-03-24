@@ -27,7 +27,7 @@ const Contact = React.memo(() => {
                                 {`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');`}
                             </style>
                             <h3
-                                className="text-4xl md:text-5xl lg:text-[4.5rem] font-semibold text-[#f8f9fa] tracking-normal leading-[1.2] mb-6 py-2"
+                                className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#f8f9fa] tracking-normal leading-[1.3] mb-6 py-2"
                                 style={{ fontFamily: lang === 'en' ? "'Playfair Display', Georgia, serif" : "'Sarabun', sans-serif" }}
                             >
                                 {t.heading}

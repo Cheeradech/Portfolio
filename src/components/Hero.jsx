@@ -55,13 +55,13 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                     </span>
                                 </h1>
                                 <p className="text-primary font-medium tracking-[0.2em] text-xs md:text-sm xl:text-base uppercase mt-4 xl:mt-6">
-                                    Full-Stack Developer
+                                    Full-Stack Developer Intern
                                 </p>
                             </Motion.div>
 
                             <Motion.p
                                 variants={itemVariants}
-                                className="max-w-md xl:max-w-lg text-slate-400 text-base md:text-lg xl:text-xl font-light leading-relaxed"
+                                className="max-w-md xl:max-w-lg text-slate-400 text-base md:text-lg xl:text-xl font-normal leading-relaxed"
                             >
                                 {t.subtitle}
                             </Motion.p>

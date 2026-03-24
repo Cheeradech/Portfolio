@@ -7,7 +7,7 @@ export const translations = {
             works: 'Projects',
         },
         hero: {
-            role: 'Full-Stack Developer',
+            role: 'Full-Stack Developer Intern',
             subtitle: 'I am a student ready to learn and develop.',
             scroll: 'Scroll / Explore',
         },
@@ -58,7 +58,7 @@ export const translations = {
             ],
         },
         contact: {
-            heading: "Let's Work Together",
+            heading: 'Grateful for the opportunity to contribute',
             formPlaceholderName: 'John Doe',
             formPlaceholderSubject: 'Reason for contact',
             formPlaceholderMessage: 'Write your message here...',
@@ -78,7 +78,7 @@ export const translations = {
             works: 'โปรเจค',
         },
         hero: {
-            role: 'นักพัฒนา Full-Stack',
+            role: 'นักพัฒนา Full-Stack (Intern)',
             subtitle: 'สร้างระบบดิจิทัลประสิทธิภาพสูง ด้วยความสวยงามและความแม่นยำทางวิศวกรรม',
             scroll: 'เลื่อน / สำรวจ',
         },
@@ -129,7 +129,7 @@ export const translations = {
             ],
         },
         contact: {
-            heading: 'มาร่วมงานกันเถอะ',
+            heading: 'ยินดีอย่างยิ่งที่มีโอกาสได้ร่วมสร้างสรรค์ผลงาน',
             formPlaceholderName: 'ชื่อ-นามสกุล',
             formPlaceholderSubject: 'เหตุผลที่ติดต่อ',
             formPlaceholderMessage: 'เขียนข้อความของคุณที่นี่...',

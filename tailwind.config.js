@@ -24,7 +24,7 @@ export default {
                 "glass-border": "rgba(13, 127, 242, 0.2)",
             },
             fontFamily: {
-                "display": ["Manrope", "sans-serif"]
+                "display": ["Manrope", "Sukhumvit Set", "sans-serif"]
             },
             backgroundImage: {
                 'hero-glow': 'radial-gradient(circle at center, #001233 0%, #000000 70%)',

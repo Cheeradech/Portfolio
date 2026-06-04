@@ -118,22 +118,18 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
 
                                 {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
                                 <div
-                                    className="relative w-full h-full z-10 rounded-[2rem] sm:rounded-[3rem] group/img overflow-hidden"
+                                    className="relative w-full h-full z-10 rounded-[2rem] sm:rounded-[3rem] group/img overflow-hidden border border-white/10 bg-transparent"
                                 >
                                     {/* Glow ring — box-shadow is GPU-composited, no repaint */}
                                     <div
-                                        className="absolute inset-0 rounded-[2rem] sm:rounded-[3rem] pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100 ring-1 ring-white/10"
-                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.25)' }}
+                                        className="absolute inset-0 rounded-[2rem] sm:rounded-[3rem] pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100"
+                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.2)' }}
                                     />
+                                    
                                     <img
                                         alt="Professional executive portrait"
                                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
                                         src={brImage}
-                                        style={{
-                                            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-                                            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
-                                            backfaceVisibility: 'hidden',
-                                        }}
                                     />
                                 </div>
                             </Motion.div>

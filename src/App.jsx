@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback, Suspense, lazy } from 
 import { LanguageProvider } from './context/LanguageContext';
 
 const TechPad = lazy(() => import('./components/TechPad'));
-import brImage from './assets/newphoto.jpg';
+import brImage from './assets/profile_no_bg.png';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';

@@ -79,26 +79,26 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
 
                         {/* Right Column: Image */}
                         <div className="flex justify-center order-1 md:order-2 z-10 w-full relative mt-8 sm:mt-16 md:mt-0">
-                            <Motion.div variants={itemVariants} className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-lg md:h-128 xl:w-152 xl:h-152 group flex items-center justify-center md:-ml-4 xl:ml-0">
+                            <Motion.div variants={itemVariants} className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] xl:w-[26rem] xl:h-[36rem] group flex items-center justify-center mx-auto md:-ml-4 xl:ml-0 mt-8 md:mt-0">
 
                                 {/* 🪐 Orbital System */}
                                 <div className="absolute inset-0 pointer-events-none">
                                     {/* Orbit 1 */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] border border-blue-500/20 rounded-full"
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[120%] border border-blue-500/20 rounded-full"
                                         style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
                                         <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
                                             style={{ '--orbit-radius': '180px', '--orbit-duration': '8s' }}></div>
                                     </div>
 
                                     {/* Orbit 2 */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] border border-purple-500/20 rounded-full"
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[140%] border border-purple-500/20 rounded-full"
                                         style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
                                         <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
                                             style={{ '--orbit-radius': '220px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
                                     </div>
 
                                     {/* Orbit 3 (Faint) */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[160%] border border-cyan-500/10 rounded-full"
+                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[160%] border border-cyan-500/10 rounded-full"
                                         style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
                                     </div>
                                 </div>
@@ -114,24 +114,24 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 <div className="absolute w-40 h-0.5 bg-linear-to-r from-white via-cyan-400 to-transparent shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
                                 {/* ✨ Glow Core - static pseudo-glow via box-shadow wrapper */}
-                                <div className="absolute w-[140%] h-[140%] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.2) 0%, rgba(59,130,246,0) 70%)' }}></div>
+                                <div className="absolute w-[120%] h-[120%] rounded-[3rem] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%)' }}></div>
 
                                 {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
                                 <div
-                                    className="relative w-[90%] h-[90%] z-10 rounded-full group/img"
+                                    className="relative w-full h-full z-10 rounded-[2rem] sm:rounded-[3rem] group/img overflow-hidden"
                                 >
                                     {/* Glow ring — box-shadow is GPU-composited, no repaint */}
                                     <div
-                                        className="absolute inset-0 rounded-full pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100"
-                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.35)' }}
+                                        className="absolute inset-0 rounded-[2rem] sm:rounded-[3rem] pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100 ring-1 ring-white/10"
+                                        style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.25)' }}
                                     />
                                     <img
                                         alt="Professional executive portrait"
-                                        className="w-full h-full rounded-full object-cover object-top transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
+                                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
                                         src={brImage}
                                         style={{
-                                            maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                                            WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                                            maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
+                                            WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)',
                                             backfaceVisibility: 'hidden',
                                         }}
                                     />

@@ -20,29 +20,179 @@ import stock4 from '../assets/Photo stock/four.png';
 import stock5 from '../assets/Photo stock/five.png';
 import stock6 from '../assets/Photo stock/six.png';
 
+import aivoice1 from '../assets/PhotoAivoice/1.png';
+import aivoice2 from '../assets/PhotoAivoice/2.png';
+import aivoice3 from '../assets/PhotoAivoice/3.png';
+import aivoice4 from '../assets/PhotoAivoice/4.png';
+import aivoice5 from '../assets/PhotoAivoice/5.png';
+import aivoice6 from '../assets/PhotoAivoice/6.png';
+import aivoice7 from '../assets/PhotoAivoice/7.png';
+import aivoice8 from '../assets/PhotoAivoice/8.png';
+
 const dormImages = [dorm1, dorm2, dorm3, dorm4, dorm5, dorm6, dorm7];
 const stockImages = [stock1, stock2, stock3, stock4, stock5, stock6];
+const aivoiceImages = [aivoice1, aivoice2, aivoice3, aivoice4, aivoice5, aivoice6, aivoice7, aivoice8];
+
+const aiVoiceProject = {
+    title: 'AI Voice Intelligence',
+    titleFull: 'AI Voice Intelligence System',
+    category: 'AI WEB APPLICATION',
+    img: aivoiceImages[0], 
+    images: aivoiceImages,
+    toolsMain: ['NEXT.JS', 'FASTAPI', 'SQLITE', 'WHISPER STT', 'QDRANT'],
+    toolsSub: ['TYPESCRIPT', 'TAILWIND CSS', 'PYTHON', 'SQLALCHEMY', 'GROQ API', 'n8n', 'JWT + HTTP-ONLY COOKIE'],
+    tools: ['NEXT.JS', 'FASTAPI', 'SQLITE', 'WHISPER STT', 'QDRANT'],
+    alt: "AI Voice Intelligence System",
+    descTh: "ระบบวิเคราะห์เสียงสนทนาลูกค้าด้วย AI พร้อม Dashboard, Customer Insights และ Warranty RAG",
+    descEn: "AI-powered customer call analysis system with dashboard, customer insights, and warranty RAG search.",
+    longDescTh: "ระบบวิเคราะห์เสียงสนทนาลูกค้าด้วย AI เพื่อถอดเสียง สรุป Customer Insights และค้นข้อมูลประกันผ่าน RAG",
+    longDescEn: "AI customer conversation analysis system for transcription, customer insights summary, and warranty search via RAG.",
+    featuresTh: [
+        "Speech-to-Text และ AI Call Analysis",
+        "Dashboard Analytics และ Customer Insights",
+        "Warranty RAG Search",
+        "Login, Admin Role และ Audit Logs"
+    ],
+    featuresEn: [
+        "Speech-to-Text and AI Call Analysis",
+        "Dashboard Analytics and Customer Insights",
+        "Warranty RAG Search",
+        "Login, Admin Role and Audit Logs"
+    ],
+    captionsTh: [
+        "Voice Analytics Dashboard: Sentiment, Topic และ Keyword Analysis",
+        "Brand Intelligence และ Agent Performance Overview",
+        "Warranty RAG Chatbot: ค้นหาประกันด้วย AI แบบ Real-time",
+        "Customer Library Database และประวัติสนทนา",
+        "Customer Profile Detail พร้อมรายการประกันสินค้า",
+        "Files Library Storage: คลังไฟล์เสียง 61 รายการ",
+        "Call Analysis: AI Transcript, Summary และ Anomaly Detection",
+        "Warranty Database Inventory ซิงค์กับ Qdrant Vector DB"
+    ],
+    captionsEn: [
+        "Voice Analytics Dashboard: Sentiment, Topic & Keyword Analysis",
+        "Brand Intelligence and Agent Performance Overview",
+        "Warranty RAG Chatbot: Real-time AI Warranty Search",
+        "Customer Library Database with Call History",
+        "Customer Profile Detail with Product Warranty Records",
+        "Files Library Storage: 61 Audio Recordings Archive",
+        "Call Analysis: AI Transcript, Summary & Anomaly Detection",
+        "Warranty Database Inventory synced to Qdrant Vector DB"
+    ],
+    accent: {
+        glow: 'rgba(245,158,11,0.12)',
+        text: 'text-amber-400',
+        bg: 'bg-amber-500/10',
+        border: 'border-amber-500/20',
+        gradient: 'from-amber-400 via-orange-500 to-yellow-500',
+        primary: '#f59e0b'
+    }
+};
 
 const workItems = [
     { 
         title: 'Dormitory Management', 
+        titleFull: 'Dormitory Management System',
         category: 'Web Application / UI', 
         img: dormImages[0], 
         images: dormImages,
+        toolsMain: ['React', 'Tailwind', 'Node.js', 'PostgreSQL'],
+        toolsSub: ['Express', 'JWT Auth', 'Sequelize', 'REST API'],
         tools: ['React', 'Tailwind', 'Node.js', 'PostgreSQL'],
         alt: "Dormitory Management System",
         descTh: "แพลตฟอร์มจัดการหอพักและอพาร์ตเมนต์ที่ออกแบบมาเพื่อความเรียบง่ายและทันสมัย เน้นประสบการณ์ผู้ใช้งานที่ราบรื่น",
-        descEn: "A dormitory and apartment management platform designed for simplicity and modernity, focusing on seamless user experience."
+        descEn: "A dormitory and apartment management platform designed for simplicity and modernity, focusing on seamless user experience.",
+        longDescTh: "แพลตฟอร์มจัดการหอพักและอพาร์ตเมนต์ที่ออกแบบมาเพื่อความเรียบง่ายและทันสมัย เน้นประสบการณ์ผู้ใช้งานที่ราบรื่น",
+        longDescEn: "A dormitory and apartment management platform designed for simplicity and modernity, focusing on seamless user experience.",
+        featuresTh: [
+             "จัดการห้องพักและสถานะการจอง",
+             "ระบบบันทึกค่าใช้จ่ายและคำนวณบิลรายเดือน",
+             "ระบบแจ้งซ่อมและติดตามสถานะสำหรับผู้เช่า",
+             "Dashboard สรุปรายรับและรายงานวิเคราะห์ข้อมูล"
+        ],
+        featuresEn: [
+             "Room and reservation management",
+             "Monthly billing and expense calculation",
+             "Maintenance request and tracking for tenants",
+             "Revenue summary dashboard and reports"
+        ],
+        captionsTh: [
+            "Main Dashboard: ภาพรวมรายรับและสถานะห้องพักทั้งหมด",
+            "All Rooms: จัดการห้องพักพร้อมสถานะและค่าเช่า",
+            "Tenants: รายชื่อผู้เช่าและสัญญาเช่าที่ Active",
+            "Billing & Invoices: ตาราง Invoice และยอดค้างชำระ",
+            "Utilities: บันทึกมิเตอร์น้ำ-ไฟและคำนวณค่าใช้จ่าย",
+            "Settings: ตั้งค่า Utility Coefficient ของระบบ",
+            "Invoice Record: รายละเอียดบิลและดาวน์โหลดใบแจ้งหนี้"
+        ],
+        captionsEn: [
+            "Main Dashboard: Revenue overview and room occupancy status",
+            "All Rooms: Room management with status and rental rate",
+            "Tenants: Active tenant directory with lease agreements",
+            "Billing & Invoices: Invoice table and pending payments",
+            "Utilities: Water & electricity meter logging and calculation",
+            "Settings: Utility constants and system configuration",
+            "Invoice Record: Bill details and invoice download modal"
+        ],
+        accent: {
+            glow: 'rgba(59,130,246,0.12)',
+            text: 'text-blue-400',
+            bg: 'bg-blue-500/10',
+            border: 'border-blue-500/20',
+            gradient: 'from-blue-400 via-indigo-500 to-cyan-500',
+            primary: '#3b82f6'
+        }
     },
     { 
         title: 'Stock Inventory', 
+        titleFull: 'Stock Inventory System',
         category: 'Web Application / System', 
         img: stockImages[1], 
         images: stockImages,
+        toolsMain: ['Vue.js', 'Tailwind', 'Firebase'],
+        toolsSub: ['Vuex', 'Firestore', 'Firebase Auth', 'Cloud Storage'],
         tools: ['Vue.js', 'Tailwind', 'Firebase'],
         alt: "Stock Management System",
         descTh: "ระบบจัดการคลังสินค้าที่มาพร้อมกับแดชบอร์ดที่สะอาดตา ช่วยให้การติดตามสถานะง่ายและทำงานได้อย่างรวดเร็ว",
-        descEn: "An inventory management system featuring a clean dashboard, enabling easy tracking and efficient workflows."
+        descEn: "An inventory management system featuring a clean dashboard, enabling easy tracking and efficient workflows.",
+        longDescTh: "ระบบจัดการคลังสินค้าที่มาพร้อมกับแดชบอร์ดที่สะอาดตา ช่วยให้การติดตามสถานะง่ายและทำงานได้อย่างรวดเร็ว",
+        longDescEn: "An inventory management system featuring a clean dashboard, enabling easy tracking and efficient workflows.",
+        featuresTh: [
+             "เช็คสต็อกและจำนวนสินค้าแบบ Real-time",
+             "ระบบรับเข้า-จ่ายออกสินค้าที่รวดเร็ว",
+             "ระบบแจ้งเตือนเมื่อสินค้าใกล้หมดคลัง",
+             "Dashboard วิเคราะห์การขายและสถิติสินค้าขายดี"
+        ],
+        featuresEn: [
+             "Real-time stock level and tracking",
+             "Fast check-in and check-out workflows",
+             "Low stock alerts and notifications",
+             "Sales analytics and best-seller insights"
+        ],
+        captionsTh: [
+            "Dashboard: ยอดขาย กำไร และสินค้าขายดีประจำวัน",
+            "Inventory Categories: หมวดหมู่สินค้าในคลังทั้งหมด",
+            "Point of Sale: ระบบขายสินค้าพร้อมตัดสต็อก Real-time",
+            "Sales Reports: รายงานยอดขายและ Gross Profit",
+            "Tv Stock: จัดการรายการสินค้าในหมวดหมู่ + Green/Red Stock",
+            "Low Stock Alert: แจ้งเตือนสินค้าใกล้หมดและ Out of Stock"
+        ],
+        captionsEn: [
+            "Dashboard: Daily revenue, gross profit and best-seller overview",
+            "Inventory Categories: All product category cards with stock count",
+            "Point of Sale: Real-time stock deduction and sales terminal",
+            "Sales Reports: Daily revenue transactions and profit analysis",
+            "Tv Stock: Product inventory list with Green/Red stock filter",
+            "Low Stock Alert: Out-of-stock and low stock notification modal"
+        ],
+        accent: {
+            glow: 'rgba(14,165,233,0.12)',
+            text: 'text-sky-400',
+            bg: 'bg-sky-500/10',
+            border: 'border-sky-500/20',
+            gradient: 'from-sky-400 via-cyan-500 to-teal-500',
+            primary: '#0ea5e9'
+        }
     }
 ];
 
@@ -151,49 +301,48 @@ const PortfolioWorks = React.memo(() => {
                             </div>
                         </div>
                         
-                        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                            {workItems.slice(0, 2).map((item, idx) => (
-                                <motion.div
-                                    key={`featured-${idx}`}
-                                    initial={{ opacity: 0, y: 40 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, margin: "-50px" }}
-                                    transition={{ duration: 0.6, delay: idx * 0.2 }}
-                                    onClick={() => openModal(item)}
-                                    className="group relative rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-2xl"
-                                >
-                                    {/* Image Container */}
-                                    <div className="relative aspect-video overflow-hidden bg-black/50">
-                                        <img 
-                                            src={item.img} 
-                                            alt={item.title} 
-                                            className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                                        />
-                                        {/* Gradient Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
-                                        
-                                        {/* Content on Image */}
-                                        <div className="absolute w-full bottom-0 left-0 p-6 lg:p-8">
-                                            <div className="flex items-center gap-3 mb-4">
-                                                <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(37,99,235,0.8)] animate-pulse"></span>
-                                                <span className="text-[9px] text-white/90 font-mono tracking-widest uppercase bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-lg">Mockup Project</span>
-                                            </div>
-                                            <div className="transform xl:translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
-                                                <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 tracking-wide group-hover:text-primary transition-colors duration-300 drop-shadow-md">
-                                                    {item.title}
-                                                </h3>
-                                                <p className="text-sm text-slate-200/90 font-light line-clamp-2 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-500 drop-shadow-sm">
-                                                    {lang === 'th' ? item.descTh : item.descEn}
-                                                </p>
-                                            </div>
+                        <div className="max-w-2xl mx-auto">
+                            <motion.div
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.6 }}
+                                onClick={() => openModal(aiVoiceProject)}
+                                className="group relative rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-2xl"
+                            >
+                                {/* Image Container */}
+                                <div className="relative aspect-video overflow-hidden bg-black/50">
+                                    <img 
+                                        src={aiVoiceProject.img} 
+                                        alt={aiVoiceProject.title} 
+                                        className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                                    />
+                                    {/* Gradient Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+                                    
+                                    {/* Content on Image */}
+                                    <div className="absolute w-full bottom-0 left-0 p-6 lg:p-8">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(37,99,235,0.8)] animate-pulse"></span>
+                                            <span className="text-[10px] text-white/90 font-mono tracking-widest uppercase bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-lg">
+                                                {aiVoiceProject.category}
+                                            </span>
                                         </div>
-
-                                        <div className="absolute top-5 right-5 bg-black/50 backdrop-blur-md p-3 rounded-full text-white/90 md:opacity-0 group-hover:opacity-100 md:scale-75 group-hover:scale-100 transition-all duration-500">
-                                            <Maximize2 size={20} />
+                                        <div className="transform xl:translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
+                                            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 tracking-wide group-hover:text-primary transition-colors duration-300 drop-shadow-md">
+                                                {aiVoiceProject.title}
+                                            </h3>
+                                            <p className="text-sm text-slate-200/90 font-light line-clamp-2 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-500 drop-shadow-sm leading-relaxed">
+                                                {lang === 'th' ? aiVoiceProject.descTh : aiVoiceProject.descEn}
+                                            </p>
                                         </div>
                                     </div>
-                                </motion.div>
-                            ))}
+
+                                    <div className="absolute top-5 right-5 bg-black/50 backdrop-blur-md p-3 rounded-full text-white/90 md:opacity-0 group-hover:opacity-100 md:scale-75 group-hover:scale-100 transition-all duration-500">
+                                        <Maximize2 size={20} />
+                                    </div>
+                                </div>
+                            </motion.div>
                         </div>
                     </div>
                     {/* --- End of Featured Projects Mockup --- */}
@@ -339,94 +488,189 @@ const PortfolioWorks = React.memo(() => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[9999] flex flex-col items-center bg-black/95 backdrop-blur-md px-6 md:px-16" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, paddingTop: '80px', paddingBottom: '32px' }}
+                        className="fixed inset-0 z-[9999] overflow-y-auto bg-black/98 backdrop-blur-2xl"
                         onClick={closeModal}
-
                     >
-                        <button 
-                            className="absolute right-6 md:right-10 text-white/80 hover:text-white transition-all z-[10000] bg-white/10 hover:bg-white/20 border border-white/20 p-3 rounded-full shadow-xl"
-                            style={{ top: '92px' }}
-                            onClick={closeModal}
-                            title="Close (Esc)"
-                        >
-                            <X size={28} />
-                        </button>
-
-                        <button 
-                            className={`absolute left-4 md:left-8 p-3 md:p-4 rounded-full transition-all z-[10000] border border-white/10 backdrop-blur-md shadow-xl
-                                ${currentImageIndex === 0 
-                                    ? 'opacity-0 pointer-events-none' 
-                                    : 'text-white/80 hover:text-white bg-black/60 hover:bg-white/20 opacity-100'}`}
-                            style={{ top: 'calc(50% + 40px)', transform: 'translateY(-50%)' }}
-                            onClick={prevImage}
-                        >
-                            <ChevronLeft size={32} className="md:w-8 md:h-8" />
-                        </button>
-
-                        <button 
-                            className={`absolute right-4 md:right-8 p-3 md:p-4 rounded-full transition-all z-[10000] border border-white/10 backdrop-blur-md shadow-xl
-                                ${currentImageIndex === selectedProject.images.length - 1 
-                                    ? 'opacity-0 pointer-events-none' 
-                                    : 'text-white/80 hover:text-white bg-black/60 hover:bg-white/20 opacity-100'}`}
-                            style={{ top: 'calc(50% + 40px)', transform: 'translateY(-50%)' }}
-                            onClick={nextImage}
-                        >
-                            <ChevronRight size={32} className="md:w-8 md:h-8" />
-                        </button>
-
-                        <div 
-                            className="relative w-full max-w-7xl flex-1 flex flex-col items-center justify-center min-h-0 gap-6"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <div className="relative w-full flex-1 flex items-center justify-center min-h-0 group">
-                                <AnimatePresence mode="wait">
-                                    <motion.img
-                                        key={currentImageIndex}
-                                        initial={{ opacity: 0, scale: 0.95 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
-                                        transition={{ duration: 0.25, ease: "easeOut" }}
-                                        src={selectedProject.images[currentImageIndex]}
-                                        alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
-                                        className="max-w-full max-h-[65vh] object-contain rounded-xl shadow-2xl"
-                                    />
-                                </AnimatePresence>
-                            </div>
+                        {/* Inner scroll container */}
+                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-20 px-4 md:px-8 lg:px-16">
                             
-                            <div className="text-center w-full shrink-0">
-                                <h4 className="text-white/90 text-lg md:text-xl font-light tracking-wide mb-3 flex items-center justify-center gap-4">
-                                    {selectedProject.title} 
-                                    <span className="text-primary/90 text-sm font-mono bg-white/10 border border-white/5 px-3 py-1 rounded-full">
-                                        {currentImageIndex + 1} / {selectedProject.images.length}
-                                    </span>
-                               </h4>
-                                
-                                {selectedProject.tools && (
-                                    <div className="flex flex-wrap justify-center gap-2 mb-5">
-                                        {selectedProject.tools.map((tool, idx) => (
-                                            <span 
-                                                key={idx}
-                                                className="text-[11px] font-mono tracking-wider text-primary/70 border border-primary/20 bg-primary/5 px-2.5 py-1 rounded-full uppercase"
+                            <div 
+                                className="relative w-full max-w-5xl bg-[#050508]/90 border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_0_80px_-15px_rgba(0,0,0,0.9)] p-6 md:p-10 flex flex-col gap-8 backdrop-blur-3xl"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {/* Glowing ambient background orb */}
+                                <div 
+                                    className="absolute top-0 right-1/4 w-[350px] h-[350px] rounded-full blur-[140px] pointer-events-none -z-10 transition-all duration-700" 
+                                    style={{ background: selectedProject.accent?.glow || 'rgba(59,130,246,0.12)' }}
+                                />
+
+                                {/* Top: Close Button inside the card-like container */}
+                                <button 
+                                    className="absolute top-6 right-6 text-white/50 hover:text-white transition-all z-30 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] p-2.5 rounded-full shadow-lg"
+                                    onClick={closeModal}
+                                    title="Close (Esc)"
+                                >
+                                    <X size={18} />
+                                </button>
+
+                                {/* Project Image Carousel Showcase */}
+                                <div className="relative w-full aspect-video md:max-h-[500px] overflow-hidden bg-black/60 rounded-2xl border border-white/[0.05] flex items-center justify-center group shadow-inner">
+                                    <AnimatePresence mode="wait">
+                                        <motion.img
+                                            key={currentImageIndex}
+                                            initial={{ opacity: 0, scale: 0.99 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            exit={{ opacity: 0, scale: 0.99 }}
+                                            transition={{ duration: 0.25, ease: "easeOut" }}
+                                            src={selectedProject.images[currentImageIndex]}
+                                            alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
+                                            className="w-full h-full object-contain"
+                                        />
+                                    </AnimatePresence>
+
+                                    {/* Carousel Navigation Arrows */}
+                                    {selectedProject.images.length > 1 && (
+                                        <>
+                                            <button 
+                                                className={`absolute left-4 p-2.5 rounded-full transition-all border border-white/[0.08] backdrop-blur-md shadow-lg bg-black/60 text-white/80 hover:text-white hover:bg-white/10
+                                                    ${currentImageIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                                                onClick={prevImage}
                                             >
-                                                {tool}
-                                            </span>
-                                        ))}
+                                                <ChevronLeft size={22} />
+                                            </button>
+
+                                            <button 
+                                                className={`absolute right-4 p-2.5 rounded-full transition-all border border-white/[0.08] backdrop-blur-md shadow-lg bg-black/60 text-white/80 hover:text-white hover:bg-white/10
+                                                    ${currentImageIndex === selectedProject.images.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                                                onClick={nextImage}
+                                            >
+                                                <ChevronRight size={22} />
+                                            </button>
+                                        </>
+                                    )}
+
+                                    {/* Dynamic Image Dots Overlay */}
+                                    {selectedProject.images.length > 1 && (
+                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 px-3.5 py-2 rounded-full bg-[#030305]/80 backdrop-blur-md border border-white/[0.08] shadow-2xl">
+                                            {selectedProject.images.map((_, idx) => (
+                                                <div 
+                                                    key={idx} 
+                                                    onClick={() => setCurrentImageIndex(idx)}
+                                                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer 
+                                                        ${currentImageIndex === idx ? 'w-6' : 'w-1.5 bg-white/20 hover:bg-white/50'}`}
+                                                    style={{ backgroundColor: currentImageIndex === idx ? (selectedProject.accent?.primary || '#3b82f6') : undefined }}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Dynamic Caption Bar */}
+                                {selectedProject.captionsTh && (
+                                    <div className="w-full -mt-4 text-center px-6 py-3.5 bg-[#08080a]/60 border border-white/[0.04] rounded-2xl text-xs font-mono tracking-wide text-slate-300 font-light select-none shadow-inner flex items-center justify-center gap-2">
+                                        <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: selectedProject.accent?.primary || '#3b82f6' }}></span>
+                                        <span>{lang === 'th' ? selectedProject.captionsTh[currentImageIndex] : selectedProject.captionsEn[currentImageIndex]}</span>
                                     </div>
                                 )}
-                                
-                                <div className="flex gap-2 justify-center flex-wrap max-w-2xl mx-auto px-4">
-                                    {selectedProject.images.map((_, idx) => (
-                                        <div 
-                                            key={idx} 
-                                            onClick={() => setCurrentImageIndex(idx)}
-                                            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer 
-                                                ${currentImageIndex === idx 
-                                                    ? 'w-10 bg-primary' 
-                                                    : 'w-4 bg-white/20 hover:bg-white/50'}`}
-                                        />
-                                    ))}
+
+                                {/* Project Info Section */}
+                                <div className="flex flex-col gap-6">
+                                    
+                                    {/* Title and Short Description (left aligned) & Page indicator (right aligned) */}
+                                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-white/[0.05] pb-8 mb-2">
+                                        <div className="flex-1">
+                                            <div className="flex items-center gap-3 mb-4 flex-wrap">
+                                                <span className={`text-[10px] font-medium tracking-widest uppercase px-3 py-1 rounded-full ${selectedProject.accent?.bg || 'bg-primary/10'} ${selectedProject.accent?.text || 'text-primary'}`}>
+                                                    {selectedProject.category}
+                                                </span>
+                                            </div>
+                                            <h3 className="text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
+                                                {selectedProject.titleFull || selectedProject.title}
+                                            </h3>
+                                            <p className="text-slate-400 text-sm md:text-base font-light mt-3 leading-relaxed max-w-2xl">
+                                                {lang === 'th' ? (selectedProject.longDescTh || selectedProject.descTh) : (selectedProject.longDescEn || selectedProject.descEn)}
+                                            </p>
+                                        </div>
+                                        
+                                        {/* Page indicator (Right side - Minimal Style) */}
+                                        <div className="shrink-0 flex items-center justify-center text-sm text-slate-500 font-light">
+                                            <span className={`font-medium ${selectedProject.accent?.text || 'text-primary'}`}>{currentImageIndex + 1}</span>
+                                            <span className="mx-1.5 opacity-40">/</span>
+                                            <span className="opacity-60">{selectedProject.images.length}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Grid Content: Left for badges, Right for Key Features */}
+                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+                                        
+                                        {/* Left: Badges (Main & Secondary) */}
+                                        <div className="flex flex-col gap-8 md:col-span-5">
+                                            {/* Main Stack */}
+                                            <div>
+                                                <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4">
+                                                    {lang === 'th' ? 'เทคโนโลยีหลัก' : 'CORE TECHNOLOGIES'}
+                                                </h4>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {(selectedProject.toolsMain || selectedProject.tools || []).map((tool, idx) => (
+                                                        <span 
+                                                            key={idx}
+                                                            className="inline-flex items-center text-[11px] font-medium tracking-wide bg-white/5 px-3.5 py-1.5 rounded-full text-white/80 hover:bg-white/10 transition-colors duration-300"
+                                                        >
+                                                            {tool}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            {/* Tools & Integrations (Secondary stack) */}
+                                            {(selectedProject.toolsSub && selectedProject.toolsSub.length > 0) && (
+                                                <div>
+                                                    <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4">
+                                                        {lang === 'th' ? 'เครื่องมือและระบบเสริม' : 'TOOLS & INTEGRATIONS'}
+                                                    </h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {selectedProject.toolsSub.map((tool, idx) => (
+                                                            <span 
+                                                                key={idx}
+                                                                className="text-[11px] font-medium text-slate-400 bg-transparent border border-white/10 px-3 py-1.5 rounded-full hover:text-white hover:border-white/20 transition-colors duration-300"
+                                                            >
+                                                                {tool}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        {/* Right: Key Features */}
+                                        {((lang === 'th' ? selectedProject.featuresTh : selectedProject.featuresEn) || selectedProject.features) && (
+                                            <div className="flex flex-col md:col-span-7">
+                                                <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4 md:pl-4">
+                                                    {lang === 'th' ? 'ฟีเจอร์หลัก' : 'KEY FEATURES'}
+                                                </h4>
+                                                <div className="flex flex-col gap-4 md:pl-4">
+                                                    {((lang === 'th' ? selectedProject.featuresTh : selectedProject.featuresEn) || selectedProject.features).map((feat, idx) => (
+                                                        <div 
+                                                            key={idx} 
+                                                            className="flex items-start gap-3"
+                                                        >
+                                                            <div className={`flex items-center justify-center shrink-0 mt-[4px] ${selectedProject.accent?.text || 'text-primary'} opacity-80 text-xs`}>
+                                                                ✦
+                                                            </div>
+                                                            <span className="text-sm md:text-base text-slate-300 font-light leading-relaxed">
+                                                                {feat}
+                                                            </span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                    </div>
+
                                 </div>
                             </div>
+
                         </div>
                     </motion.div>
                 )}

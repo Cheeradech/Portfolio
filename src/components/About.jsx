@@ -10,7 +10,6 @@ const About = React.memo(() => {
     const t = translations[lang].about;
     const handleTab = useCallback((id) => setActiveTab(id), []);
     const tabs = [
-        { id: 'experience', label: t.tabExperience },
         { id: 'education', label: t.tabEducation },
     ];
 

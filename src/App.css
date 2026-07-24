@@ -5,6 +5,12 @@
   text-align: left;
 }
 
+@media (min-width: 1024px) {
+  html {
+    font-size: 90%;
+  }
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

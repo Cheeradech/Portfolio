@@ -30,7 +30,7 @@ export const translations = {
             expTitle: 'Full Stack Developer',
             expCompany: 'Freelance',
             expPeriod: '2023 – Present',
-            educationDescription: 'Specialized in Human-Computer Interaction and Web Technologies. 3.5 GPA.',
+            educationDescription: 'Specialized in Human-Computer Interaction and Web Technologies. 3.43 GPA.',
             experienceDescription: 'Building full-stack web applications using React, Node.js, and modern cloud infrastructure.',
         },
         expertise: {
@@ -101,7 +101,7 @@ export const translations = {
             expTitle: 'นักพัฒนา Full Stack',
             expCompany: 'ฟรีแลนซ์',
             expPeriod: '2566 – ปัจจุบัน',
-            educationDescription: 'เชี่ยวชาญด้าน Human-Computer Interaction และเทคโนโลยีเว็บ เกรดเฉลี่ย 3.5',
+            educationDescription: 'เชี่ยวชาญด้าน Human-Computer Interaction และเทคโนโลยีเว็บ เกรดเฉลี่ย 3.43',
             experienceDescription: 'สร้างเว็บแอปพลิเคชัน Full-stack ด้วย React, Node.js และโครงสร้างพื้นฐานคลาวด์สมัยใหม่',
         },
         expertise: {

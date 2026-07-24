@@ -79,7 +79,7 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
 
                         {/* Right Column: Image */}
                         <div className="flex justify-center order-1 md:order-2 z-10 w-full relative mt-8 sm:mt-16 md:mt-0">
-                            <Motion.div variants={itemVariants} className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[28rem] lg:w-96 lg:h-[32rem] xl:w-[26rem] xl:h-[36rem] group flex items-center justify-center mx-auto md:-ml-4 xl:ml-0 mt-8 md:mt-0">
+                            <Motion.div variants={itemVariants} className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[30rem] lg:w-96 lg:h-[34rem] xl:w-[28rem] xl:h-[38rem] group flex items-center justify-center mx-auto md:-ml-4 xl:ml-0 mt-8 md:mt-0">
 
                                 {/* 🪐 Orbital System */}
                                 <div className="absolute inset-0 pointer-events-none">
@@ -118,19 +118,21 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
 
                                 {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
                                 <div
-                                    className="relative w-full h-full z-10 rounded-[2rem] sm:rounded-[3rem] group/img overflow-hidden border border-white/10 bg-transparent"
+                                    className="relative w-full h-full z-10 rounded-[2rem] sm:rounded-[3rem] group/img overflow-hidden border border-white/15 bg-[#050507] shadow-[0_28px_90px_-35px_rgba(37,99,235,0.85)]"
                                 >
                                     {/* Glow ring — box-shadow is GPU-composited, no repaint */}
                                     <div
                                         className="absolute inset-0 rounded-[2rem] sm:rounded-[3rem] pointer-events-none transition-opacity duration-700 opacity-70 group-hover/img:opacity-100"
                                         style={{ boxShadow: '0 0 40px 8px rgba(13,127,242,0.2)' }}
                                     />
+                                    <div className="absolute inset-x-8 top-6 h-28 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
                                     
                                     <img
-                                        alt="Professional executive portrait"
-                                        className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover/img:scale-[1.04]"
+                                        alt="Cheeradech Makcharoen portrait"
+                                        className="relative z-10 w-full h-full object-cover object-[48%_4%] scale-[1.03] transition-transform duration-700 ease-out group-hover/img:scale-[1.065]"
                                         src={brImage}
                                     />
+                                    <div className="absolute inset-0 z-20 bg-linear-to-t from-black/20 via-black/0 to-white/[0.04] pointer-events-none" />
                                 </div>
                             </Motion.div>
                         </div>

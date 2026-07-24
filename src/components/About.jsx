@@ -67,10 +67,6 @@ const About = React.memo(() => {
 
                         {/* Resume buttons */}
                         <div className="pt-6 flex flex-col sm:flex-row gap-4">
-                            <button className="flex items-center justify-center gap-2 bg-white text-slate-900 px-6 py-3.5 rounded-xl font-semibold hover:bg-slate-100 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0">
-                                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>download</span>
-                                {t.downloadResume}
-                            </button>
                             <button className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-slate-500 hover:bg-slate-700/70 transition-all shadow-sm hover:shadow-md">
                                 <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
                                 {t.viewResume}

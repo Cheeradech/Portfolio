@@ -6,6 +6,7 @@ import brImage from './assets/DDD.png';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
+const Activity = lazy(() => import('./components/Activity'));
 const PortfolioWorks = lazy(() => import('./components/PortfolioWorks'));
 const Contact = lazy(() => import('./components/Contact'));
 import Footer from './components/Footer';
@@ -61,7 +62,7 @@ const NavController = React.memo(({ scrollToSection }) => {
   }, []);
 
   useEffect(() => {
-    const sections = ['about', 'expertise', 'works', 'contact'];
+    const sections = ['about', 'expertise', 'activity', 'works', 'contact'];
 
     const syncActiveTab = () => {
       if (isScrollingRef.current) return;
@@ -222,6 +223,7 @@ const Portfolio = () => {
           </div>
 
           <Suspense fallback={<div className="h-[50vh] flex items-center justify-center text-slate-500 font-mono tracking-widest uppercase text-xs animate-pulse">Initializing Interface...</div>}>
+            <Activity />
             <PortfolioWorks />
             <Contact />
           </Suspense>

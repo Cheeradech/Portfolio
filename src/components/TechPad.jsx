@@ -90,36 +90,49 @@ export default function TechPad() {
         offset: ["start end", "end start"]
     });
 
+    const getShiftX = useCallback(() => {
+        if (typeof window === 'undefined') return 380;
+        const w = window.innerWidth;
+        if (w < 1024) return 0;
+        if (w < 1280) return 220;
+        if (w < 1536) return 300;
+        return 380;
+    }, []);
+
     React.useEffect(() => {
         // Skip when not needed — once triggered, unsubscribe entirely to stop per-frame scroll cost
         if (isMobile || hasTriggered) return;
 
-        const unsubscribe = scrollYProgress.on("change", v => {
+        const checkScroll = (v) => {
             if (v > 0.42) {
                 setHasTriggered(true);
                 keyboardControls.start({
-                    x: 380, rotateX: 8, z: 60, scale: 0.9, rotateY: -382,
+                    x: getShiftX(), rotateX: 8, z: 60, scale: 0.9, rotateY: -382,
                     transition: { type: 'spring', stiffness: 45, damping: 15, mass: 1 }
                 });
             }
-        });
+        };
+
+        checkScroll(scrollYProgress.get());
+        const unsubscribe = scrollYProgress.on("change", checkScroll);
         return () => unsubscribe();
-    }, [scrollYProgress, hasTriggered, keyboardControls, isMobile]);
+    }, [scrollYProgress, hasTriggered, keyboardControls, isMobile, getShiftX]);
 
     const handleKeyboardMouseEnter = React.useCallback(() => {
         if (isMobile) return;
         if (hasTriggered) {
             keyboardControls.start({
-                z: 80, rotateX: 6, scale: 0.92, rotateY: -378,
+                x: getShiftX(), z: 80, rotateX: 6, scale: 0.92, rotateY: -378,
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         } else {
             keyboardControls.start({
+                x: 0,
                 scale: 1.03,
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         }
-    }, [hasTriggered, keyboardControls, isMobile]);
+    }, [hasTriggered, keyboardControls, isMobile, getShiftX]);
 
     const handleKeyboardMouseLeave = useCallback(() => {
         if (isMobile) return;
@@ -127,16 +140,17 @@ export default function TechPad() {
         keyCapsRef.current = null;
         if (hasTriggered) {
             keyboardControls.start({
-                z: 60, rotateX: 8, scale: 0.9, rotateY: -382,
+                x: getShiftX(), z: 60, rotateX: 8, scale: 0.9, rotateY: -382,
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         } else {
             keyboardControls.start({
+                x: 0,
                 scale: 1.0,
                 transition: { type: 'spring', stiffness: 70, damping: 20 }
             });
         }
-    }, [hasTriggered, keyboardControls, isMobile]);
+    }, [hasTriggered, keyboardControls, isMobile, getShiftX]);
 
     const handleBoardMouseMove = useCallback((e) => {
         if (isMobile) return; // Mouse hover — skip on touch

@@ -4,6 +4,7 @@ export const translations = {
             contact: 'Contact Me',
             about: 'About',
             expertise: 'Expertise',
+            activity: 'Activity',
             works: 'Projects',
         },
         hero: {
@@ -26,7 +27,7 @@ export const translations = {
             tabEducation: 'Education',
             eduTitle: 'Computer Science',
             eduInstitution: 'Bangkok University',
-            eduPeriod: '2022 – Present',
+            eduPeriod: '2023 – Present',
             expTitle: 'Full Stack Developer',
             expCompany: 'Freelance',
             expPeriod: '2023 – Present',
@@ -47,6 +48,16 @@ export const translations = {
             masteryTier: 'Mastery Tier',
             efficiencyRate: 'Efficiency Rate',
             craftingDesc: 'Crafting modular, high-performance systems with a focus on tactile user experience and robust architecture.',
+        },
+        activity: {
+            title: 'Activities & Recognition',
+            subtitle: 'Key events, hackathons, and honor awards.',
+            badge: 'Best AI Prototype Award',
+            awardTitle: 'IT Empowering Day 2026 – Best AI Prototype for Real-World Impact Award',
+            role: 'Full Stack Developer & Presenter',
+            roleLabel: 'Role',
+            descriptionLabel: 'Description',
+            description: 'Participated in IT Empowering Day 2026 organized by the School of Information Technology and Innovation, Bangkok University. Worked as a Full Stack Developer, contributing to both frontend and backend development of the AI prototype, while collaborating with the team throughout the project. Presented the prototype in the final pitching round and received the Best AI Prototype for Real-World Impact Award.',
         },
         works: {
             title: 'Selected Projects',
@@ -75,6 +86,7 @@ export const translations = {
             contact: 'ติดต่อฉัน',
             about: 'เกี่ยวกับ',
             expertise: 'ทักษะ',
+            activity: 'กิจกรรม',
             works: 'โปรเจค',
         },
         hero: {
@@ -118,6 +130,16 @@ export const translations = {
             masteryTier: 'ระดับความเชี่ยวชาญ',
             efficiencyRate: 'อัตราประสิทธิภาพ',
             craftingDesc: 'สร้างระบบที่โมดูลาร์และประสิทธิภาพสูง โดยมุ่งเน้นประสบการณ์ผู้ใช้และสถาปัตยกรรมที่แข็งแกร่ง',
+        },
+        activity: {
+            title: 'กิจกรรมและความสำเร็จ',
+            subtitle: 'การแข่งขัน กิจกรรมสำคัญ และรางวัลที่ได้รับ',
+            badge: 'Best AI Prototype Award',
+            awardTitle: 'IT Empowering Day 2026 – Best AI Prototype for Real-World Impact Award',
+            role: 'Full Stack Developer & Presenter',
+            roleLabel: 'บทบาท',
+            descriptionLabel: 'รายละเอียดกิจกรรม',
+            description: 'เข้าร่วมกิจกรรม IT Empowering Day 2026 จัดโดยคณะเทคโนโลยีสารสนเทศและนวัตกรรม มหาวิทยาลัยกรุงเทพ ทำหน้าที่เป็น Full Stack Developer ร่วมพัฒนาทั้ง Frontend และ Backend ของต้นแบบ AI (AI Prototype) พร้อมทำงานร่วมกับทีมตลอดโครงการ รวมถึงนำเสนอผลงานในรอบ Pitching สุดท้าย และได้รับรางวัล Best AI Prototype for Real-World Impact Award',
         },
         works: {
             title: 'โปรเจคที่เลือกสรร',

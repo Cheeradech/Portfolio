@@ -42,6 +42,9 @@ const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
                                     <TabsTrigger value="expertise" onClick={() => scrollToSection("expertise")} className="text-sm tracking-wide px-3 lg:px-5 py-2 rounded-full hover:text-white transition-colors">
                                         {t.expertise}
                                     </TabsTrigger>
+                                    <TabsTrigger value="activity" onClick={() => scrollToSection("activity")} className="text-sm tracking-wide px-3 lg:px-5 py-2 rounded-full hover:text-white transition-colors">
+                                        {t.activity}
+                                    </TabsTrigger>
                                     <TabsTrigger value="works" onClick={() => scrollToSection("works")} className="text-sm tracking-wide px-3 lg:px-5 py-2 rounded-full hover:text-white transition-colors">
                                         {t.works}
                                     </TabsTrigger>
@@ -131,6 +134,7 @@ const Navbar = ({ activeTab, setActiveTab, scrollToSection }) => {
                                 {[
                                     { key: 'about', label: t.about },
                                     { key: 'expertise', label: t.expertise },
+                                    { key: 'activity', label: t.activity },
                                     { key: 'works', label: t.works },
                                 ].map((item) => (
                                     <button

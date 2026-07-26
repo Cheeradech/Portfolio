@@ -15,15 +15,21 @@ export default defineConfig({
     port: 5173
   },
   build: {
+    // Prevent Vite from inlining large assets as base64 (causes bundle bloat)
+    assetsInlineLimit: 4096,
+    // Enable CSS code splitting
+    cssCodeSplit: true,
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom'],
           'vendor-mui': ['@mui/material', '@emotion/react', '@emotion/styled'],
           'vendor-motion': ['framer-motion'],
+          // Separate lucide-react icons to avoid re-bundling with main chunks
+          'vendor-icons': ['lucide-react'],
         },
       },
     },
     chunkSizeWarningLimit: 1000,
   },
-})
+})

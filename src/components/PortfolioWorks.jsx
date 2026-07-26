@@ -4,35 +4,46 @@ import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
 import { X, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX, Film, Image as ImageIcon } from 'lucide-react';
+
+// ── Use Vite's import.meta.url pattern so images are resolved at build-time
+// but NOT eagerly bundled into JS — browser loads them as separate HTTP requests
 import aiVoiceVideo from '../assets/Vio/Satit.mp4';
 
-import dorm1 from '../assets/Photo dorm/1.png';
-import dorm2 from '../assets/Photo dorm/2.png';
-import dorm3 from '../assets/Photo dorm/3.png';
-import dorm4 from '../assets/Photo dorm/4.png';
-import dorm5 from '../assets/Photo dorm/5.png';
-import dorm6 from '../assets/Photo dorm/6.png';
-import dorm7 from '../assets/Photo dorm/7.png';
+// Dorm images — ordered by filename
+const dormImageModules = import.meta.glob('../assets/Photo dorm/*.png', { eager: true, query: '?url', import: 'default' });
+const dormImages = [
+    dormImageModules['../assets/Photo dorm/1.png'],
+    dormImageModules['../assets/Photo dorm/2.png'],
+    dormImageModules['../assets/Photo dorm/3.png'],
+    dormImageModules['../assets/Photo dorm/4.png'],
+    dormImageModules['../assets/Photo dorm/5.png'],
+    dormImageModules['../assets/Photo dorm/6.png'],
+    dormImageModules['../assets/Photo dorm/7.png'],
+];
 
-import stock1 from '../assets/Photo stock/one.png';
-import stock2 from '../assets/Photo stock/two.png';
-import stock3 from '../assets/Photo stock/three.png';
-import stock4 from '../assets/Photo stock/four.png';
-import stock5 from '../assets/Photo stock/five.png';
-import stock6 from '../assets/Photo stock/six.png';
+// Stock images — ordered by filename
+const stockImageModules = import.meta.glob('../assets/Photo stock/*.png', { eager: true, query: '?url', import: 'default' });
+const stockImages = [
+    stockImageModules['../assets/Photo stock/one.png'],
+    stockImageModules['../assets/Photo stock/two.png'],
+    stockImageModules['../assets/Photo stock/three.png'],
+    stockImageModules['../assets/Photo stock/four.png'],
+    stockImageModules['../assets/Photo stock/five.png'],
+    stockImageModules['../assets/Photo stock/six.png'],
+];
 
-import aivoice1 from '../assets/PhotoAivoice/1.png';
-import aivoice2 from '../assets/PhotoAivoice/2.png';
-import aivoice3 from '../assets/PhotoAivoice/3.png';
-import aivoice4 from '../assets/PhotoAivoice/4.png';
-import aivoice5 from '../assets/PhotoAivoice/5.png';
-import aivoice6 from '../assets/PhotoAivoice/6.png';
-import aivoice7 from '../assets/PhotoAivoice/7.png';
-import aivoice8 from '../assets/PhotoAivoice/8.png';
-
-const dormImages = [dorm1, dorm2, dorm3, dorm4, dorm5, dorm6, dorm7];
-const stockImages = [stock1, stock2, stock3, stock4, stock5, stock6];
-const aivoiceImages = [aivoice1, aivoice2, aivoice3, aivoice4, aivoice5, aivoice6, aivoice7, aivoice8];
+// AI Voice images — ordered by filename
+const aivoiceImageModules = import.meta.glob('../assets/PhotoAivoice/*.png', { eager: true, query: '?url', import: 'default' });
+const aivoiceImages = [
+    aivoiceImageModules['../assets/PhotoAivoice/1.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/2.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/3.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/4.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/5.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/6.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/7.png'],
+    aivoiceImageModules['../assets/PhotoAivoice/8.png'],
+];
 
 const aiVoiceProject = {
     title: 'AI Voice Intelligence',
@@ -208,6 +219,28 @@ const PortfolioWorks = React.memo(() => {
 
     const containerRef = useRef(null);
     const cardVideoRef = useRef(null);
+    const cardVideoContainerRef = useRef(null);
+
+    // ── Play/pause card video only when it's visible in the viewport
+    // Prevents autoplay consuming CPU/bandwidth before user scrolls to it
+    useEffect(() => {
+        const videoEl = cardVideoRef.current;
+        const containerEl = cardVideoContainerRef.current;
+        if (!videoEl || !containerEl) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    videoEl.play().catch(() => {});
+                } else {
+                    videoEl.pause();
+                }
+            },
+            { threshold: 0.25 }
+        );
+        observer.observe(containerEl);
+        return () => observer.disconnect();
+    }, []);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -320,14 +353,14 @@ const PortfolioWorks = React.memo(() => {
                                 className="group relative rounded-2xl overflow-hidden bg-[#0a0a0f] border border-white/[0.08] hover:border-cyan-400/40 transition-all duration-500 cursor-pointer shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
                             >
                                 {/* Video Container */}
-                                <div className="relative aspect-video overflow-hidden bg-black">
+                                <div ref={cardVideoContainerRef} className="relative aspect-video overflow-hidden bg-black">
                                     <video 
                                         ref={cardVideoRef}
                                         src={aiVoiceProject.video} 
-                                        autoPlay 
                                         loop 
                                         muted={isCardMuted}
                                         playsInline 
+                                        preload="none"
                                         className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-700 ease-out"
                                     />
                                     
@@ -486,6 +519,7 @@ const PortfolioWorks = React.memo(() => {
                                                 src={item.img}
                                                 loading="lazy"
                                                 decoding="async"
+                                                fetchpriority="low"
                                             />
                                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none flex items-center justify-center">
                                                 <div className="bg-black/40 backdrop-blur-md p-4 rounded-full text-white/90 transform scale-50 group-hover:scale-100 transition-transform duration-500 opacity-0 group-hover:opacity-100 cursor-pointer">

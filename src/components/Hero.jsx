@@ -131,6 +131,8 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                         alt="Cheeradech Makcharoen portrait"
                                         className="relative z-10 w-full h-full object-cover object-[48%_4%] scale-[1.03] transition-transform duration-700 ease-out group-hover/img:scale-[1.065]"
                                         src={brImage}
+                                        fetchpriority="high"
+                                        decoding="async"
                                     />
                                     <div className="absolute inset-0 z-20 bg-linear-to-t from-black/20 via-black/0 to-white/[0.04] pointer-events-none" />
                                 </div>

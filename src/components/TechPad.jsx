@@ -183,34 +183,26 @@ export default function TechPad() {
     }, [isMobile]);
 
     // Unified click/tap handler — works on both desktop and mobile
+    // Uses event.target.closest() instead of getBoundingClientRect loop
+    // so CSS transform: scale() on the wrapper doesn't misalign coordinates
     const handleBoardClick = useCallback((e) => {
         const board = keyboardRef.current;
         if (!board) return;
-        if (!keyCapsRef.current) {
-            keyCapsRef.current = Array.from(board.querySelectorAll('[data-key-id]'));
-        }
 
-        // Get coordinates — support both mouse and touch events
-        const touch = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]);
-        const clientX = touch ? touch.clientX : e.clientX;
-        const clientY = touch ? touch.clientY : e.clientY;
+        // Walk up from the actual touched/clicked element to find the key
+        const cap = e.target.closest('[data-key-id]');
+        if (!cap) return;
 
-        for (const cap of keyCapsRef.current) {
-            const rect = cap.getBoundingClientRect();
-            if (clientX >= rect.left && clientX <= rect.right &&
-                clientY >= rect.top && clientY <= rect.bottom) {
-                cap.classList.add('key-pressed');
-                setTimeout(() => cap.classList.remove('key-pressed'), 150);
+        // Visual press animation
+        cap.classList.add('key-pressed');
+        setTimeout(() => cap.classList.remove('key-pressed'), 150);
 
-                // On mobile: update activeSkill via tap
-                if (isMobile) {
-                    const tappedId = cap.getAttribute('data-key-id');
-                    setActiveSkill(prev =>
-                        prev?.id === tappedId ? null : skillsData.find(s => s.id === tappedId) ?? null
-                    );
-                }
-                break;
-            }
+        // On mobile: update activeSkill via tap (toggle on second tap)
+        if (isMobile) {
+            const tappedId = cap.getAttribute('data-key-id');
+            setActiveSkill(prev =>
+                prev?.id === tappedId ? null : skillsData.find(s => s.id === tappedId) ?? null
+            );
         }
     }, [isMobile]);
 
@@ -395,7 +387,6 @@ export default function TechPad() {
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.88] xs:scale-[0.92] sm:scale-95 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-10 xs:-mb-8 sm:-mb-4 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onMouseMove={handleBoardMouseMove}
                     onClick={handleBoardClick}
-                    onTouchEnd={handleBoardClick}
                     onMouseEnter={handleKeyboardMouseEnter}
                     onMouseLeave={handleKeyboardMouseLeave}
                 >

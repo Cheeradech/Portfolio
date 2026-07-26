@@ -100,32 +100,32 @@ const Contact = React.memo(() => {
                                 <h4 className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-4">{t.connectWith}</h4>
                                 <div className="flex gap-3">
                                     {/* GitHub */}
-                                    <motion.a href="#"
+                                    <motion.a 
+                                        href="https://github.com/Cheeradech"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -5 }}
-                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300 cursor-pointer"
                                     >
                                         <i className="fab fa-github text-lg"></i>
                                     </motion.a>
-                                    {/* Facebook */}
-                                    <motion.a href="#"
-                                        whileHover={{ scale: 1.1, y: -5 }}
-                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
-                                    >
-                                        <i className="fab fa-facebook text-lg"></i>
-                                    </motion.a>
                                     {/* Instagram */}
-                                    <motion.a href="#"
+                                    <motion.a 
+                                        href="https://www.instagram.com/jrrdate_htx/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -5 }}
-                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-pink-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-pink-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300 cursor-pointer"
                                     >
                                         <i className="fab fa-instagram text-lg"></i>
                                     </motion.a>
                                     {/* LINE */}
-                                    <motion.a href="https://line.me/ti/p/5wHCpzMrCy"
+                                    <motion.a 
+                                        href="https://line.me/ti/p/5wHCpzMrCy"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         whileHover={{ scale: 1.1, y: -5 }}
-                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300"
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-green-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300 cursor-pointer"
                                     >
                                         <i className="fab fa-line text-lg"></i>
                                     </motion.a>

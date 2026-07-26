@@ -3,7 +3,8 @@ import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useSp
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
-import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Maximize2, Volume2, VolumeX, Film, Image as ImageIcon } from 'lucide-react';
+import aiVoiceVideo from '../assets/Vio/Satit.mp4';
 
 import dorm1 from '../assets/Photo dorm/1.png';
 import dorm2 from '../assets/Photo dorm/2.png';
@@ -39,6 +40,7 @@ const aiVoiceProject = {
     category: 'AI WEB APPLICATION',
     img: aivoiceImages[0], 
     images: aivoiceImages,
+    video: aiVoiceVideo,
     toolsMain: ['NEXT.JS', 'FASTAPI', 'SQLITE', 'WHISPER STT', 'QDRANT'],
     toolsSub: ['TYPESCRIPT', 'TAILWIND CSS', 'PYTHON', 'SQLALCHEMY', 'GROQ API', 'n8n', 'JWT + HTTP-ONLY COOKIE'],
     tools: ['NEXT.JS', 'FASTAPI', 'SQLITE', 'WHISPER STT', 'QDRANT'],
@@ -80,12 +82,12 @@ const aiVoiceProject = {
         "Warranty Database Inventory synced to Qdrant Vector DB"
     ],
     accent: {
-        glow: 'rgba(245,158,11,0.12)',
-        text: 'text-amber-400',
-        bg: 'bg-amber-500/10',
-        border: 'border-amber-500/20',
-        gradient: 'from-amber-400 via-orange-500 to-yellow-500',
-        primary: '#f59e0b'
+        glow: 'rgba(6,182,212,0.15)',
+        text: 'text-cyan-400',
+        bg: 'bg-black',
+        border: 'border-cyan-500/30',
+        gradient: 'from-cyan-400 via-sky-500 to-blue-600',
+        primary: '#06b6d4'
     }
 };
 
@@ -137,8 +139,8 @@ const workItems = [
         accent: {
             glow: 'rgba(59,130,246,0.12)',
             text: 'text-blue-400',
-            bg: 'bg-blue-500/10',
-            border: 'border-blue-500/20',
+            bg: 'bg-black',
+            border: 'border-blue-500/30',
             gradient: 'from-blue-400 via-indigo-500 to-cyan-500',
             primary: '#3b82f6'
         }
@@ -188,8 +190,8 @@ const workItems = [
         accent: {
             glow: 'rgba(14,165,233,0.12)',
             text: 'text-sky-400',
-            bg: 'bg-sky-500/10',
-            border: 'border-sky-500/20',
+            bg: 'bg-black',
+            border: 'border-sky-500/30',
             gradient: 'from-sky-400 via-cyan-500 to-teal-500',
             primary: '#0ea5e9'
         }
@@ -201,8 +203,12 @@ const PortfolioWorks = React.memo(() => {
     const t = translations[lang].works;
     const [selectedProject, setSelectedProject] = useState(null);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [mediaTab, setMediaTab] = useState('video');
+    const [isCardMuted, setIsCardMuted] = useState(true);
 
     const containerRef = useRef(null);
+    const cardVideoRef = useRef(null);
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start center", "end center"]
@@ -240,8 +246,10 @@ const PortfolioWorks = React.memo(() => {
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') closeModal();
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
+            if (mediaTab === 'gallery') {
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+            }
         };
 
         if (selectedProject) {
@@ -254,11 +262,12 @@ const PortfolioWorks = React.memo(() => {
             document.body.style.overflow = '';
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedProject, currentImageIndex]);
+    }, [selectedProject, currentImageIndex, mediaTab]);
 
-    const openModal = (project) => {
+    const openModal = (project, initialTab = 'video') => {
         setSelectedProject(project);
         setCurrentImageIndex(0);
+        setMediaTab(project.video ? initialTab : 'gallery');
     };
 
     return (
@@ -282,11 +291,11 @@ const PortfolioWorks = React.memo(() => {
                         {/* Masterpiece Header */}
                         <div className="flex flex-col items-center justify-center mb-16 relative z-20">
                             <div className="relative group cursor-default">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 rounded-full blur opacity-30 group-hover:opacity-75 transition duration-1000 group-hover:duration-300 animate-pulse"></div>
-                                <div className="relative flex items-center gap-4 px-6 md:px-10 py-3 md:py-4 bg-[#0a0a0e]/90 border border-amber-500/30 rounded-full backdrop-blur-xl shadow-[0_8px_32px_rgba(245,158,11,0.2)]">
-                                    <div className="w-6 md:w-12 h-px bg-gradient-to-r from-transparent to-amber-500/80"></div>
+                                <div className="absolute -inset-1 bg-gradient-to-r from-amber-500/30 via-yellow-500/50 to-amber-600/30 rounded-full blur-md opacity-50 group-hover:opacity-85 transition duration-700"></div>
+                                <div className="relative flex items-center gap-4 px-7 py-3 bg-black border border-amber-500/40 rounded-full shadow-[0_0_25px_rgba(245,158,11,0.2)]">
+                                    <div className="w-5 md:w-8 h-px bg-gradient-to-r from-transparent to-amber-400/80"></div>
                                     <span 
-                                        className="text-sm md:text-base font-black tracking-[0.2em] md:tracking-[0.25em] uppercase"
+                                        className="text-xs md:text-sm font-black tracking-[0.25em] uppercase"
                                         style={{
                                             background: 'linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #b45309 100%)',
                                             WebkitBackgroundClip: 'text',
@@ -296,50 +305,75 @@ const PortfolioWorks = React.memo(() => {
                                     >
                                         {lang === 'th' ? 'โปรเจคที่ภาคภูมิใจ' : 'Proudest Masterpieces'}
                                     </span>
-                                    <div className="w-6 md:w-12 h-px bg-gradient-to-l from-transparent to-amber-500/80"></div>
+                                    <div className="w-5 md:w-8 h-px bg-gradient-to-l from-transparent to-amber-400/80"></div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div className="max-w-2xl mx-auto">
+                        <div className="max-w-3xl mx-auto">
                             <motion.div
-                                initial={{ opacity: 0, y: 40 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.6 }}
-                                onClick={() => openModal(aiVoiceProject)}
-                                className="group relative rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 hover:border-primary/40 transition-all duration-500 cursor-pointer shadow-2xl"
+                                onClick={() => openModal(aiVoiceProject, 'video')}
+                                className="group relative rounded-2xl overflow-hidden bg-[#0a0a0f] border border-white/[0.08] hover:border-cyan-400/40 transition-all duration-500 cursor-pointer shadow-[0_10px_40px_rgba(0,0,0,0.8)]"
                             >
-                                {/* Image Container */}
-                                <div className="relative aspect-video overflow-hidden bg-black/50">
-                                    <img 
-                                        src={aiVoiceProject.img} 
-                                        alt={aiVoiceProject.title} 
-                                        className="w-full h-full object-cover object-top opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                                {/* Video Container */}
+                                <div className="relative aspect-video overflow-hidden bg-black">
+                                    <video 
+                                        ref={cardVideoRef}
+                                        src={aiVoiceProject.video} 
+                                        autoPlay 
+                                        loop 
+                                        muted={isCardMuted}
+                                        playsInline 
+                                        className="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-[1.01] transition-all duration-700 ease-out"
                                     />
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
                                     
-                                    {/* Content on Image */}
+                                    {/* Gradient Overlay */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#08080c] via-[#08080c]/30 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-500 pointer-events-none"></div>
+                                    
+                                    {/* Minimal Black Video Badge Top Left */}
+                                    <div className="absolute top-4 left-4 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-wider shadow-md">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                                        <Film size={12} className="text-cyan-400" />
+                                        <span className="text-cyan-300 font-medium">DEMO VIDEO</span>
+                                    </div>
+
+                                    {/* Mute/Unmute toggle & Maximize Top Right */}
+                                    <div className="absolute top-4 right-4 flex items-center gap-2">
+                                        <button 
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setIsCardMuted(!isCardMuted);
+                                            }}
+                                            className="bg-black p-2 rounded-full text-white/80 hover:text-cyan-300 border border-white/20 transition-all duration-300 cursor-pointer shadow-md"
+                                            title={isCardMuted ? "Unmute Sound" : "Mute Sound"}
+                                        >
+                                            {isCardMuted ? <VolumeX size={15} /> : <Volume2 size={15} className="text-cyan-300" />}
+                                        </button>
+                                        
+                                        <div className="bg-black p-2 rounded-full text-white/80 group-hover:text-cyan-300 border border-white/20 transition-all duration-300 cursor-pointer shadow-md">
+                                            <Maximize2 size={15} />
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Content on Card */}
                                     <div className="absolute w-full bottom-0 left-0 p-6 lg:p-8">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_rgba(37,99,235,0.8)] animate-pulse"></span>
-                                            <span className="text-[10px] text-white/90 font-mono tracking-widest uppercase bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 shadow-lg">
+                                        <div className="flex items-center gap-2.5 mb-2.5">
+                                            <span className="text-[10px] text-cyan-300 font-mono tracking-widest uppercase bg-black px-3 py-1 rounded-full border border-cyan-500/30 shadow-md">
                                                 {aiVoiceProject.category}
                                             </span>
                                         </div>
-                                        <div className="transform xl:translate-y-6 group-hover:translate-y-0 transition-transform duration-500">
-                                            <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 tracking-wide group-hover:text-primary transition-colors duration-300 drop-shadow-md">
+                                        <div>
+                                            <h3 className="text-xl lg:text-2xl font-semibold text-white mb-2 tracking-tight group-hover:text-cyan-300 transition-colors duration-300">
                                                 {aiVoiceProject.title}
                                             </h3>
-                                            <p className="text-sm text-slate-200/90 font-light line-clamp-2 xl:opacity-0 group-hover:opacity-100 transition-opacity duration-500 drop-shadow-sm leading-relaxed">
+                                            <p className="text-xs lg:text-sm text-slate-300/80 font-light line-clamp-2 leading-relaxed">
                                                 {lang === 'th' ? aiVoiceProject.descTh : aiVoiceProject.descEn}
                                             </p>
                                         </div>
-                                    </div>
-
-                                    <div className="absolute top-5 right-5 bg-black/50 backdrop-blur-md p-3 rounded-full text-white/90 md:opacity-0 group-hover:opacity-100 md:scale-75 group-hover:scale-100 transition-all duration-500">
-                                        <Maximize2 size={20} />
                                     </div>
                                 </div>
                             </motion.div>
@@ -454,7 +488,7 @@ const PortfolioWorks = React.memo(() => {
                                                 decoding="async"
                                             />
                                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none flex items-center justify-center">
-                                                <div className="bg-black/40 backdrop-blur-md p-4 rounded-full text-white/90 transform scale-50 group-hover:scale-100 transition-transform duration-500 opacity-0 group-hover:opacity-100">
+                                                <div className="bg-black/40 backdrop-blur-md p-4 rounded-full text-white/90 transform scale-50 group-hover:scale-100 transition-transform duration-500 opacity-0 group-hover:opacity-100 cursor-pointer">
                                                     <Maximize2 size={24} />
                                                 </div>
                                             </div>
@@ -488,133 +522,188 @@ const PortfolioWorks = React.memo(() => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[9999] overflow-y-auto bg-black/98 backdrop-blur-2xl"
+                        className="fixed inset-0 z-[9999] overflow-y-auto bg-[#040406]/95 backdrop-blur-2xl"
                         onClick={closeModal}
                     >
                         {/* Inner scroll container */}
-                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-20 px-4 md:px-8 lg:px-16">
+                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-14 px-4 md:px-8 lg:px-16">
                             
                             <div 
-                                className="relative w-full max-w-5xl bg-[#050508]/90 border border-white/[0.08] rounded-3xl overflow-hidden shadow-[0_0_80px_-15px_rgba(0,0,0,0.9)] p-6 md:p-10 flex flex-col gap-8 backdrop-blur-3xl"
+                                className="relative w-full max-w-5xl bg-[#09090e]/95 border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_0_60px_-15px_rgba(0,0,0,0.9)] p-6 md:p-9 flex flex-col gap-6 backdrop-blur-3xl"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {/* Glowing ambient background orb */}
                                 <div 
-                                    className="absolute top-0 right-1/4 w-[350px] h-[350px] rounded-full blur-[140px] pointer-events-none -z-10 transition-all duration-700" 
+                                    className="absolute top-0 right-1/4 w-[300px] h-[300px] rounded-full blur-[120px] pointer-events-none -z-10 transition-all duration-700 opacity-60" 
                                     style={{ background: selectedProject.accent?.glow || 'rgba(59,130,246,0.12)' }}
                                 />
 
-                                {/* Top: Close Button inside the card-like container */}
+                                {/* Top: Minimal Close Button */}
                                 <button 
-                                    className="absolute top-6 right-6 text-white/50 hover:text-white transition-all z-30 bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.08] p-2.5 rounded-full shadow-lg"
+                                    className="absolute top-5 right-5 text-slate-400 hover:text-white transition-all z-30 bg-black hover:bg-black/80 border border-white/20 p-2 rounded-full shadow-md cursor-pointer"
                                     onClick={closeModal}
                                     title="Close (Esc)"
                                 >
-                                    <X size={18} />
+                                    <X size={16} />
                                 </button>
 
-                                {/* Project Image Carousel Showcase */}
-                                <div className="relative w-full aspect-video md:max-h-[500px] overflow-hidden bg-black/60 rounded-2xl border border-white/[0.05] flex items-center justify-center group shadow-inner">
-                                    <AnimatePresence mode="wait">
-                                        <motion.img
-                                            key={currentImageIndex}
-                                            initial={{ opacity: 0, scale: 0.99 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.99 }}
-                                            transition={{ duration: 0.25, ease: "easeOut" }}
-                                            src={selectedProject.images[currentImageIndex]}
-                                            alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
-                                            className="w-full h-full object-contain"
+                                {/* Media Switcher Tabs (Black Solid Background Style) */}
+                                {selectedProject.video && (
+                                    <div className="flex justify-center gap-2 -mb-1 z-20">
+                                        <button
+                                            onClick={() => setMediaTab('video')}
+                                            className={`flex items-center gap-2 px-4.5 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border cursor-pointer ${
+                                                mediaTab === 'video'
+                                                    ? 'bg-black text-cyan-300 border-cyan-400/40 shadow-[0_0_15px_rgba(6,182,212,0.25)]'
+                                                    : 'bg-black/80 text-slate-400 border-white/10 hover:text-white hover:bg-black'
+                                            }`}
+                                        >
+                                            <Film size={13} className={mediaTab === 'video' ? 'text-cyan-400' : 'opacity-70'} />
+                                            <span>Demo Video</span>
+                                        </button>
+                                        <button
+                                            onClick={() => setMediaTab('gallery')}
+                                            className={`flex items-center gap-2 px-4.5 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 border cursor-pointer ${
+                                                mediaTab === 'gallery'
+                                                    ? 'bg-black text-cyan-300 border-cyan-400/40 shadow-[0_0_15px_rgba(6,182,212,0.25)]'
+                                                    : 'bg-black/80 text-slate-400 border-white/10 hover:text-white hover:bg-black'
+                                            }`}
+                                        >
+                                            <ImageIcon size={13} className={mediaTab === 'gallery' ? 'text-cyan-400' : 'opacity-70'} />
+                                            <span>Screenshots ({selectedProject.images.length})</span>
+                                        </button>
+                                    </div>
+                                )}
+
+                                {/* Project Showcase Container */}
+                                <div className="relative w-full aspect-video md:max-h-[500px] overflow-hidden bg-black rounded-xl border border-white/10 flex items-center justify-center group shadow-inner">
+                                    {selectedProject.video && mediaTab === 'video' ? (
+                                        <video
+                                            src={selectedProject.video}
+                                            controls
+                                            autoPlay
+                                            playsInline
+                                            className="w-full h-full object-contain rounded-xl"
                                         />
-                                    </AnimatePresence>
-
-                                    {/* Carousel Navigation Arrows */}
-                                    {selectedProject.images.length > 1 && (
+                                    ) : (
                                         <>
-                                            <button 
-                                                className={`absolute left-4 p-2.5 rounded-full transition-all border border-white/[0.08] backdrop-blur-md shadow-lg bg-black/60 text-white/80 hover:text-white hover:bg-white/10
-                                                    ${currentImageIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-                                                onClick={prevImage}
-                                            >
-                                                <ChevronLeft size={22} />
-                                            </button>
-
-                                            <button 
-                                                className={`absolute right-4 p-2.5 rounded-full transition-all border border-white/[0.08] backdrop-blur-md shadow-lg bg-black/60 text-white/80 hover:text-white hover:bg-white/10
-                                                    ${currentImageIndex === selectedProject.images.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-                                                onClick={nextImage}
-                                            >
-                                                <ChevronRight size={22} />
-                                            </button>
-                                        </>
-                                    )}
-
-                                    {/* Dynamic Image Dots Overlay */}
-                                    {selectedProject.images.length > 1 && (
-                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 px-3.5 py-2 rounded-full bg-[#030305]/80 backdrop-blur-md border border-white/[0.08] shadow-2xl">
-                                            {selectedProject.images.map((_, idx) => (
-                                                <div 
-                                                    key={idx} 
-                                                    onClick={() => setCurrentImageIndex(idx)}
-                                                    className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer 
-                                                        ${currentImageIndex === idx ? 'w-6' : 'w-1.5 bg-white/20 hover:bg-white/50'}`}
-                                                    style={{ backgroundColor: currentImageIndex === idx ? (selectedProject.accent?.primary || '#3b82f6') : undefined }}
+                                            <AnimatePresence mode="wait">
+                                                <motion.img
+                                                    key={currentImageIndex}
+                                                    initial={{ opacity: 0, scale: 0.99 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.99 }}
+                                                    transition={{ duration: 0.2, ease: "easeOut" }}
+                                                    src={selectedProject.images[currentImageIndex]}
+                                                    alt={`${selectedProject.title} screenshot ${currentImageIndex + 1}`}
+                                                    className="w-full h-full object-contain"
                                                 />
-                                            ))}
-                                        </div>
+                                            </AnimatePresence>
+
+                                            {/* Carousel Navigation Arrows */}
+                                            {selectedProject.images.length > 1 && (
+                                                <>
+                                                    <button 
+                                                        className={`absolute left-4 p-2 rounded-full transition-all border border-white/20 shadow-md bg-black text-white/80 hover:text-white hover:bg-black/90 cursor-pointer
+                                                            ${currentImageIndex === 0 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                                                        onClick={prevImage}
+                                                    >
+                                                        <ChevronLeft size={18} />
+                                                    </button>
+
+                                                    <button 
+                                                        className={`absolute right-4 p-2 rounded-full transition-all border border-white/20 shadow-md bg-black text-white/80 hover:text-white hover:bg-black/90 cursor-pointer
+                                                            ${currentImageIndex === selectedProject.images.length - 1 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                                                        onClick={nextImage}
+                                                    >
+                                                        <ChevronRight size={18} />
+                                                    </button>
+                                                </>
+                                            )}
+
+                                            {/* Minimal Image Dots Overlay */}
+                                            {selectedProject.images.length > 1 && (
+                                                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 px-3 py-1.5 rounded-full bg-black border border-white/15 shadow-lg">
+                                                    {selectedProject.images.map((_, idx) => (
+                                                        <div 
+                                                            key={idx} 
+                                                            onClick={() => setCurrentImageIndex(idx)}
+                                                            className={`h-1 rounded-full transition-all duration-300 cursor-pointer 
+                                                                ${currentImageIndex === idx ? 'w-5 bg-white' : 'w-1 bg-white/30 hover:bg-white/60'}`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </>
                                     )}
                                 </div>
 
-                                {/* Dynamic Caption Bar */}
-                                {selectedProject.captionsTh && (
-                                    <div className="w-full -mt-4 text-center px-6 py-3.5 bg-[#08080a]/60 border border-white/[0.04] rounded-2xl text-xs font-mono tracking-wide text-slate-300 font-light select-none shadow-inner flex items-center justify-center gap-2">
-                                        <span className="inline-block w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: selectedProject.accent?.primary || '#3b82f6' }}></span>
+                                {/* Dynamic Caption Bar (Black Solid Background Style) */}
+                                {selectedProject.video && mediaTab === 'video' ? (
+                                    <div className="w-full -mt-3 text-center px-5 py-2.5 bg-black border border-white/10 rounded-xl text-xs font-sans tracking-wide text-slate-300 font-light select-none shadow-inner flex items-center justify-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                                        <span>Demo Video: AI Voice Intelligence System Walkthrough</span>
+                                    </div>
+                                ) : selectedProject.captionsTh && (
+                                    <div className="w-full -mt-3 text-center px-5 py-2.5 bg-black border border-white/10 rounded-xl text-xs font-sans tracking-wide text-slate-300 font-light select-none shadow-inner flex items-center justify-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: selectedProject.accent?.primary || '#3b82f6' }}></span>
                                         <span>{lang === 'th' ? selectedProject.captionsTh[currentImageIndex] : selectedProject.captionsEn[currentImageIndex]}</span>
                                     </div>
                                 )}
 
                                 {/* Project Info Section */}
-                                <div className="flex flex-col gap-6">
+                                <div className="flex flex-col gap-6 pt-1">
                                     
-                                    {/* Title and Short Description (left aligned) & Page indicator (right aligned) */}
-                                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-white/[0.05] pb-8 mb-2">
+                                    {/* Title and Short Description */}
+                                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-white/[0.06] pb-6">
                                         <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-4 flex-wrap">
-                                                <span className={`text-[10px] font-medium tracking-widest uppercase px-3 py-1 rounded-full ${selectedProject.accent?.bg || 'bg-primary/10'} ${selectedProject.accent?.text || 'text-primary'}`}>
+                                            <div className="flex items-center gap-2.5 mb-3 flex-wrap">
+                                                <span className="text-[10px] font-mono tracking-widest uppercase px-3 py-1 rounded-full bg-black text-cyan-300 border border-cyan-500/30 shadow-md">
                                                     {selectedProject.category}
                                                 </span>
+                                                {selectedProject.video && mediaTab === 'video' && (
+                                                    <span className="text-[10px] font-mono tracking-widest text-cyan-300 uppercase px-3 py-1 rounded-full bg-black border border-cyan-500/30 shadow-md">
+                                                        VIDEO DEMO
+                                                    </span>
+                                                )}
                                             </div>
-                                            <h3 className="text-3xl md:text-4xl font-semibold tracking-tight text-white leading-tight">
+                                            <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white leading-tight">
                                                 {selectedProject.titleFull || selectedProject.title}
                                             </h3>
-                                            <p className="text-slate-400 text-sm md:text-base font-light mt-3 leading-relaxed max-w-2xl">
+                                            <p className="text-slate-300/80 text-xs md:text-sm font-light mt-2.5 leading-relaxed max-w-2xl">
                                                 {lang === 'th' ? (selectedProject.longDescTh || selectedProject.descTh) : (selectedProject.longDescEn || selectedProject.descEn)}
                                             </p>
                                         </div>
                                         
                                         {/* Page indicator (Right side - Minimal Style) */}
-                                        <div className="shrink-0 flex items-center justify-center text-sm text-slate-500 font-light">
-                                            <span className={`font-medium ${selectedProject.accent?.text || 'text-primary'}`}>{currentImageIndex + 1}</span>
-                                            <span className="mx-1.5 opacity-40">/</span>
-                                            <span className="opacity-60">{selectedProject.images.length}</span>
+                                        <div className="shrink-0 flex items-center justify-center text-xs text-slate-500 font-mono">
+                                            {selectedProject.video && mediaTab === 'video' ? (
+                                                <span className="text-slate-300 font-mono text-[11px] tracking-wider uppercase px-3 py-1 rounded-full bg-black border border-white/15 shadow-sm">VIDEO</span>
+                                            ) : (
+                                                <>
+                                                    <span className="text-white font-medium">{currentImageIndex + 1}</span>
+                                                    <span className="mx-1 opacity-40">/</span>
+                                                    <span className="opacity-60">{selectedProject.images.length}</span>
+                                                </>
+                                            )}
                                         </div>
                                     </div>
 
                                     {/* Grid Content: Left for badges, Right for Key Features */}
-                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+                                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8">
                                         
                                         {/* Left: Badges (Main & Secondary) */}
-                                        <div className="flex flex-col gap-8 md:col-span-5">
+                                        <div className="flex flex-col gap-6 md:col-span-5">
                                             {/* Main Stack */}
                                             <div>
-                                                <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4">
+                                                <h4 className="text-[11px] font-mono text-slate-400/80 tracking-widest uppercase mb-3">
                                                     {lang === 'th' ? 'เทคโนโลยีหลัก' : 'CORE TECHNOLOGIES'}
                                                 </h4>
-                                                <div className="flex flex-wrap gap-2">
+                                                <div className="flex flex-wrap gap-1.5">
                                                     {(selectedProject.toolsMain || selectedProject.tools || []).map((tool, idx) => (
                                                         <span 
                                                             key={idx}
-                                                            className="inline-flex items-center text-[11px] font-medium tracking-wide bg-white/5 px-3.5 py-1.5 rounded-full text-white/80 hover:bg-white/10 transition-colors duration-300"
+                                                            className="inline-flex items-center text-[11px] font-mono tracking-wide bg-black border border-white/15 px-3 py-1 rounded-md text-slate-200 shadow-sm"
                                                         >
                                                             {tool}
                                                         </span>
@@ -625,14 +714,14 @@ const PortfolioWorks = React.memo(() => {
                                             {/* Tools & Integrations (Secondary stack) */}
                                             {(selectedProject.toolsSub && selectedProject.toolsSub.length > 0) && (
                                                 <div>
-                                                    <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4">
+                                                    <h4 className="text-[11px] font-mono text-slate-400/80 tracking-widest uppercase mb-3">
                                                         {lang === 'th' ? 'เครื่องมือและระบบเสริม' : 'TOOLS & INTEGRATIONS'}
                                                     </h4>
-                                                    <div className="flex flex-wrap gap-2">
+                                                    <div className="flex flex-wrap gap-1.5">
                                                         {selectedProject.toolsSub.map((tool, idx) => (
                                                             <span 
                                                                 key={idx}
-                                                                className="text-[11px] font-medium text-slate-400 bg-transparent border border-white/10 px-3 py-1.5 rounded-full hover:text-white hover:border-white/20 transition-colors duration-300"
+                                                                className="text-[11px] font-mono text-slate-400 bg-black border border-white/15 px-2.5 py-1 rounded-md hover:text-slate-200 transition-colors shadow-sm"
                                                             >
                                                                 {tool}
                                                             </span>
@@ -645,19 +734,19 @@ const PortfolioWorks = React.memo(() => {
                                         {/* Right: Key Features */}
                                         {((lang === 'th' ? selectedProject.featuresTh : selectedProject.featuresEn) || selectedProject.features) && (
                                             <div className="flex flex-col md:col-span-7">
-                                                <h4 className="text-xs font-medium text-white/40 tracking-widest uppercase mb-4 md:pl-4">
+                                                <h4 className="text-[11px] font-mono text-slate-400/80 tracking-widest uppercase mb-3 md:pl-4">
                                                     {lang === 'th' ? 'ฟีเจอร์หลัก' : 'KEY FEATURES'}
                                                 </h4>
-                                                <div className="flex flex-col gap-4 md:pl-4">
+                                                <div className="flex flex-col gap-3 md:pl-4">
                                                     {((lang === 'th' ? selectedProject.featuresTh : selectedProject.featuresEn) || selectedProject.features).map((feat, idx) => (
                                                         <div 
                                                             key={idx} 
-                                                            className="flex items-start gap-3"
+                                                            className="flex items-start gap-2.5"
                                                         >
-                                                            <div className={`flex items-center justify-center shrink-0 mt-[4px] ${selectedProject.accent?.text || 'text-primary'} opacity-80 text-xs`}>
+                                                            <div className="flex items-center justify-center shrink-0 mt-[4px] text-cyan-400 text-[10px]">
                                                                 ✦
                                                             </div>
-                                                            <span className="text-sm md:text-base text-slate-300 font-light leading-relaxed">
+                                                            <span className="text-xs md:text-sm text-slate-300/90 font-light leading-relaxed">
                                                                 {feat}
                                                             </span>
                                                         </div>

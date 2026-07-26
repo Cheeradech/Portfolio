@@ -42,10 +42,32 @@ const skillsData = [
     { id: 'n8n', label: 'n8n', description: 'การเชื่อมต่อ Workflow อัตโนมัติ (Automation) แบบ Low-code', level: 85, stars: 4, colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
 ];
 
-const TechKey = memo(({ skill, isActive }) => {
+const TechKey = memo(({ skill, isActive, onTap }) => {
+    const capRef = React.useRef(null);
+
+    // onTouchStart fires immediately without 300ms delay and is never
+    // cancelled by scroll-detection logic inside the browser.
+    // preventDefault() stops the browser from also synthesizing a 'click'
+    // event afterward, which would toggle the active state twice (on then off).
+    const handleTouchStart = React.useCallback((e) => {
+        e.preventDefault();
+        const cap = capRef.current;
+        if (cap) {
+            cap.classList.add('key-pressed');
+            setTimeout(() => cap.classList.remove('key-pressed'), 150);
+        }
+        onTap(skill);
+    }, [skill, onTap]);
+
     return (
-        <div className="key-wrapper">
+        <div
+            className="key-wrapper"
+            onTouchStart={handleTouchStart}
+            onClick={() => onTap(skill)}
+            style={{ touchAction: 'manipulation' }}
+        >
             <div
+                ref={capRef}
                 data-key-id={skill.id}
                 data-key-label={skill.label}
                 aria-label={skill.label}
@@ -182,27 +204,15 @@ export default function TechPad() {
         });
     }, [isMobile]);
 
-    // Unified click/tap handler — works on both desktop and mobile
-    // Uses event.target.closest() instead of getBoundingClientRect loop
-    // so CSS transform: scale() on the wrapper doesn't misalign coordinates
-    const handleBoardClick = useCallback((e) => {
-        const board = keyboardRef.current;
-        if (!board) return;
-
-        // Walk up from the actual touched/clicked element to find the key
-        const cap = e.target.closest('[data-key-id]');
-        if (!cap) return;
-
-        // Visual press animation
-        cap.classList.add('key-pressed');
-        setTimeout(() => cap.classList.remove('key-pressed'), 150);
-
-        // On mobile: update activeSkill via tap (toggle on second tap)
+    // Unified click/tap handler — called directly from each TechKey
+    // This avoids all coordinate calculation and event delegation issues on touch
+    const handleKeyTap = useCallback((skill) => {
         if (isMobile) {
-            const tappedId = cap.getAttribute('data-key-id');
-            setActiveSkill(prev =>
-                prev?.id === tappedId ? null : skillsData.find(s => s.id === tappedId) ?? null
-            );
+            // Toggle on/off
+            setActiveSkill(prev => prev?.id === skill.id ? null : skill);
+        } else {
+            // On desktop, mousemove handles hover; click just selects
+            setActiveSkill(prev => prev?.id === skill.id ? null : skill);
         }
     }, [isMobile]);
 
@@ -386,7 +396,6 @@ export default function TechPad() {
                     }}
                     className="keyboard-wrapper relative z-40 w-full max-w-4xl flex justify-center scale-[0.88] xs:scale-[0.92] sm:scale-95 md:scale-[0.8] lg:scale-[0.9] xl:scale-[1.0] -mb-10 xs:-mb-8 sm:-mb-4 md:-mb-16 lg:-mb-6 xl:mb-0 mt-4 md:mt-8"
                     onMouseMove={handleBoardMouseMove}
-                    onClick={handleBoardClick}
                     onMouseEnter={handleKeyboardMouseEnter}
                     onMouseLeave={handleKeyboardMouseLeave}
                 >
@@ -412,7 +421,7 @@ export default function TechPad() {
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">FRONTEND UNIT</h3>
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['html', 'css', 'js', 'react', 'nextjs', 'tailwind'].includes(s.id)).map((skill) => (
-                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
+                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} onTap={handleKeyTap} />
                                 ))}
                             </div>
                         </div>
@@ -421,7 +430,7 @@ export default function TechPad() {
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">BACKEND MODULE</h3>
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['php', 'python', 'node'].includes(s.id)).map((skill) => (
-                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
+                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} onTap={handleKeyTap} />
                                 ))}
                             </div>
                         </div>
@@ -430,7 +439,7 @@ export default function TechPad() {
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">DATABASE STORAGE</h3>
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['mongo', 'sqlite', 'supabase'].includes(s.id)).map((skill) => (
-                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
+                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} onTap={handleKeyTap} />
                                 ))}
                             </div>
                         </div>
@@ -439,7 +448,7 @@ export default function TechPad() {
                             <h3 className="text-xs font-mono text-slate-500 mb-2 pl-2 tracking-widest uppercase">OPERATIONS / TOOLS</h3>
                             <div className="numpad-layout">
                                 {skillsData.filter(s => ['docker', 'postman', 'n8n'].includes(s.id)).map((skill) => (
-                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} />
+                                    <TechKey key={skill.id} skill={skill} isActive={activeSkill?.id === skill.id} onTap={handleKeyTap} />
                                 ))}
                             </div>
                         </div>

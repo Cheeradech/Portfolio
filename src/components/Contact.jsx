@@ -76,7 +76,7 @@ const Contact = React.memo(() => {
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Email</p>
-                                    <a href="mailto:Cheeradech.work@gmail.com" className="text-base md:text-lg font-medium text-white hover:text-blue-400 transition-colors selection:bg-blue-500/40 selection:text-white cursor-text">
+                                    <a href="mailto:Cheeradech.work@gmail.com" className="text-sm sm:text-base md:text-lg font-medium text-white hover:text-blue-400 transition-colors selection:bg-blue-500/40 selection:text-white cursor-text break-all sm:break-normal">
                                         Cheeradech.work@gmail.com
                                     </a>
                                 </div>

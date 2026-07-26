@@ -511,7 +511,7 @@ const PortfolioWorks = React.memo(() => {
                                     <div className={`hidden md:block absolute top-[30%] -translate-y-1/2 h-[2px] bg-white/10 group-hover:bg-blue-500/80 transition-colors duration-500 ${isEven ? 'right-1/2 w-8' : 'left-1/2 w-8'}`}></div>
 
                                     {/* Content Wrapping */}
-                                    <div className={`w-full pl-10 md:pl-0 ${isEven ? 'md:pr-14 md:text-right md:col-start-1 md:col-end-2' : 'md:pl-14 md:col-start-2 md:col-end-3'}`}>
+                                    <div className={`w-full pl-8 sm:pl-10 md:pl-0 ${isEven ? 'md:pr-14 md:text-right md:col-start-1 md:col-end-2' : 'md:pl-14 md:col-start-2 md:col-end-3'}`}>
                                         <div className="w-full aspect-video rounded-2xl overflow-hidden mb-8 bg-slate-800/20 relative shadow-lg border border-white/5 group-hover:border-primary/30 transition-all duration-500">
                                             <img
                                                 alt={item.alt}
@@ -560,10 +560,10 @@ const PortfolioWorks = React.memo(() => {
                         onClick={closeModal}
                     >
                         {/* Inner scroll container */}
-                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-14 px-4 md:px-8 lg:px-16">
+                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-6 sm:py-10 md:py-14 px-3 sm:px-4 md:px-8 lg:px-16">
                             
                             <div 
-                                className="relative w-full max-w-5xl bg-[#09090e]/95 border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_0_60px_-15px_rgba(0,0,0,0.9)] p-6 md:p-9 flex flex-col gap-6 backdrop-blur-3xl"
+                                className="relative w-full max-w-5xl bg-[#09090e]/95 border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_0_60px_-15px_rgba(0,0,0,0.9)] p-4 sm:p-6 md:p-9 flex flex-col gap-4 sm:gap-6 backdrop-blur-3xl"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 {/* Glowing ambient background orb */}
@@ -610,7 +610,7 @@ const PortfolioWorks = React.memo(() => {
                                 )}
 
                                 {/* Project Showcase Container */}
-                                <div className="relative w-full aspect-video md:max-h-[500px] overflow-hidden bg-black rounded-xl border border-white/10 flex items-center justify-center group shadow-inner">
+                                <div className="relative w-full aspect-video max-h-[200px] xs:max-h-[240px] sm:max-h-[360px] md:max-h-[500px] overflow-hidden bg-black rounded-xl border border-white/10 flex items-center justify-center group shadow-inner">
                                     {selectedProject.video && mediaTab === 'video' ? (
                                         <video
                                             src={selectedProject.video}

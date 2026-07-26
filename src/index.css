@@ -13,6 +13,8 @@
     html {
         /* Smooth scroll handled by JS requestAnimationFrame for better perf */
         scroll-behavior: auto;
+        /* Prevent horizontal scroll on all screen sizes */
+        overflow-x: hidden;
     }
 
     body {
@@ -22,6 +24,10 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
+        /* Prevent horizontal overflow on mobile */
+        overflow-x: hidden;
+        /* Ensure full width utilization */
+        min-width: 320px;
     }
 }
 

@@ -31,9 +31,9 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                     scale,
                     opacity,
                 }}
-                className="relative xl:sticky top-0 h-auto min-h-screen xl:h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 pt-24 pb-16 md:pt-0"
+                className="relative xl:sticky top-0 h-auto min-h-screen xl:h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-12 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pt-0 overflow-x-hidden"
             >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-175 rounded-full opacity-50 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0) 70%)' }}></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] sm:w-175 sm:h-175 max-w-[700px] max-h-[700px] rounded-full opacity-50 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.3) 0%, rgba(139,92,246,0) 70%)' }}></div>
 
                 <Motion.div
                     variants={containerVariants}

@@ -31,7 +31,7 @@ const About = React.memo(() => {
     };
 
     return (
-        <section className="relative pt-32 pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden" style={{ contain: 'layout style' }}>
+        <section className="relative pt-20 sm:pt-32 pb-16 sm:pb-28 px-4 sm:px-6 lg:px-12 overflow-hidden" style={{ contain: 'layout style' }}>
 
             <div className="max-w-6xl mx-auto relative z-10">
 

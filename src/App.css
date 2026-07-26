@@ -5,6 +5,13 @@
   text-align: left;
 }
 
+/* Scale font slightly smaller on very small mobile (< 480px) */
+@media (max-width: 479px) {
+  html {
+    font-size: 93%;
+  }
+}
+
 @media (min-width: 1024px) {
   html {
     font-size: 90%;

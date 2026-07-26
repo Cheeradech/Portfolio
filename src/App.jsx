@@ -193,8 +193,8 @@ const Portfolio = () => {
         {/* --- Global Fixed Background --- */}
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 bg-gradient-to-b from-[#111114] via-[#050505] to-[#000000]"></div>
         <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(30,58,138,0.15) 0%, rgba(30,58,138,0) 70%)' }}></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(124,45,18,0.15) 0%, rgba(124,45,18,0) 70%)' }}></div>
+          <div className="absolute top-[-20%] left-[-10%] w-[80%] sm:w-[60%] h-[80%] sm:h-[60%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(30,58,138,0.15) 0%, rgba(30,58,138,0) 70%)' }}></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[70%] sm:w-[50%] h-[70%] sm:h-[50%] rounded-full" style={{ background: 'radial-gradient(circle, rgba(124,45,18,0.15) 0%, rgba(124,45,18,0) 70%)' }}></div>
         </div>
 
         {/* Navbar is isolated — scroll events only re-render NavController */}

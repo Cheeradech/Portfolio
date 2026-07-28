@@ -59,13 +59,6 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
                                 </p>
                             </Motion.div>
 
-                            <Motion.p
-                                variants={itemVariants}
-                                className="max-w-md xl:max-w-lg text-slate-400 text-base md:text-lg xl:text-xl font-normal leading-relaxed"
-                            >
-                                {t.subtitle}
-                            </Motion.p>
-
                             {/* Terminal Component - Flowing Layout */}
                             <Motion.div 
                                 variants={itemVariants} 

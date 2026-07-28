@@ -229,7 +229,7 @@ const About = React.memo(() => {
                         {/* ── PDF Viewer ── */}
                         <div className="flex-1 overflow-hidden bg-[#060608]">
                             <iframe
-                                src="/Resumee.pdf#view=FitH&toolbar=0"
+                                src="/resumes.pdf#view=FitH&toolbar=0"
                                 className="w-full h-full border-0"
                                 title="Resume — Cheeradech Makcharoen"
                             />

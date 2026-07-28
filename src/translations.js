@@ -109,7 +109,7 @@ export const translations = {
             tabEducation: 'การศึกษา',
             eduTitle: 'วิทยาการคอมพิวเตอร์',
             eduInstitution: 'มหาวิทยาลัยกรุงเทพ',
-            eduPeriod: '2565 – ปัจจุบัน',
+            eduPeriod: '2566 – ปัจจุบัน',
             expTitle: 'นักพัฒนา Full Stack',
             expCompany: 'ฟรีแลนซ์',
             expPeriod: '2566 – ปัจจุบัน',

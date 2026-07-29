@@ -7,12 +7,23 @@ import SectionHeader from './ui/SectionHeader';
 const About = React.memo(() => {
     const [activeTab, setActiveTab] = useState('education');
     const [isResumeOpen, setIsResumeOpen] = useState(false);
+    // Detect mobile to switch between iframe and open-in-tab approach
+    const [isMobileView, setIsMobileView] = React.useState(
+        typeof window !== 'undefined' ? window.innerWidth < 768 : false
+    );
     const { lang } = useLanguage();
     const t = translations[lang].about;
     const handleTab = useCallback((id) => setActiveTab(id), []);
     const tabs = [
         { id: 'education', label: t.tabEducation },
     ];
+
+    React.useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const handleResize = () => setIsMobileView(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize, { passive: true });
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Close modal on Escape key
     useEffect(() => {
@@ -226,13 +237,36 @@ const About = React.memo(() => {
                             </div>
                         </div>
 
-                        {/* ── PDF Viewer ── */}
-                        <div className="flex-1 overflow-hidden bg-[#060608]">
-                            <iframe
-                                src="/resumes.pdf#view=FitH&toolbar=0"
-                                className="w-full h-full border-0"
-                                title="Resume — Cheeradech Makcharoen"
-                            />
+                        {/* ── PDF Viewer: iframe on tablet/desktop, card on mobile ── */}
+                        <div className="flex-1 overflow-hidden bg-[#060608] flex flex-col">
+                            {isMobileView ? (
+                                /* Mobile: can't read iframe PDF — show open button instead */
+                                <div className="flex-1 flex flex-col items-center justify-center gap-6 p-8 text-center">
+                                    <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+                                        <span className="material-symbols-outlined text-primary" style={{ fontSize: '40px' }}>picture_as_pdf</span>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <p className="text-white font-semibold text-lg">Cheeradech_Resume.pdf</p>
+                                        <p className="text-slate-500 text-sm">เปิดในแอป PDF เพื่อดูได้ชัดขึ้น</p>
+                                    </div>
+                                    <a
+                                        href="/resumes.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary/10 border border-primary/30 text-primary font-semibold hover:bg-primary/20 transition-all duration-200"
+                                        onClick={(e) => e.stopPropagation()}
+                                    >
+                                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>open_in_new</span>
+                                        เปิด Resume
+                                    </a>
+                                </div>
+                            ) : (
+                                <iframe
+                                    src="/resumes.pdf#view=FitH&toolbar=0"
+                                    className="w-full h-full border-0"
+                                    title="Resume — Cheeradech Makcharoen"
+                                />
+                            )}
                         </div>
 
                         {/* ── Footer bar ── */}

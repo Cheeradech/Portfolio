@@ -560,7 +560,7 @@ const PortfolioWorks = React.memo(() => {
                         onClick={closeModal}
                     >
                         {/* Inner scroll container */}
-                        <div className="min-h-screen w-full flex flex-col items-center justify-start py-6 sm:py-10 md:py-14 px-3 sm:px-4 md:px-8 lg:px-16">
+                        <div className="min-h-screen w-full flex flex-col items-center justify-start pt-20 pb-6 sm:py-10 md:py-14 px-3 sm:px-4 md:px-8 lg:px-16">
                             
                             <div 
                                 className="relative w-full max-w-5xl bg-[#09090e]/95 border border-white/[0.08] rounded-2xl overflow-hidden shadow-[0_0_60px_-15px_rgba(0,0,0,0.9)] p-4 sm:p-6 md:p-9 flex flex-col gap-4 sm:gap-6 backdrop-blur-3xl"

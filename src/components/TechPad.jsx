@@ -235,58 +235,49 @@ export default function TechPad() {
                 subtitle={te.craftingDesc}
             />
 
-            {/* ── Mobile Info Card (visible on mobile/tablet only, sticky below navbar) ── */}
-            <div className="lg:hidden w-full max-w-md px-4 mb-6 sticky top-20 z-50">
+            {/* ── Mobile Info Card (visible on mobile/tablet only) ── */}
+            <div className="lg:hidden w-full max-w-md px-4 mb-4">
                 <motion.div
                     key={activeSkill?.id ?? 'default'}
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: -8 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="bg-slate-800/70 border border-white/10 rounded-2xl p-5"
+                    className="bg-slate-800/70 border border-white/10 rounded-xl p-4"
                 >
                     {activeSkill ? (
                         <>
                             {/* Badge */}
-                            <div className="flex items-center gap-2 mb-3">
-                                <div className="w-8 h-[2px] bg-gradient-to-r from-primary to-transparent rounded-full" />
-                                <span className="text-[10px] font-mono text-primary/80 font-bold tracking-[0.25em] uppercase">ACTIVE SKILL</span>
+                            <div className="flex items-center gap-2 mb-2">
+                                <div className="w-6 h-[2px] bg-gradient-to-r from-primary to-transparent rounded-full" />
+                                <span className="text-[9px] font-mono text-primary/80 font-bold tracking-[0.25em] uppercase">ACTIVE SKILL</span>
                             </div>
-                            {/* Name */}
-                            <h2
-                                className="text-3xl font-black uppercase leading-none tracking-wide mb-3"
-                                style={{
-                                    background: 'linear-gradient(135deg, #ffffff 0%, #94b8ff 50%, #0d7ff2 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text',
-                                }}
-                            >
-                                {activeSkill.label}
-                            </h2>
-                            <div className="h-px w-full bg-gradient-to-r from-primary/60 via-primary/20 to-transparent mb-4 rounded-full" />
-                            {/* Stats */}
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <div className="text-xl font-bold text-white font-mono">{activeSkill.level}%</div>
-                                    <div className="text-[10px] text-slate-500 uppercase tracking-widest">{te.proficiencyLevel}</div>
-                                </div>
-                                <div>
-                                    <div className="flex items-center gap-0.5">
-                                        {Array(5).fill(0).map((_, i) => (
-                                            <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-sm`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }} />
-                                        ))}
-                                    </div>
-                                    <div className="text-[10px] text-slate-500 uppercase tracking-widest mt-1">{te.masteryTier}</div>
+                            {/* Name + stars row */}
+                            <div className="flex items-center justify-between gap-3">
+                                <h2
+                                    className="text-2xl font-black uppercase leading-none tracking-wide"
+                                    style={{
+                                        background: 'linear-gradient(135deg, #ffffff 0%, #94b8ff 50%, #0d7ff2 100%)',
+                                        WebkitBackgroundClip: 'text',
+                                        WebkitTextFillColor: 'transparent',
+                                        backgroundClip: 'text',
+                                    }}
+                                >
+                                    {activeSkill.label}
+                                </h2>
+                                <div className="flex items-center gap-0.5 shrink-0">
+                                    {Array(5).fill(0).map((_, i) => (
+                                        <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-xs`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }} />
+                                    ))}
                                 </div>
                             </div>
                         </>
                     ) : (
                         <>
-                            <div className="flex items-center gap-2 mb-2">
+                            <div className="flex items-center gap-2 mb-1">
                                 <span className="material-symbols-outlined text-primary text-sm">touch_app</span>
-                                <span className="text-[10px] font-mono text-slate-400 tracking-widest uppercase">Tap a key to explore</span>
+                                <span className="text-[9px] font-mono text-slate-400 tracking-widest uppercase">Tap a key to explore</span>
                             </div>
-                            <h2 className="text-2xl font-black text-white leading-tight uppercase">
+                            <h2 className="text-xl font-black text-white leading-tight uppercase">
                                 {te.precision} <span className="text-primary italic">{te.software}</span> {te.engineering}
                             </h2>
                         </>

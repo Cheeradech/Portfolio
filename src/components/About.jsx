@@ -93,10 +93,10 @@ const About = React.memo(() => {
                                     href="/resumes.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    title={t.viewResume}
-                                    className="flex items-center justify-center w-12 h-12 bg-slate-800 text-white rounded-xl border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 transition-all duration-300 shadow-sm cursor-pointer"
+                                    className="flex items-center justify-center gap-2 bg-slate-800 text-white px-5 py-3 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 transition-all duration-300 shadow-sm cursor-pointer"
                                 >
-                                    <span className="material-symbols-outlined" style={{ fontSize: '22px' }}>visibility</span>
+                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
+                                    {t.viewResume}
                                 </a>
                             ) : (
                                 <button

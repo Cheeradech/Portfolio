@@ -340,30 +340,29 @@ export default function TechPad() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
-                        <div className="space-y-1">
-                            <div className="text-2xl font-bold text-white font-mono h-8 flex items-center">
-                                {activeSkill ? `${activeSkill.level}%` : '100+'}
+                    {/* Stats — only show when a skill is active */}
+                    {activeSkill && (
+                        <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
+                            <div className="space-y-1">
+                                <div className="text-2xl font-bold text-white font-mono h-8 flex items-center">
+                                    {activeSkill.level}%
+                                </div>
+                                <div className="text-[10px] text-slate-500 uppercase tracking-widest">
+                                    {te.proficiencyLevel}
+                                </div>
                             </div>
-                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                {activeSkill ? te.proficiencyLevel : te.componentsBuilt}
-                            </div>
-                        </div>
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-1 h-8">
-                                {activeSkill ? (
-                                    Array(5).fill(0).map((_, i) => (
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-1 h-8">
+                                    {Array(5).fill(0).map((_, i) => (
                                         <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-lg`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }}></i>
-                                    ))
-                                ) : (
-                                    <span className="text-2xl font-bold text-white font-mono">99.9%</span>
-                                )}
-                            </div>
-                            <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                {activeSkill ? te.masteryTier : te.efficiencyRate}
+                                    ))}
+                                </div>
+                                <div className="text-[10px] text-slate-500 uppercase tracking-widest">
+                                    {te.masteryTier}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     <div className="p-5 bg-slate-800/70 rounded-2xl border border-white/5">
                         <div className="flex items-center gap-3 mb-3">

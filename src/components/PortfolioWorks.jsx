@@ -56,21 +56,21 @@ const aiVoiceProject = {
     toolsSub: ['TYPESCRIPT', 'TAILWIND CSS', 'PYTHON', 'SQLALCHEMY', 'GROQ API', 'n8n', 'JWT + HTTP-ONLY COOKIE'],
     tools: ['NEXT.JS', 'FASTAPI', 'SQLITE', 'WHISPER STT', 'QDRANT'],
     alt: "AI Voice Intelligence System",
-    descTh: "ระบบวิเคราะห์เสียงคอลเซ็นเตอร์ด้วย AI สำหรับถอดเสียง วิเคราะห์บทสนทนา สรุป Customer Insights และค้นข้อมูลประกันผ่าน RAG",
-    descEn: "AI-powered call center voice analytics for transcription, conversation analysis, customer insights, and warranty RAG search.",
-    longDescTh: "ระบบวิเคราะห์เสียงสนทนาลูกค้าด้วย AI สำหรับถอดเสียงคอลเซ็นเตอร์ วิเคราะห์ Sentiment, Topic และ Keyword สำคัญ สรุป Customer Insights บน Dashboard และเชื่อม RAG เพื่อค้นหาข้อมูลประกันจากเอกสารภายใน ช่วยให้ทีมตรวจจับ Pain Point และลดเวลาฟังย้อนหลังได้เร็วขึ้น",
-    longDescEn: "AI-powered customer call analytics system for call center transcription, sentiment, topic, and keyword analysis, dashboard-based customer insights, and warranty lookup through RAG over internal documents. It helps teams detect customer pain points and reduce manual call review time.",
+    descTh: "ระบบวิเคราะห์เสียงสนทนาคอลเซ็นเตอร์ด้วย AI ถอดความเสียงเป็นข้อความ วิเคราะห์อารมณ์ หัวข้อสนทนา คีย์เวิร์ดสำคัญ และแสดงผลข้อมูลลูกค้าเชิงลึกผ่าน Dashboard พร้อมระบบค้นหาข้อมูลการรับประกันสินค้าด้วยเทคโนโลยี RAG ช่วยค้นหา Pain Point ของลูกค้า และลดเวลาในการตรวจสอบสายสนทนาได้อย่างมีประสิทธิภาพ",
+    descEn: "ระบบวิเคราะห์เสียงสนทนาคอลเซ็นเตอร์ด้วย AI ถอดความเสียงเป็นข้อความ วิเคราะห์อารมณ์ หัวข้อสนทนา คีย์เวิร์ดสำคัญ และแสดงผลข้อมูลลูกค้าเชิงลึกผ่าน Dashboard พร้อมระบบค้นหาข้อมูลการรับประกันสินค้าด้วยเทคโนโลยี RAG ช่วยค้นหา Pain Point ของลูกค้า และลดเวลาในการตรวจสอบสายสนทนาได้อย่างมีประสิทธิภาพ",
+    longDescTh: "ระบบวิเคราะห์เสียงสนทนาคอลเซ็นเตอร์ด้วย AI ถอดความเสียงเป็นข้อความ วิเคราะห์อารมณ์ หัวข้อสนทนา คีย์เวิร์ดสำคัญ และแสดงผลข้อมูลลูกค้าเชิงลึกผ่าน Dashboard พร้อมระบบค้นหาข้อมูลการรับประกันสินค้าด้วยเทคโนโลยี RAG ช่วยค้นหา Pain Point ของลูกค้า และลดเวลาในการตรวจสอบสายสนทนาได้อย่างมีประสิทธิภาพ",
+    longDescEn: "ระบบวิเคราะห์เสียงสนทนาคอลเซ็นเตอร์ด้วย AI ถอดความเสียงเป็นข้อความ วิเคราะห์อารมณ์ หัวข้อสนทนา คีย์เวิร์ดสำคัญ และแสดงผลข้อมูลลูกค้าเชิงลึกผ่าน Dashboard พร้อมระบบค้นหาข้อมูลการรับประกันสินค้าด้วยเทคโนโลยี RAG ช่วยค้นหา Pain Point ของลูกค้า และลดเวลาในการตรวจสอบสายสนทนาได้อย่างมีประสิทธิภาพ",
     featuresTh: [
-        "Speech-to-Text และ AI Call Analysis",
-        "Dashboard Analytics และ Customer Insights",
-        "Warranty RAG Search",
-        "Login, Admin Role และ Audit Logs"
+        "ระบบแปลงเสียงเป็นข้อความและวิเคราะห์การโทรด้วย AI",
+        "แดชบอร์ดสรุปสถิติและวิเคราะห์ข้อมูลลูกค้าเชิงลึก",
+        "ระบบค้นหาข้อมูลประกันสินค้าอัจฉริยะด้วย RAG",
+        "ระบบเข้าสู่ระบบ จัดการสิทธิ์ Admin และบันทึกประวัติการใช้งาน"
     ],
     featuresEn: [
-        "Speech-to-Text and AI Call Analysis",
-        "Dashboard Analytics and Customer Insights",
-        "Warranty RAG Search",
-        "Login, Admin Role and Audit Logs"
+        "ระบบแปลงเสียงเป็นข้อความและวิเคราะห์การโทรด้วย AI",
+        "แดชบอร์ดสรุปสถิติและวิเคราะห์ข้อมูลลูกค้าเชิงลึก",
+        "ระบบค้นหาข้อมูลประกันสินค้าอัจฉริยะด้วย RAG",
+        "ระบบเข้าสู่ระบบ จัดการสิทธิ์ Admin และบันทึกประวัติการใช้งาน"
     ],
     captionsTh: [
         "Voice Analytics Dashboard: Sentiment, Topic และ Keyword Analysis",
@@ -109,25 +109,25 @@ const workItems = [
         category: 'Web Application / UI', 
         img: dormImages[0], 
         images: dormImages,
-        toolsMain: ['React', 'Tailwind', 'Node.js', 'PostgreSQL'],
-        toolsSub: ['Express', 'JWT Auth', 'Sequelize', 'REST API'],
-        tools: ['React', 'Tailwind', 'Node.js', 'PostgreSQL'],
+        toolsMain: ['React 19', 'Tailwind v4', 'Node.js', 'MongoDB'],
+        toolsSub: ['Express 5', 'Mongoose 9', 'Vite 7', 'REST API'],
+        tools: ['React 19', 'Tailwind v4', 'Node.js', 'MongoDB'],
         alt: "Dormitory Management System",
-        descTh: "แพลตฟอร์มจัดการหอพักและอพาร์ตเมนต์ที่ออกแบบมาเพื่อความเรียบง่ายและทันสมัย เน้นประสบการณ์ผู้ใช้งานที่ราบรื่น",
-        descEn: "A dormitory and apartment management platform designed for simplicity and modernity, focusing on seamless user experience.",
-        longDescTh: "แพลตฟอร์มจัดการหอพักและอพาร์ตเมนต์ที่ออกแบบมาเพื่อความเรียบง่ายและทันสมัย เน้นประสบการณ์ผู้ใช้งานที่ราบรื่น",
-        longDescEn: "A dormitory and apartment management platform designed for simplicity and modernity, focusing on seamless user experience.",
+        descTh: "เป็นระบบเว็บแอปพลิเคชันสำหรับบริหารจัดการหอพักและอพาร์ตเมนต์แบบครบวงจร ออกแบบมาเพื่อเน้นความเรียบง่าย ทันสมัย และช่วยลดความยุ่งยากในงานเอกสารและการคำนวณค่าใช้จ่ายประจำเดือนของผู้ดูแลหอพัก",
+        descEn: "เป็นระบบเว็บแอปพลิเคชันสำหรับบริหารจัดการหอพักและอพาร์ตเมนต์แบบครบวงจร ออกแบบมาเพื่อเน้นความเรียบง่าย ทันสมัย และช่วยลดความยุ่งยากในงานเอกสารและการคำนวณค่าใช้จ่ายประจำเดือนของผู้ดูแลหอพัก",
+        longDescTh: "เป็นระบบเว็บแอปพลิเคชันสำหรับบริหารจัดการหอพักและอพาร์ตเมนต์แบบครบวงจร ออกแบบมาเพื่อเน้นความเรียบง่าย ทันสมัย และช่วยลดความยุ่งยากในงานเอกสารและการคำนวณค่าใช้จ่ายประจำเดือนของผู้ดูแลหอพัก",
+        longDescEn: "เป็นระบบเว็บแอปพลิเคชันสำหรับบริหารจัดการหอพักและอพาร์ตเมนต์แบบครบวงจร ออกแบบมาเพื่อเน้นความเรียบง่าย ทันสมัย และช่วยลดความยุ่งยากในงานเอกสารและการคำนวณค่าใช้จ่ายประจำเดือนของผู้ดูแลหอพัก",
         featuresTh: [
-             "จัดการห้องพักและสถานะการจอง",
-             "ระบบบันทึกค่าใช้จ่ายและคำนวณบิลรายเดือน",
-             "ระบบแจ้งซ่อมและติดตามสถานะสำหรับผู้เช่า",
-             "Dashboard สรุปรายรับและรายงานวิเคราะห์ข้อมูล"
+             "ระบบจัดการห้องพักและอาคาร (แยกโซนและสถานะห้อง)",
+             "ระบบจัดการข้อมูลผู้เช่าและสัญญาเช่า",
+             "ระบบบันทึกจดมิเตอร์และคำนวณค่าน้ำ-ค่าไฟ",
+             "ระบบออกบิล ใบแจ้งหนี้ และสรุปแดชบอร์ดรายรับ"
         ],
         featuresEn: [
-             "Room and reservation management",
-             "Monthly billing and expense calculation",
-             "Maintenance request and tracking for tenants",
-             "Revenue summary dashboard and reports"
+             "ระบบจัดการห้องพักและอาคาร (แยกโซนและสถานะห้อง)",
+             "ระบบจัดการข้อมูลผู้เช่าและสัญญาเช่า",
+             "ระบบบันทึกจดมิเตอร์และคำนวณค่าน้ำ-ค่าไฟ",
+             "ระบบออกบิล ใบแจ้งหนี้ และสรุปแดชบอร์ดรายรับ"
         ],
         captionsTh: [
             "Main Dashboard: ภาพรวมรายรับและสถานะห้องพักทั้งหมด",
@@ -162,25 +162,27 @@ const workItems = [
         category: 'Web Application / System', 
         img: stockImages[1], 
         images: stockImages,
-        toolsMain: ['Vue.js', 'Tailwind', 'Firebase'],
-        toolsSub: ['Vuex', 'Firestore', 'Firebase Auth', 'Cloud Storage'],
-        tools: ['Vue.js', 'Tailwind', 'Firebase'],
+        toolsMain: ['React', 'Python (FastAPI)', 'Electron', 'SQLite'],
+        toolsSub: ['Tailwind CSS', 'Recharts', 'PyInstaller', 'Axios'],
+        tools: ['React', 'Python (FastAPI)', 'Electron', 'SQLite'],
         alt: "Stock Management System",
-        descTh: "ระบบจัดการคลังสินค้าที่มาพร้อมกับแดชบอร์ดที่สะอาดตา ช่วยให้การติดตามสถานะง่ายและทำงานได้อย่างรวดเร็ว",
-        descEn: "An inventory management system featuring a clean dashboard, enabling easy tracking and efficient workflows.",
-        longDescTh: "ระบบจัดการคลังสินค้าที่มาพร้อมกับแดชบอร์ดที่สะอาดตา ช่วยให้การติดตามสถานะง่ายและทำงานได้อย่างรวดเร็ว",
-        longDescEn: "An inventory management system featuring a clean dashboard, enabling easy tracking and efficient workflows.",
+        descTh: "เป็นระบบจัดการสต็อกสินค้าและยอดขายที่ถูกออกแบบมาให้มีหน้าตาดีไซน์ทันสมัย ใช้งานง่าย (User-Friendly Dashboard) มีระบบตัดสต็อกอัตโนมัติ คำนวณต้นทุน/กำไร/ภาษี (VAT 7%) และรายงานสถิติการขายครบวงจร โดยทำงานแบบ Offline-first ผ่านฐานข้อมูล SQLite ในเครื่อง",
+        descEn: "เป็นระบบจัดการสต็อกสินค้าและยอดขายที่ถูกออกแบบมาให้มีหน้าตาดีไซน์ทันสมัย ใช้งานง่าย (User-Friendly Dashboard) มีระบบตัดสต็อกอัตโนมัติ คำนวณต้นทุน/กำไร/ภาษี (VAT 7%) และรายงานสถิติการขายครบวงจร โดยทำงานแบบ Offline-first ผ่านฐานข้อมูล SQLite ในเครื่อง",
+        longDescTh: "เป็นระบบจัดการสต็อกสินค้าและยอดขายที่ถูกออกแบบมาให้มีหน้าตาดีไซน์ทันสมัย ใช้งานง่าย (User-Friendly Dashboard) มีระบบตัดสต็อกอัตโนมัติ คำนวณต้นทุน/กำไร/ภาษี (VAT 7%) และรายงานสถิติการขายครบวงจร โดยทำงานแบบ Offline-first ผ่านฐานข้อมูล SQLite ในเครื่อง",
+        longDescEn: "เป็นระบบจัดการสต็อกสินค้าและยอดขายที่ถูกออกแบบมาให้มีหน้าตาดีไซน์ทันสมัย ใช้งานง่าย (User-Friendly Dashboard) มีระบบตัดสต็อกอัตโนมัติ คำนวณต้นทุน/กำไร/ภาษี (VAT 7%) และรายงานสถิติการขายครบวงจร โดยทำงานแบบ Offline-first ผ่านฐานข้อมูล SQLite ในเครื่อง",
         featuresTh: [
-             "เช็คสต็อกและจำนวนสินค้าแบบ Real-time",
-             "ระบบรับเข้า-จ่ายออกสินค้าที่รวดเร็ว",
-             "ระบบแจ้งเตือนเมื่อสินค้าใกล้หมดคลัง",
-             "Dashboard วิเคราะห์การขายและสถิติสินค้าขายดี"
+             "Real-time stock deduction and auto-restoration: ระบบคิดเงินหน้าร้านพร้อมตัดสต็อกสินค้าทันที และคืนสต็อกอัตโนมัติเมื่อยกเลิกรายการ",
+             "Multi-category and brand management: ระบบจัดการสินค้า หมวดหมู่ แบรนด์ และอัปโหลดรูปภาพสินค้าจากเครื่อง",
+             "Low stock alerts and notifications: ระบบตรวจจับและแจ้งเตือนสินค้าสต็อกต่ำอัตโนมัติ (Low Stock Threshold)",
+             "Sales analytics and gross profit dashboard: วิเคราะห์ยอดขาย กำไรขั้นต้น (Gross Profit Margin) และกราฟสถิติด้วย Recharts",
+             "Offline Windows desktop application packaging: แพ็กเกจระบบเป็นแอปพลิเคชันเดสก์ท็อปแบบ .exe (Electron + Python FastAPI) รันออฟไลน์ได้ 100%"
         ],
         featuresEn: [
-             "Real-time stock level and tracking",
-             "Fast check-in and check-out workflows",
-             "Low stock alerts and notifications",
-             "Sales analytics and best-seller insights"
+             "Real-time stock deduction and auto-restoration: ระบบคิดเงินหน้าร้านพร้อมตัดสต็อกสินค้าทันที และคืนสต็อกอัตโนมัติเมื่อยกเลิกรายการ",
+             "Multi-category and brand management: ระบบจัดการสินค้า หมวดหมู่ แบรนด์ และอัปโหลดรูปภาพสินค้าจากเครื่อง",
+             "Low stock alerts and notifications: ระบบตรวจจับและแจ้งเตือนสินค้าสต็อกต่ำอัตโนมัติ (Low Stock Threshold)",
+             "Sales analytics and gross profit dashboard: วิเคราะห์ยอดขาย กำไรขั้นต้น (Gross Profit Margin) และกราฟสถิติด้วย Recharts",
+             "Offline Windows desktop application packaging: แพ็กเกจระบบเป็นแอปพลิเคชันเดสก์ท็อปแบบ .exe (Electron + Python FastAPI) รันออฟไลน์ได้ 100%"
         ],
         captionsTh: [
             "Dashboard: ยอดขาย กำไร และสินค้าขายดีประจำวัน",

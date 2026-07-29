@@ -18,6 +18,10 @@
     cursor: pointer;
     /* Remove 300ms tap delay on touch devices */
     touch-action: manipulation;
+    /* Prevent long-press text selection / copy menu */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .numpad-layout {
@@ -40,6 +44,10 @@
     height: 82px;
     transform-style: preserve-3d;
     perspective: 1000px;
+    /* Prevent iOS/Android long-press text selection popup */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .key-cap {
@@ -51,6 +59,10 @@
     cursor: pointer;
     /* Allow touch/click events to reach this element so closest() works */
     pointer-events: auto;
+    /* Prevent long-press popup */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .key-hovered {

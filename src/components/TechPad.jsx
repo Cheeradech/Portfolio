@@ -59,12 +59,19 @@ const TechKey = memo(({ skill, isActive, onTap }) => {
         onTap(skill);
     }, [skill, onTap]);
 
+    // Block browser long-press context menu (Copy / Paste popup) on mobile
+    const blockContextMenu = React.useCallback((e) => {
+        e.preventDefault();
+        return false;
+    }, []);
+
     return (
         <div
             className="key-wrapper"
             onTouchStart={handleTouchStart}
             onClick={() => onTap(skill)}
-            style={{ touchAction: 'manipulation' }}
+            onContextMenu={blockContextMenu}
+            style={{ touchAction: 'manipulation', userSelect: 'none', WebkitUserSelect: 'none' }}
         >
             <div
                 ref={capRef}
@@ -73,6 +80,7 @@ const TechKey = memo(({ skill, isActive, onTap }) => {
                 aria-label={skill.label}
                 className={`key-cap ${skill.colorClass} ${isActive ? 'key-hovered' : ''}`}
                 role="button"
+                onContextMenu={blockContextMenu}
             >
                 <div className="key-side"></div>
                 <div className="key-top">{skill.icon}</div>
@@ -204,17 +212,11 @@ export default function TechPad() {
         });
     }, [isMobile]);
 
-    // Unified click/tap handler — called directly from each TechKey
-    // This avoids all coordinate calculation and event delegation issues on touch
+    // Unified tap handler — called directly from each TechKey
     const handleKeyTap = useCallback((skill) => {
-        if (isMobile) {
-            // Toggle on/off
-            setActiveSkill(prev => prev?.id === skill.id ? null : skill);
-        } else {
-            // On desktop, mousemove handles hover; click just selects
-            setActiveSkill(prev => prev?.id === skill.id ? null : skill);
-        }
-    }, [isMobile]);
+        // Set skill directly; tap same key again to deselect (toggle off)
+        setActiveSkill(prev => prev?.id === skill.id ? null : skill);
+    }, []);
 
     const detailsOpacityValue = hasTriggered ? 1 : 0;
     const detailsXValue = hasTriggered ? 0 : -100;

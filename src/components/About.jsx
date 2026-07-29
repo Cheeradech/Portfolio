@@ -86,15 +86,27 @@ const About = React.memo(() => {
                             </p>
                         </div>
 
-                        {/* Resume button — opens modal */}
+                        {/* Resume button — modal on desktop, direct open on mobile */}
                         <div className="pt-6 flex flex-col sm:flex-row gap-4">
-                            <button
-                                onClick={() => setIsResumeOpen(true)}
-                                className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 hover:shadow-[0_0_20px_rgba(13,127,242,0.15)] transition-all duration-300 shadow-sm cursor-pointer"
-                            >
-                                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
-                                {t.viewResume}
-                            </button>
+                            {isMobileView ? (
+                                <a
+                                    href="/resumes.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 transition-all duration-300 shadow-sm cursor-pointer"
+                                >
+                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>open_in_new</span>
+                                    {t.viewResume}
+                                </a>
+                            ) : (
+                                <button
+                                    onClick={() => setIsResumeOpen(true)}
+                                    className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 hover:shadow-[0_0_20px_rgba(13,127,242,0.15)] transition-all duration-300 shadow-sm cursor-pointer"
+                                >
+                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
+                                    {t.viewResume}
+                                </button>
+                            )}
                         </div>
 
                         <div className="flex items-center gap-2 text-xs text-slate-500 pl-1 -mt-2">

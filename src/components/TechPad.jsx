@@ -277,7 +277,7 @@ export default function TechPad() {
                         <>
                             <div className="flex items-center gap-2 mb-1">
                                 <span className="material-symbols-outlined text-primary text-sm">touch_app</span>
-                                <span className="text-[9px] font-mono text-slate-400 tracking-widest uppercase">Tap a key to explore</span>
+                                <span className="text-[9px] font-mono text-slate-400 tracking-widest uppercase">กดปุ่มค้างเพื่อดูทักษะ</span>
                             </div>
                             <h2 className="text-xl font-black text-white leading-tight uppercase">
                                 {te.precision} <span className="text-primary italic">{te.software}</span> {te.engineering}

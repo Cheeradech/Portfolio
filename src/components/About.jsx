@@ -221,7 +221,7 @@ const About = React.memo(() => {
                                 {/* Right: Actions */}
                                 <div className="flex items-center gap-2">
                                     <a
-                                        href="/resumes.pdf"
+                                        href="/resumed.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all text-xs font-medium"

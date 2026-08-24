@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
@@ -25,12 +26,21 @@ const About = React.memo(() => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Close modal on Escape key
+    // Handle Open Resume: open modal while keeping background at About section
+    const handleOpenResume = useCallback(() => {
+        setIsResumeOpen(true);
+    }, []);
+
+    // Close modal on Escape key and lock body scroll
     useEffect(() => {
         if (!isResumeOpen) return;
+        document.body.style.overflow = 'hidden';
         const onKey = (e) => { if (e.key === 'Escape') setIsResumeOpen(false); };
         window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
+        return () => {
+            document.body.style.overflow = '';
+            window.removeEventListener('keydown', onKey);
+        };
     }, [isResumeOpen]);
 
     const tabContent = {
@@ -86,27 +96,15 @@ const About = React.memo(() => {
                             </p>
                         </div>
 
-                        {/* Resume button — modal on desktop, direct open on mobile */}
+                        {/* Resume button */}
                         <div className="pt-6 flex flex-col sm:flex-row gap-4">
-                            {isMobileView ? (
-                                <a
-                                    href="/resumes.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 bg-slate-800 text-white px-5 py-3 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 transition-all duration-300 shadow-sm cursor-pointer"
-                                >
-                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
-                                    {t.viewResume}
-                                </a>
-                            ) : (
-                                <button
-                                    onClick={() => setIsResumeOpen(true)}
-                                    className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 hover:shadow-[0_0_20px_rgba(13,127,242,0.15)] transition-all duration-300 shadow-sm cursor-pointer"
-                                >
-                                    <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
-                                    {t.viewResume}
-                                </button>
-                            )}
+                            <button
+                                onClick={handleOpenResume}
+                                className="flex items-center justify-center gap-2 bg-slate-800 text-white px-6 py-3.5 rounded-xl font-semibold border border-slate-700 hover:border-primary/60 hover:bg-slate-700/70 hover:shadow-[0_0_20px_rgba(13,127,242,0.15)] transition-all duration-300 shadow-sm cursor-pointer"
+                            >
+                                <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>visibility</span>
+                                {t.viewResume}
+                            </button>
                         </div>
 
                         <div className="flex items-center gap-2 text-xs text-slate-500 pl-1 -mt-2">
@@ -194,105 +192,79 @@ const About = React.memo(() => {
             </div>
         </section>
 
-        {/* ── Resume Modal ── */}
-        <AnimatePresence>
-            {isResumeOpen && (
-                <Motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 md:p-10"
-                    onClick={() => setIsResumeOpen(false)}
-                >
-                    {/* Backdrop */}
-                    <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
-
-                    {/* Modal card */}
+        {/* ── Resume Modal: Portal to document.body to break free from section stacking context ── */}
+        {typeof document !== 'undefined' && createPortal(
+            <AnimatePresence>
+                {isResumeOpen && (
                     <Motion.div
-                        initial={{ opacity: 0, scale: 0.94, y: 24 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.94, y: 24 }}
-                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative w-full max-w-4xl h-[88vh] bg-[#09090e] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_100px_-20px_rgba(13,127,242,0.4)] flex flex-col"
-                        onClick={(e) => e.stopPropagation()}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="fixed inset-0 z-[999999] flex items-center justify-center p-3 sm:p-5 md:p-6"
+                        onClick={() => setIsResumeOpen(false)}
                     >
-                        {/* Top glow line */}
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-primary/70 to-transparent pointer-events-none" />
-                        <div className="absolute top-0 left-1/4 w-1/2 h-40 rounded-full blur-3xl bg-primary/8 pointer-events-none" />
+                        {/* Backdrop */}
+                        <div className="absolute inset-0 bg-black/85 backdrop-blur-xl" />
 
-                        {/* ── Header bar ── */}
-                        <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.07] shrink-0 bg-[#0d0d12]">
-                            {/* Left: traffic lights + filename */}
-                            <div className="flex items-center gap-3">
-                                <div className="flex gap-1.5">
+                        {/* Modal card - Exact PDF proportioned container for seamless reading */}
+                        <Motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            className="relative w-full max-w-[min(92vw,calc((88vh-52px)*(827.25/1069.5)))] bg-[#0d0d12] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_90px_-10px_rgba(13,127,242,0.4)] flex flex-col z-10"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            {/* Top glow line */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-primary/70 to-transparent pointer-events-none" />
+                            <div className="absolute top-0 left-1/4 w-1/2 h-40 rounded-full blur-3xl bg-primary/8 pointer-events-none" />
+
+                            {/* ── Header bar ── */}
+                            <div className="flex items-center justify-between px-4 sm:px-5 py-2.5 border-b border-white/[0.07] shrink-0 bg-[#0d0d12]">
+                                {/* Left: traffic lights */}
+                                <div className="flex items-center gap-1.5">
                                     <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
                                     <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
                                     <div className="w-3 h-3 rounded-full bg-[#28c840]" />
                                 </div>
-                                <div className="w-px h-4 bg-white/10" />
-                                <div className="flex items-center gap-1.5">
-                                    <span className="material-symbols-outlined text-slate-500" style={{ fontSize: '15px' }}>description</span>
-                                    <span className="text-[11px] font-mono text-slate-400 tracking-widest">Cheeradech_Resume.pdf</span>
-                                </div>
-                            </div>
 
-                            {/* Right: close only */}
-                            <div className="flex items-center gap-2">
-                                <button
-                                    onClick={() => setIsResumeOpen(false)}
-                                    className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-red-500/15 hover:border-red-500/40 transition-all duration-200 cursor-pointer"
-                                    aria-label="Close"
-                                >
-                                    <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>close</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* ── PDF Viewer: iframe on tablet/desktop, card on mobile ── */}
-                        <div className="flex-1 overflow-hidden bg-[#060608] flex flex-col">
-                            {isMobileView ? (
-                                /* Mobile: can't read iframe PDF — show open button instead */
-                                <div className="flex-1 flex flex-col items-center justify-center gap-6 p-8 text-center">
-                                    <div className="w-20 h-20 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-                                        <span className="material-symbols-outlined text-primary" style={{ fontSize: '40px' }}>picture_as_pdf</span>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <p className="text-white font-semibold text-lg">Cheeradech_Resume.pdf</p>
-                                        <p className="text-slate-500 text-sm">เปิดในแอป PDF เพื่อดูได้ชัดขึ้น</p>
-                                    </div>
+                                {/* Right: Actions */}
+                                <div className="flex items-center gap-2">
                                     <a
                                         href="/resumes.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary/10 border border-primary/30 text-primary font-semibold hover:bg-primary/20 transition-all duration-200"
-                                        onClick={(e) => e.stopPropagation()}
+                                        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all text-xs font-medium"
+                                        title="Open in new tab"
                                     >
-                                        <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>open_in_new</span>
-                                        เปิด Resume
+                                        <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>open_in_new</span>
+                                        <span>เปิดเต็มจอ</span>
                                     </a>
+                                    <button
+                                        onClick={() => setIsResumeOpen(false)}
+                                        className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-red-500/15 hover:border-red-500/40 transition-all duration-200 cursor-pointer"
+                                        aria-label="Close"
+                                    >
+                                        <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>close</span>
+                                    </button>
                                 </div>
-                            ) : (
+                            </div>
+
+                            {/* ── PDF Viewer: Seamless Fit without letterboxing ── */}
+                            <div className="w-full aspect-[827.25/1069.5] overflow-hidden bg-white relative flex items-center justify-center">
                                 <iframe
-                                    src="/resumes.pdf#view=FitH&toolbar=0"
-                                    className="w-full h-full border-0"
+                                    src="/resumes.pdf#view=Fit&toolbar=0&navpanes=0&scrollbar=0"
+                                    className="w-full h-full border-0 bg-white block"
                                     title="Resume — Cheeradech Makcharoen"
                                 />
-                            )}
-                        </div>
-
-                        {/* ── Footer bar ── */}
-                        <div className="px-5 py-2 border-t border-white/[0.05] flex items-center justify-between shrink-0 bg-[#0d0d12]">
-                            <span className="text-[10px] font-mono text-slate-600 tracking-[0.15em] uppercase">Press ESC to close</span>
-                            <div className="flex items-center gap-1.5">
-                                <div className="w-1.5 h-1.5 rounded-full bg-primary/70 animate-pulse" />
-                                <span className="text-[10px] font-mono text-slate-600 tracking-[0.15em] uppercase">PDF Viewer</span>
                             </div>
-                        </div>
+                        </Motion.div>
                     </Motion.div>
-                </Motion.div>
-            )}
-        </AnimatePresence>
+                )}
+            </AnimatePresence>,
+            document.body
+        )}
         </>
     );
 });

@@ -16,7 +16,7 @@ const Contact = React.memo(() => {
 
         const formData = new FormData(form);
         try {
-            const response = await fetch('https://formsubmit.co/ajax/31dc829c716b6484d806865c79036305', {
+            const response = await fetch('https://formsubmit.co/ajax/Cheeradech.work@gmail.com', {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -24,7 +24,9 @@ const Contact = React.memo(() => {
                 }
             });
 
-            if (response.ok) {
+            const data = await response.json().catch(() => null);
+
+            if (response.ok && (data?.success === 'true' || data?.success === true)) {
                 setStatus('success');
                 form.reset();
                 setTimeout(() => setStatus('idle'), 5000);

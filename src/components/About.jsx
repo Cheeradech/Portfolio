@@ -8,6 +8,7 @@ import SectionHeader from './ui/SectionHeader';
 const About = React.memo(() => {
     const [activeTab, setActiveTab] = useState('education');
     const [isResumeOpen, setIsResumeOpen] = useState(false);
+    const [isPdfLoaded, setIsPdfLoaded] = useState(false);
     // Detect mobile to switch between iframe and open-in-tab approach
     const [isMobileView, setIsMobileView] = React.useState(
         typeof window !== 'undefined' ? window.innerWidth < 768 : false
@@ -28,6 +29,7 @@ const About = React.memo(() => {
 
     // Handle Open Resume: open modal while keeping background at About section
     const handleOpenResume = useCallback(() => {
+        setIsPdfLoaded(false);
         setIsResumeOpen(true);
     }, []);
 
@@ -209,10 +211,10 @@ const About = React.memo(() => {
 
                         {/* Modal card - Exact PDF proportioned container for seamless reading */}
                         <Motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
                             className="relative w-full max-w-[min(92vw,calc((88vh-52px)*(827.25/1069.5)))] bg-[#0d0d12] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_90px_-10px_rgba(13,127,242,0.4)] flex flex-col z-10"
                             onClick={(e) => e.stopPropagation()}
                         >
@@ -253,9 +255,17 @@ const About = React.memo(() => {
 
                             {/* ── PDF Viewer: Seamless Fit without letterboxing ── */}
                             <div className="w-full aspect-[827.25/1069.5] overflow-hidden bg-white relative flex items-center justify-center">
+                                {!isPdfLoaded && (
+                                    <div className="absolute inset-0 bg-white flex items-center justify-center z-0 pointer-events-none">
+                                        <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                                    </div>
+                                )}
                                 <iframe
                                     src="/resumes.pdf#view=Fit&toolbar=0&navpanes=0&scrollbar=0"
-                                    className="w-full h-full border-0 bg-white block"
+                                    onLoad={() => setTimeout(() => setIsPdfLoaded(true), 120)}
+                                    className={`w-full h-full border-0 bg-white block transition-opacity duration-300 ${
+                                        isPdfLoaded ? 'opacity-100' : 'opacity-0'
+                                    }`}
                                     title="Resume — Cheeradech Makcharoen"
                                 />
                             </div>

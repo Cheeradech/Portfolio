@@ -8,11 +8,6 @@ import SectionHeader from './ui/SectionHeader';
 const About = React.memo(() => {
     const [activeTab, setActiveTab] = useState('education');
     const [isResumeOpen, setIsResumeOpen] = useState(false);
-    const [isPdfLoaded, setIsPdfLoaded] = useState(false);
-    // Detect mobile to switch between iframe and open-in-tab approach
-    const [isMobileView, setIsMobileView] = React.useState(
-        typeof window !== 'undefined' ? window.innerWidth < 768 : false
-    );
     const { lang } = useLanguage();
     const t = translations[lang].about;
     const handleTab = useCallback((id) => setActiveTab(id), []);
@@ -20,16 +15,8 @@ const About = React.memo(() => {
         { id: 'education', label: t.tabEducation },
     ];
 
-    React.useEffect(() => {
-        if (typeof window === 'undefined') return;
-        const handleResize = () => setIsMobileView(window.innerWidth < 768);
-        window.addEventListener('resize', handleResize, { passive: true });
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
     // Handle Open Resume: open modal while keeping background at About section
     const handleOpenResume = useCallback(() => {
-        setIsPdfLoaded(false);
         setIsResumeOpen(true);
     }, []);
 
@@ -209,13 +196,13 @@ const About = React.memo(() => {
                         {/* Backdrop */}
                         <div className="absolute inset-0 bg-black/85 backdrop-blur-xl" />
 
-                        {/* Modal card - Exact PDF proportioned container for seamless reading */}
+                        {/* Modal card - Exact proportioned container for seamless reading across all devices */}
                         <Motion.div
                             initial={{ opacity: 0, y: 8 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 8 }}
                             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                            className="relative w-full max-w-[min(92vw,calc((88vh-52px)*(827.25/1069.5)))] bg-[#0d0d12] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_90px_-10px_rgba(13,127,242,0.4)] flex flex-col z-10"
+                            className="relative w-full max-w-[min(92vw,calc((88vh-52px)*(827.25/1069.5)))] max-h-[88vh] bg-[#0d0d12] border border-white/10 rounded-2xl overflow-hidden shadow-[0_0_90px_-10px_rgba(13,127,242,0.4)] flex flex-col z-10"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {/* Top glow line */}
@@ -238,7 +225,7 @@ const About = React.memo(() => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all text-xs font-medium"
-                                        title="Open in new tab"
+                                        title="Open PDF in new tab"
                                     >
                                         <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>open_in_new</span>
                                         <span>เปิดเต็มจอ</span>
@@ -253,20 +240,14 @@ const About = React.memo(() => {
                                 </div>
                             </div>
 
-                            {/* ── PDF Viewer: Seamless Fit without letterboxing ── */}
-                            <div className="w-full aspect-[827.25/1069.5] overflow-hidden bg-white relative flex items-center justify-center">
-                                {!isPdfLoaded && (
-                                    <div className="absolute inset-0 bg-white flex items-center justify-center z-0 pointer-events-none">
-                                        <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
-                                    </div>
-                                )}
-                                <iframe
-                                    src="/resumes.pdf#view=Fit&toolbar=0&navpanes=0&scrollbar=0"
-                                    onLoad={() => setTimeout(() => setIsPdfLoaded(true), 120)}
-                                    className={`w-full h-full border-0 bg-white block transition-opacity duration-300 ${
-                                        isPdfLoaded ? 'opacity-100' : 'opacity-0'
-                                    }`}
-                                    title="Resume — Cheeradech Makcharoen"
+                            {/* ── Resume Viewer: Ultra-sharp responsive rendering for all screen sizes (iOS, Android, iPad, Mac, PC) ── */}
+                            <div className="w-full overflow-y-auto overflow-x-hidden bg-white relative flex flex-col items-center">
+                                <img
+                                    src="/resume_preview.webp"
+                                    alt="Resume — Cheeradech Makcharoen"
+                                    className="w-full h-auto block select-none"
+                                    loading="eager"
+                                    decoding="async"
                                 />
                             </div>
                         </Motion.div>

@@ -6,16 +6,22 @@ import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
 import programmingFundamentalsPdf from '../assets/Cerfiticate/certificate-of-completion-for-programming-100-fundamentals.pdf';
 import certificationPdf from '../assets/Cerfiticate/Certification.pdf';
+import programmingFundamentalsPreview from '../assets/Cerfiticate/programming-100-fundamentals-preview.png';
+import cybersecurityFoundationPreview from '../assets/Cerfiticate/cybersecurity-foundation-preview.png';
 
 const certificates = [
     {
         key: 'programmingFundamentals',
         file: programmingFundamentalsPdf,
+        preview: programmingFundamentalsPreview,
+        previewAspect: 'aspect-[1.35]',
         accent: 'from-blue-500/25 via-cyan-400/10 to-transparent',
     },
     {
         key: 'certification',
         file: certificationPdf,
+        preview: cybersecurityFoundationPreview,
+        previewAspect: 'aspect-[1.414]',
         accent: 'from-violet-500/25 via-blue-400/10 to-transparent',
     },
 ];
@@ -50,12 +56,14 @@ const Certificates = React.memo(() => {
                                 <div className={`absolute inset-x-0 top-0 h-32 bg-gradient-to-b ${item.accent} pointer-events-none`} />
 
                                 <div className="relative z-10 p-4 sm:p-5">
-                                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_18px_45px_rgba(0,0,0,0.35)]">
-                                        <iframe
-                                            src={`${item.file}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}
-                                            title={cert.title}
+                                    <div className={`relative ${item.previewAspect} overflow-hidden rounded-xl border border-white/10 bg-white p-1 shadow-[0_18px_45px_rgba(0,0,0,0.35)] sm:p-1.5`}>
+                                        <img
+                                            src={item.preview}
+                                            alt={cert.title}
                                             loading="lazy"
-                                            className="h-full w-full"
+                                            decoding="async"
+                                            draggable="false"
+                                            className="h-full w-full object-contain"
                                         />
                                     </div>
 

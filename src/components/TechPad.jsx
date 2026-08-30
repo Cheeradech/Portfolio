@@ -7,26 +7,26 @@ import nextIcon from '../assets/next.png';
 import './TechPad.css';
 
 const skillsData = [
-    { id: 'html', label: 'HTML5', description: 'พื้นฐานโครงสร้างเว็บไซต์ที่แข็งแกร่ง รองรับ SEO และ Semantic HTML', level: 90, stars: 5, colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
-    { id: 'css', label: 'CSS3', description: 'การจัดเลย์เอาท์ที่ซับซ้อน อนิเมชั่น และ Responsive Design ระดับสูง', level: 85, stars: 4, colorClass: 'color-css', icon: <i className="fab fa-css3-alt tech-icon text-5xl"></i> },
-    { id: 'js', label: 'JavaScript', description: 'ตรรกะโปรแกรมที่ซับซ้อน การจัดการสถานะ และการประมวลผลข้อมูลหนักๆ', level: 88, stars: 5, colorClass: 'color-js', icon: <i className="fab fa-js tech-icon text-5xl"></i> },
-    { id: 'react', label: 'React', description: 'การสร้าง Component ที่นำกลับมาใช้ใหม่ได้ และการจัดการ State ขนาดใหญ่', level: 92, stars: 5, colorClass: 'color-react', icon: <i className="fab fa-react tech-icon text-5xl animate-[spin_12s_linear_infinite]"></i> },
+    { id: 'html', label: 'HTML5', description: 'พื้นฐานโครงสร้างเว็บไซต์ที่แข็งแกร่ง รองรับ SEO และ Semantic HTML', level: 90, colorClass: 'color-html', icon: <i className="fab fa-html5 tech-icon text-5xl"></i> },
+    { id: 'css', label: 'CSS3', description: 'การจัดเลย์เอาท์ที่ซับซ้อน อนิเมชั่น และ Responsive Design ระดับสูง', level: 85, colorClass: 'color-css', icon: <i className="fab fa-css3-alt tech-icon text-5xl"></i> },
+    { id: 'js', label: 'JavaScript', description: 'ตรรกะโปรแกรมที่ซับซ้อน การจัดการสถานะ และการประมวลผลข้อมูลหนักๆ', level: 88, colorClass: 'color-js', icon: <i className="fab fa-js tech-icon text-5xl"></i> },
+    { id: 'react', label: 'React', description: 'การสร้าง Component ที่นำกลับมาใช้ใหม่ได้ และการจัดการ State ขนาดใหญ่', level: 92, colorClass: 'color-react', icon: <i className="fab fa-react tech-icon text-5xl animate-[spin_12s_linear_infinite]"></i> },
     {
-        id: 'tailwind', label: 'Tailwind CSS', description: 'Utility-first CSS ที่ช่วยให้พัฒนา UI ได้รวดเร็วและคงเส้นคงวา', level: 95, stars: 5, colorClass: 'color-tailwind',
+        id: 'tailwind', label: 'Tailwind CSS', description: 'Utility-first CSS ที่ช่วยให้พัฒนา UI ได้รวดเร็วและคงเส้นคงวา', level: 95, colorClass: 'color-tailwind',
         icon: (
             <svg className="w-12 h-12 tech-icon" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"></path>
             </svg>
         )
     },
-    { id: 'nextjs', label: 'Next.js', description: 'React Framework สำหรับสร้างเว็บแอปพลิเคชันแบบ Full-stack ด้วย Server-side Rendering', level: 88, stars: 5, colorClass: 'color-nextjs', icon: <img src="https://assets.streamlinehq.com/image/private/w_240,h_240,ar_1/f_auto/v1/icons/development/next.js-5pbwgh1hsskyitb8feqocm.png/next.js-i3y01dzo77a8k265oje1cl.png?_a=DATAiZAAZAA0" alt="Next.js" className="w-12 h-12 tech-icon object-contain" style={{ filter: 'brightness(0) invert(1)' }} /> },
-    { id: 'php', label: 'PHP', description: 'การพัฒนา Backend แบบดั้งเดิมและการสร้าง API สำหรับแอปพลิเคชัน', level: 75, stars: 3, colorClass: 'color-php', icon: <i className="fab fa-php tech-icon text-4xl"></i> },
-    { id: 'python', label: 'Python', description: 'ภาษาที่ใช้ในการวิเคราะห์ข้อมูล สคริปต์อัตโนมัติ และการพัฒนา AI', level: 82, stars: 4, colorClass: 'color-python', icon: <i className="fab fa-python tech-icon text-5xl"></i> },
-    { id: 'node', label: 'NodeJS', description: 'การสร้างเซิร์ฟเวอร์ที่รองรับการเชื่อมต่อจำนวนมากด้วย V8 Engine', level: 85, stars: 4, colorClass: 'color-node', icon: <i className="fab fa-node-js tech-icon text-5xl"></i> },
-    { id: 'docker', label: 'Docker', description: 'การจำลองสภาพแวดล้อมเพื่อให้โค้ดทำงานได้เหมือนกันในทุกที่', level: 80, stars: 4, colorClass: 'color-docker', icon: <i className="fab fa-docker tech-icon text-5xl"></i> },
-    { id: 'mongo', label: 'MongoDB', description: 'ฐานข้อมูล NoSQL แบบ Document oriented ที่ยืดหยุ่นและรวดเร็ว', level: 88, stars: 4, colorClass: 'color-mongo', icon: <i className="fas fa-leaf tech-icon text-4xl"></i> },
+    { id: 'nextjs', label: 'Next.js', description: 'React Framework สำหรับสร้างเว็บแอปพลิเคชันแบบ Full-stack ด้วย Server-side Rendering', level: 88, colorClass: 'color-nextjs', icon: <img src="https://assets.streamlinehq.com/image/private/w_240,h_240,ar_1/f_auto/v1/icons/development/next.js-5pbwgh1hsskyitb8feqocm.png/next.js-i3y01dzo77a8k265oje1cl.png?_a=DATAiZAAZAA0" alt="Next.js" className="w-12 h-12 tech-icon object-contain" style={{ filter: 'brightness(0) invert(1)' }} /> },
+    { id: 'php', label: 'PHP', description: 'การพัฒนา Backend แบบดั้งเดิมและการสร้าง API สำหรับแอปพลิเคชัน', level: 75, colorClass: 'color-php', icon: <i className="fab fa-php tech-icon text-4xl"></i> },
+    { id: 'python', label: 'Python', description: 'ภาษาที่ใช้ในการวิเคราะห์ข้อมูล สคริปต์อัตโนมัติ และการพัฒนา AI', level: 82, colorClass: 'color-python', icon: <i className="fab fa-python tech-icon text-5xl"></i> },
+    { id: 'node', label: 'NodeJS', description: 'การสร้างเซิร์ฟเวอร์ที่รองรับการเชื่อมต่อจำนวนมากด้วย V8 Engine', level: 85, colorClass: 'color-node', icon: <i className="fab fa-node-js tech-icon text-5xl"></i> },
+    { id: 'docker', label: 'Docker', description: 'การจำลองสภาพแวดล้อมเพื่อให้โค้ดทำงานได้เหมือนกันในทุกที่', level: 80, colorClass: 'color-docker', icon: <i className="fab fa-docker tech-icon text-5xl"></i> },
+    { id: 'mongo', label: 'MongoDB', description: 'ฐานข้อมูล NoSQL แบบ Document oriented ที่ยืดหยุ่นและรวดเร็ว', level: 88, colorClass: 'color-mongo', icon: <i className="fas fa-leaf tech-icon text-4xl"></i> },
     {
-        id: 'sqlite', label: 'SQLite', description: 'ฐานข้อมูลน้ำหนักเบาที่ฝังตัวได้ง่าย เหมาะสำหรับโปรเจคขนาดเล็กและกลาง', level: 90, stars: 5, colorClass: 'color-sqlite',
+        id: 'sqlite', label: 'SQLite', description: 'ฐานข้อมูลน้ำหนักเบาที่ฝังตัวได้ง่าย เหมาะสำหรับโปรเจคขนาดเล็กและกลาง', level: 90, colorClass: 'color-sqlite',
         icon: (
             <div className="flex flex-col items-center justify-center gap-0.5">
                 <svg className="w-7 h-7 tech-icon text-[#3b95ff]" fill="currentColor" viewBox="0 0 64 64">
@@ -37,40 +37,43 @@ const skillsData = [
             </div>
         )
     },
-    { id: 'supabase', label: 'Supabase', description: 'แพลตฟอร์ม Backend-as-a-Service ครบวงจร พร้อมฐานข้อมูล PostgreSQL และ Authentication', level: 85, stars: 4, colorClass: 'color-supabase', icon: <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/supabase-icon-kpjasdqlnu8exakst6f44r.png/supabase-icon-5uqgeeqeknngv9las8zeef.png?_a=DATAiZAAZAA0" alt="Supabase" className="w-12 h-12 tech-icon object-contain" /> },
-    { id: 'postman', label: 'Postman', description: 'เครื่องมือทดสอบและจัดการ API ที่เป็นมาตรฐานสากล', level: 95, stars: 5, colorClass: 'color-postman', icon: <i className="fas fa-space-shuttle tech-icon text-4xl transform -rotate-45"></i> },
-    { id: 'n8n', label: 'n8n', description: 'การเชื่อมต่อ Workflow อัตโนมัติ (Automation) แบบ Low-code', level: 85, stars: 4, colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
+    { id: 'supabase', label: 'Supabase', description: 'แพลตฟอร์ม Backend-as-a-Service ครบวงจร พร้อมฐานข้อมูล PostgreSQL และ Authentication', level: 85, colorClass: 'color-supabase', icon: <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/4/supabase-icon-kpjasdqlnu8exakst6f44r.png/supabase-icon-5uqgeeqeknngv9las8zeef.png?_a=DATAiZAAZAA0" alt="Supabase" className="w-12 h-12 tech-icon object-contain" /> },
+    { id: 'postman', label: 'Postman', description: 'เครื่องมือทดสอบและจัดการ API ที่เป็นมาตรฐานสากล', level: 95, colorClass: 'color-postman', icon: <i className="fas fa-space-shuttle tech-icon text-4xl transform -rotate-45"></i> },
+    { id: 'n8n', label: 'n8n', description: 'การเชื่อมต่อ Workflow อัตโนมัติ (Automation) แบบ Low-code', level: 85, colorClass: 'color-n8n', icon: <span className="font-black text-3xl tech-icon tracking-tighter">n8n</span> },
 ];
 
 const TechKey = memo(({ skill, isActive, onTap }) => {
     const capRef = React.useRef(null);
+    const ignoreSyntheticClickRef = React.useRef(false);
 
-    // onTouchStart fires immediately without 300ms delay and is never
-    // cancelled by scroll-detection logic inside the browser.
-    // preventDefault() stops the browser from also synthesizing a 'click'
-    // event afterward, which would toggle the active state twice (on then off).
-    const handleTouchStart = React.useCallback((e) => {
-        e.preventDefault();
+    const pressKey = React.useCallback(() => {
         const cap = capRef.current;
         if (cap) {
             cap.classList.add('key-pressed');
             setTimeout(() => cap.classList.remove('key-pressed'), 150);
         }
-        onTap(skill);
-    }, [skill, onTap]);
-
-    // Block browser long-press context menu (Copy / Paste popup) on mobile
-    const blockContextMenu = React.useCallback((e) => {
-        e.preventDefault();
-        return false;
     }, []);
+
+    const handleTouchStart = React.useCallback(() => {
+        ignoreSyntheticClickRef.current = true;
+        setTimeout(() => {
+            ignoreSyntheticClickRef.current = false;
+        }, 450);
+        pressKey();
+        onTap(skill);
+    }, [skill, onTap, pressKey]);
+
+    const handleClick = React.useCallback(() => {
+        if (ignoreSyntheticClickRef.current) return;
+        pressKey();
+        onTap(skill);
+    }, [skill, onTap, pressKey]);
 
     return (
         <div
             className="key-wrapper"
             onTouchStart={handleTouchStart}
-            onClick={() => onTap(skill)}
-            onContextMenu={blockContextMenu}
+            onClick={handleClick}
             style={{ touchAction: 'manipulation', userSelect: 'none', WebkitUserSelect: 'none' }}
         >
             <div
@@ -80,7 +83,6 @@ const TechKey = memo(({ skill, isActive, onTap }) => {
                 aria-label={skill.label}
                 className={`key-cap ${skill.colorClass} ${isActive ? 'key-hovered' : ''}`}
                 role="button"
-                onContextMenu={blockContextMenu}
             >
                 <div className="key-side"></div>
                 <div className="key-top">{skill.icon}</div>
@@ -253,7 +255,7 @@ export default function TechPad() {
                                 <div className="w-6 h-[2px] bg-gradient-to-r from-primary to-transparent rounded-full" />
                                 <span className="text-[9px] font-mono text-primary/80 font-bold tracking-[0.25em] uppercase">ACTIVE SKILL</span>
                             </div>
-                            {/* Name + stars row */}
+                            {/* Name row */}
                             <div className="flex items-center justify-between gap-3">
                                 <h2
                                     className="text-2xl font-black uppercase leading-none tracking-wide"
@@ -266,11 +268,6 @@ export default function TechPad() {
                                 >
                                     {activeSkill.label}
                                 </h2>
-                                <div className="flex items-center gap-0.5 shrink-0">
-                                    {Array(5).fill(0).map((_, i) => (
-                                        <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-xs`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }} />
-                                    ))}
-                                </div>
                             </div>
                         </>
                     ) : (
@@ -339,30 +336,6 @@ export default function TechPad() {
                             )}
                         </div>
                     </div>
-
-                    {/* Stats — only show when a skill is active */}
-                    {activeSkill && (
-                        <div className="grid grid-cols-2 gap-6 pt-4 border-t border-white/5">
-                            <div className="space-y-1">
-                                <div className="text-2xl font-bold text-white font-mono h-8 flex items-center">
-                                    {activeSkill.level}%
-                                </div>
-                                <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                    {te.proficiencyLevel}
-                                </div>
-                            </div>
-                            <div className="space-y-1">
-                                <div className="flex items-center gap-1 h-8">
-                                    {Array(5).fill(0).map((_, i) => (
-                                        <i key={i} className={`${i < activeSkill.stars ? 'fas' : 'far'} fa-star text-lg`} style={{ color: i < activeSkill.stars ? '#FACC15' : '#4B5563' }}></i>
-                                    ))}
-                                </div>
-                                <div className="text-[10px] text-slate-500 uppercase tracking-widest">
-                                    {te.masteryTier}
-                                </div>
-                            </div>
-                        </div>
-                    )}
 
                     <div className="p-5 bg-slate-800/70 rounded-2xl border border-white/5">
                         <div className="flex items-center gap-3 mb-3">

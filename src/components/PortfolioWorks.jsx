@@ -521,7 +521,7 @@ const PortfolioWorks = React.memo(() => {
                                                 src={item.img}
                                                 loading="lazy"
                                                 decoding="async"
-                                                fetchpriority="low"
+                                                fetchPriority="low"
                                             />
                                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none flex items-center justify-center">
                                                 <div className="bg-black/40 backdrop-blur-md p-4 rounded-full text-white/90 transform scale-50 group-hover:scale-100 transition-transform duration-500 opacity-0 group-hover:opacity-100 cursor-pointer">

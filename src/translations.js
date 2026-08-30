@@ -5,6 +5,7 @@ export const translations = {
             about: 'About',
             expertise: 'Expertise',
             activity: 'Activity',
+            certificate: 'Certificate',
             works: 'Projects',
         },
         hero: {
@@ -59,6 +60,22 @@ export const translations = {
             descriptionLabel: 'Description',
             description: 'Participated in IT Empowering Day 2026 organized by the School of Information Technology and Innovation, Bangkok University. Worked as a Full Stack Developer, contributing to both frontend and backend development of the AI prototype, while collaborating with the team throughout the project. Presented the prototype in the final pitching round and received the Best AI Prototype for Real-World Impact Award.',
         },
+        certificates: {
+            title: 'Certificates',
+            subtitle: 'Selected certificates from coursework and professional learning.',
+            badge: 'Certificate',
+            view: 'View',
+            items: {
+                programmingFundamentals: {
+                    title: 'Programming 100 Fundamentals',
+                    description: 'Completed structured coursework in programming fundamentals, covering logic, variables, control flow, functions, and practical problem-solving for building reliable software foundations.',
+                },
+                certification: {
+                    title: 'Certification',
+                    description: 'A learning achievement that reflects continued self-development, technical curiosity, and consistent practice in strengthening professional software development skills.',
+                },
+            },
+        },
         works: {
             title: 'Selected Projects',
             subtitle: 'High-impact projects defining the intersection of performance and aesthetics.',
@@ -87,6 +104,7 @@ export const translations = {
             about: 'เกี่ยวกับ',
             expertise: 'ทักษะ',
             activity: 'กิจกรรม',
+            certificate: 'เกียรติบัตร',
             works: 'โปรเจค',
         },
         hero: {
@@ -140,6 +158,22 @@ export const translations = {
             roleLabel: 'บทบาท',
             descriptionLabel: 'รายละเอียดกิจกรรม',
             description: 'เข้าร่วมกิจกรรม IT Empowering Day 2026 จัดโดยคณะเทคโนโลยีสารสนเทศและนวัตกรรม มหาวิทยาลัยกรุงเทพ ทำหน้าที่เป็น Full Stack Developer ร่วมพัฒนาทั้ง Frontend และ Backend ของต้นแบบ AI (AI Prototype) พร้อมทำงานร่วมกับทีมตลอดโครงการ รวมถึงนำเสนอผลงานในรอบ Pitching สุดท้าย และได้รับรางวัล Best AI Prototype for Real-World Impact Award',
+        },
+        certificates: {
+            title: 'เกียรติบัตร',
+            subtitle: 'เกียรติบัตรจากการเรียนรู้และการพัฒนาทักษะ',
+            badge: 'เกียรติบัตร',
+            view: 'ดูไฟล์',
+            items: {
+                programmingFundamentals: {
+                    title: 'Programming 100 Fundamentals',
+                    description: 'ผ่านการเรียนรู้พื้นฐานการเขียนโปรแกรมอย่างเป็นระบบ ครอบคลุมตรรกะการเขียนโค้ด ตัวแปร เงื่อนไข ฟังก์ชัน และการแก้ปัญหาเพื่อสร้างพื้นฐานการพัฒนาซอฟต์แวร์ที่มั่นคง',
+                },
+                certification: {
+                    title: 'Certification',
+                    description: 'ผลงานการเรียนรู้ที่สะท้อนการพัฒนาตนเองอย่างต่อเนื่อง ความสนใจด้านเทคโนโลยี และการฝึกฝนทักษะที่เกี่ยวข้องกับงานพัฒนาซอฟต์แวร์อย่างสม่ำเสมอ',
+                },
+            },
         },
         works: {
             title: 'โปรเจคที่เลือกสรร',

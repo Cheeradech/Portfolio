@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Award, UserCheck, Calendar, MapPin, Maximize2, X } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
@@ -10,6 +11,21 @@ const Activity = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].activity;
     const [isImageOpen, setIsImageOpen] = useState(false);
+
+    useEffect(() => {
+        if (!isImageOpen) return;
+
+        const previousBodyOverflowY = document.body.style.overflowY;
+        const previousHtmlOverflowY = document.documentElement.style.overflowY;
+
+        document.body.style.overflowY = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
+
+        return () => {
+            document.body.style.overflowY = previousBodyOverflowY;
+            document.documentElement.style.overflowY = previousHtmlOverflowY;
+        };
+    }, [isImageOpen]);
 
     return (
         <section id="activity" className="py-24 px-4 sm:px-6 lg:px-12 relative z-10 scroll-mt-24">
@@ -114,31 +130,34 @@ const Activity = React.memo(() => {
             </div>
 
             {/* Lightbox Modal */}
-            <AnimatePresence>
-                {isImageOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setIsImageOpen(false)}
-                        className="fixed inset-0 z-50 bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8 cursor-pointer"
-                    >
-                        <div className="relative max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
-                            <button
-                                onClick={() => setIsImageOpen(false)}
-                                className="absolute -top-16 right-0 text-slate-500 hover:text-white p-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 transition-colors"
-                            >
-                                <X strokeWidth={1.5} className="w-6 h-6" />
-                            </button>
-                            <img
-                                src={itImage}
-                                alt="IT Empowering Day 2026 Award Full View"
-                                className="max-w-full max-h-[85vh] object-contain rounded-xl border border-white/5 shadow-2xl"
-                            />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {typeof document !== 'undefined' && createPortal(
+                <AnimatePresence>
+                    {isImageOpen && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsImageOpen(false)}
+                            className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-8 cursor-pointer"
+                        >
+                            <div className="relative max-w-5xl max-h-[90vh] w-full flex items-center justify-center">
+                                <button
+                                    onClick={() => setIsImageOpen(false)}
+                                    className="absolute -top-16 right-0 text-slate-500 hover:text-white p-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 transition-colors"
+                                >
+                                    <X strokeWidth={1.5} className="w-6 h-6" />
+                                </button>
+                                <img
+                                    src={itImage}
+                                    alt="IT Empowering Day 2026 Award Full View"
+                                    className="max-w-full max-h-[85vh] object-contain rounded-xl border border-white/5 shadow-2xl"
+                                />
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>,
+                document.body
+            )}
         </section>
     );
 });

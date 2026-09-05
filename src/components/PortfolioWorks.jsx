@@ -222,6 +222,7 @@ const PortfolioWorks = React.memo(() => {
     const containerRef = useRef(null);
     const cardVideoRef = useRef(null);
     const cardVideoContainerRef = useRef(null);
+    const scrollLockRef = useRef(null);
 
     // ── Play/pause card video only when it's visible in the viewport
     // Prevents autoplay consuming CPU/bandwidth before user scrolls to it
@@ -279,6 +280,60 @@ const PortfolioWorks = React.memo(() => {
     };
 
     useEffect(() => {
+        if (!selectedProject) return;
+
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+        scrollLockRef.current = {
+            scrollY,
+            htmlOverflow: document.documentElement.style.overflow,
+            htmlOverflowY: document.documentElement.style.overflowY,
+            bodyOverflow: document.body.style.overflow,
+            bodyOverflowY: document.body.style.overflowY,
+            bodyPosition: document.body.style.position,
+            bodyTop: document.body.style.top,
+            bodyLeft: document.body.style.left,
+            bodyRight: document.body.style.right,
+            bodyWidth: document.body.style.width,
+            bodyPaddingRight: document.body.style.paddingRight,
+        };
+
+        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.overflowY = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.body.style.overflowY = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
+        if (scrollbarWidth > 0) {
+            document.body.style.paddingRight = `${scrollbarWidth}px`;
+        }
+
+        return () => {
+            const lock = scrollLockRef.current;
+            if (!lock) return;
+
+            document.documentElement.style.overflow = lock.htmlOverflow;
+            document.documentElement.style.overflowY = lock.htmlOverflowY;
+            document.body.style.overflow = lock.bodyOverflow;
+            document.body.style.overflowY = lock.bodyOverflowY;
+            document.body.style.position = lock.bodyPosition;
+            document.body.style.top = lock.bodyTop;
+            document.body.style.left = lock.bodyLeft;
+            document.body.style.right = lock.bodyRight;
+            document.body.style.width = lock.bodyWidth;
+            document.body.style.paddingRight = lock.bodyPaddingRight;
+            window.scrollTo(0, lock.scrollY);
+            scrollLockRef.current = null;
+        };
+    }, [selectedProject]);
+
+    useEffect(() => {
+        if (!selectedProject) return;
+
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') closeModal();
             if (mediaTab === 'gallery') {
@@ -287,16 +342,8 @@ const PortfolioWorks = React.memo(() => {
             }
         };
 
-        if (selectedProject) {
-            document.body.style.overflow = 'hidden';
-            window.addEventListener('keydown', handleKeyDown);
-        } else {
-            document.body.style.overflow = '';
-        }
-        return () => {
-            document.body.style.overflow = '';
-            window.removeEventListener('keydown', handleKeyDown);
-        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedProject, currentImageIndex, mediaTab]);
 
     const openModal = (project, initialTab = 'video') => {
@@ -558,7 +605,8 @@ const PortfolioWorks = React.memo(() => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="fixed inset-0 z-[9999] overflow-y-auto bg-[#040406]/95 backdrop-blur-2xl"
+                        className="fixed inset-0 z-[9999] overflow-y-auto bg-[#040406]/95 backdrop-blur-2xl overscroll-contain"
+                        style={{ overscrollBehavior: 'contain' }}
                         onClick={closeModal}
                     >
                         {/* Inner scroll container */}

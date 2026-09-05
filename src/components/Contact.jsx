@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import AnimatedMail from './AnimatedMail';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 
+const CONTACT_EMAIL = 'Cheeradech.work@gmail.com';
+const CONTACT_FORM_ENDPOINT = `https://formsubmit.co/${CONTACT_EMAIL}`;
+
+const getContactReturnUrl = () => {
+    if (typeof window === 'undefined') return '';
+    const url = new URL(window.location.href);
+    url.searchParams.set('contact', 'sent');
+    url.hash = 'contact';
+    return url.toString();
+};
+
+const hasReturnedFromContactSubmit = () => {
+    if (typeof window === 'undefined') return false;
+    return new URL(window.location.href).searchParams.get('contact') === 'sent';
+};
+
+const setHiddenField = (form, name, value) => {
+    const field = form.querySelector(`input[name="${name}"]`);
+    if (field) field.value = value;
+};
+
 const Contact = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].contact;
-    const [status, setStatus] = useState('idle');
+    const [status, setStatus] = useState(() => hasReturnedFromContactSubmit() ? 'success' : 'idle');
+    const returnUrl = getContactReturnUrl();
+
+    useEffect(() => {
+        if (!hasReturnedFromContactSubmit()) return;
+
+        const url = new URL(window.location.href);
+        url.searchParams.delete('contact');
+        window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash || '#contact'}`);
+        const timer = setTimeout(() => setStatus('idle'), 5000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,29 +47,22 @@ const Contact = React.memo(() => {
         setStatus('submitting');
 
         const formData = new FormData(form);
-        try {
-            const response = await fetch('https://formsubmit.co/ajax/Cheeradech.work@gmail.com', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
+        const email = String(formData.get('email') || '').trim();
+        const subject = String(formData.get('subject') || '').trim();
+        const honey = String(formData.get('_honey') || '').trim();
+        const emailSubject = subject ? `Portfolio contact: ${subject}` : 'New portfolio contact message';
+        const nextUrl = returnUrl || getContactReturnUrl();
 
-            const data = await response.json().catch(() => null);
-
-            if (response.ok && (data?.success === 'true' || data?.success === true)) {
-                setStatus('success');
-                form.reset();
-                setTimeout(() => setStatus('idle'), 5000);
-            } else {
-                setStatus('error');
-                setTimeout(() => setStatus('idle'), 5000);
-            }
-        } catch (error) {
-            setStatus('error');
-            setTimeout(() => setStatus('idle'), 5000);
+        if (honey) {
+            form.reset();
+            setStatus('idle');
+            return;
         }
+
+        setHiddenField(form, '_subject', emailSubject);
+        setHiddenField(form, '_replyto', email);
+        setHiddenField(form, '_next', nextUrl);
+        HTMLFormElement.prototype.submit.call(form);
     };
 
     return (
@@ -78,8 +103,8 @@ const Contact = React.memo(() => {
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] mb-0.5">Email</p>
-                                    <a href="mailto:Cheeradech.work@gmail.com" className="text-sm sm:text-base md:text-lg font-medium text-white hover:text-blue-400 transition-colors selection:bg-blue-500/40 selection:text-white cursor-text break-all sm:break-normal">
-                                        Cheeradech.work@gmail.com
+                                    <a href={`mailto:${CONTACT_EMAIL}`} className="text-sm sm:text-base md:text-lg font-medium text-white hover:text-blue-400 transition-colors selection:bg-blue-500/40 selection:text-white cursor-text break-all sm:break-normal">
+                                        {CONTACT_EMAIL}
                                     </a>
                                 </div>
                             </div>
@@ -144,7 +169,7 @@ const Contact = React.memo(() => {
                         viewport={{ once: true }}
                         className="h-full flex items-center"
                     >
-                        <form onSubmit={handleSubmit} className="w-full bg-[#0a0a0c] border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl relative">
+                        <form onSubmit={handleSubmit} action={CONTACT_FORM_ENDPOINT} method="POST" encType="multipart/form-data" className="w-full bg-[#0a0a0c] border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl relative">
                             <div className="space-y-5">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div className="space-y-2">
@@ -158,7 +183,7 @@ const Contact = React.memo(() => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Subject</label>
-                                    <input type="text" name="_subject" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderSubject} />
+                                    <input type="text" name="subject" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderSubject} />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Message</label>
@@ -167,6 +192,10 @@ const Contact = React.memo(() => {
                                 <div className="pt-2">
                                     <input type="hidden" name="_captcha" value="false" />
                                     <input type="hidden" name="_template" value="table" />
+                                    <input type="hidden" name="_subject" defaultValue="New portfolio contact message" />
+                                    <input type="hidden" name="_replyto" defaultValue="" />
+                                    <input type="hidden" name="_next" value={returnUrl} readOnly />
+                                    <input type="text" name="_honey" tabIndex="-1" autoComplete="off" className="hidden" />
                                     <button 
                                         type="submit" 
                                         disabled={status === 'submitting'}

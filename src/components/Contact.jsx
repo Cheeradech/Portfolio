@@ -1,74 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import AnimatedMail from './AnimatedMail';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 
 const CONTACT_EMAIL = 'Cheeradech.work@gmail.com';
-const CONTACT_FORM_ENDPOINT = `https://formsubmit.co/${CONTACT_EMAIL}`;
-
-const getContactReturnUrl = () => {
-    if (typeof window === 'undefined') return '';
-    const url = new URL(window.location.href);
-    url.searchParams.set('contact', 'sent');
-    url.hash = 'contact';
-    return url.toString();
-};
-
-const hasReturnedFromContactSubmit = () => {
-    if (typeof window === 'undefined') return false;
-    return new URL(window.location.href).searchParams.get('contact') === 'sent';
-};
-
-const setHiddenField = (form, name, value) => {
-    const field = form.querySelector(`input[name="${name}"]`);
-    if (field) field.value = value;
-};
 
 const Contact = React.memo(() => {
     const { lang } = useLanguage();
     const t = translations[lang].contact;
-    const [status, setStatus] = useState(() => hasReturnedFromContactSubmit() ? 'success' : 'idle');
-    const returnUrl = getContactReturnUrl();
-
-    useEffect(() => {
-        if (!hasReturnedFromContactSubmit()) return;
-
-        const url = new URL(window.location.href);
-        url.searchParams.delete('contact');
-        window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash || '#contact'}`);
-        const timer = setTimeout(() => setStatus('idle'), 5000);
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        setStatus('submitting');
-
-        const formData = new FormData(form);
-        const email = String(formData.get('email') || '').trim();
-        const subject = String(formData.get('subject') || '').trim();
-        const honey = String(formData.get('_honey') || '').trim();
-        const emailSubject = subject ? `Portfolio contact: ${subject}` : 'New portfolio contact message';
-        const nextUrl = returnUrl || getContactReturnUrl();
-
-        if (honey) {
-            form.reset();
-            setStatus('idle');
-            return;
-        }
-
-        setHiddenField(form, '_subject', emailSubject);
-        setHiddenField(form, '_replyto', email);
-        setHiddenField(form, '_next', nextUrl);
-        HTMLFormElement.prototype.submit.call(form);
-    };
 
     return (
         <section id="contact" className="py-16 md:py-20 relative z-10 scroll-mt-20" style={{ contain: 'layout style' }}>
             <div className="max-w-[1200px] mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+                <div className="grid grid-cols-1 items-start">
 
                     {/* Left: Contact Info & Socials */}
                     <motion.div
@@ -161,82 +106,6 @@ const Contact = React.memo(() => {
                         </div>
                     </motion.div>
 
-                    {/* Right: Form */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        viewport={{ once: true }}
-                        className="h-full flex items-center"
-                    >
-                        <form onSubmit={handleSubmit} action={CONTACT_FORM_ENDPOINT} method="POST" encType="multipart/form-data" className="w-full bg-[#0a0a0c] border border-white/5 rounded-3xl p-6 md:p-8 shadow-2xl relative">
-                            <div className="space-y-5">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Name</label>
-                                        <input type="text" name="name" required className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderName} />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Email</label>
-                                        <input type="email" name="email" required className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder="john@example.com" />
-                                    </div>
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Subject</label>
-                                    <input type="text" name="subject" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 placeholder:text-slate-700" placeholder={t.formPlaceholderSubject} />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-mono text-slate-500 uppercase tracking-[0.2em] ml-1">Message</label>
-                                    <textarea name="message" required rows="4" className="w-full bg-[#050505] border border-white/5 rounded-2xl px-4 py-3.5 text-white text-sm focus:outline-none focus:border-blue-500/50 focus:bg-[#111114] transition-all duration-300 resize-none placeholder:text-slate-700" placeholder={t.formPlaceholderMessage}></textarea>
-                                </div>
-                                <div className="pt-2">
-                                    <input type="hidden" name="_captcha" value="false" />
-                                    <input type="hidden" name="_template" value="table" />
-                                    <input type="hidden" name="_subject" defaultValue="New portfolio contact message" />
-                                    <input type="hidden" name="_replyto" defaultValue="" />
-                                    <input type="hidden" name="_next" value={returnUrl} readOnly />
-                                    <input type="text" name="_honey" tabIndex="-1" autoComplete="off" className="hidden" />
-                                    <button 
-                                        type="submit" 
-                                        disabled={status === 'submitting'}
-                                        className={`w-full py-4 bg-[#111114] hover:bg-[#1a1a20] border border-white/5 hover:border-white/10 text-white rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 group/btn cursor-pointer ${
-                                            status === 'success' ? 'border-emerald-500/30 bg-emerald-500/10 hover:bg-emerald-500/10 shadow-[0_0_20px_rgba(16,185,129,0.2)]' : 
-                                            status === 'submitting' ? 'opacity-80 pointer-events-none' : 'hover:shadow-[0_0_20px_rgba(59,130,246,0.15)]'
-                                        }`}
-                                    >
-                                        {status === 'idle' && (
-                                            <>
-                                                <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-slate-300 group-hover/btn:text-white transition-colors">{t.sendButton}</span>
-                                                <span className="material-symbols-outlined text-[16px] group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300 text-slate-400 group-hover/btn:text-white">send</span>
-                                            </>
-                                        )}
-                                        {status === 'submitting' && (
-                                            <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-blue-400 flex items-center gap-2">
-                                                <span className="material-symbols-outlined text-[16px] animate-spin">progress_activity</span>
-                                                Sending...
-                                            </span>
-                                        )}
-                                        {status === 'success' && (
-                                            <motion.span 
-                                                initial={{ scale: 0.8, opacity: 0 }}
-                                                animate={{ scale: 1, opacity: 1 }}
-                                                className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-emerald-400 flex items-center gap-2"
-                                            >
-                                                <span className="material-symbols-outlined text-[18px]">check_circle</span>
-                                                Message Sent
-                                            </motion.span>
-                                        )}
-                                        {status === 'error' && (
-                                            <span className="text-[11px] font-mono tracking-[0.2em] uppercase font-bold text-red-400 flex items-center gap-2">
-                                                <span className="material-symbols-outlined text-[16px]">error</span>
-                                                Error Occurred
-                                            </span>
-                                        )}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </motion.div>
                 </div>
             </div>
         </section>

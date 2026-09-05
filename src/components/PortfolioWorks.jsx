@@ -32,6 +32,13 @@ const stockImages = [
     stockImageModules['../assets/Photo stock/six.png'],
 ];
 
+// SmartResume images
+const smartresumeImageModules = import.meta.glob('../assets/Smartresume/*.png', { eager: true, query: '?url', import: 'default' });
+const smartresumeImages = [
+    smartresumeImageModules['../assets/Smartresume/Screenshot 2026-09-05 144612.png'],
+    smartresumeImageModules['../assets/Smartresume/Screenshot 2026-09-05 144702.png'],
+];
+
 // AI Voice images — ordered by filename
 const aivoiceImageModules = import.meta.glob('../assets/PhotoAivoice/*.png', { eager: true, query: '?url', import: 'default' });
 const aivoiceImages = [
@@ -103,12 +110,65 @@ const aiVoiceProject = {
 };
 
 const workItems = [
+    {
+        title: 'AI Resume Screening',
+        titleFull: 'AI Resume Screening System',
+        category: 'AI WEB APPLICATION',
+        img: smartresumeImages[0],
+        images: smartresumeImages,
+        side: 'right',
+        toolsMain: ['NEXT.JS', 'REACT', 'TYPESCRIPT', 'TAILWIND CSS', 'FASTAPI', 'PYTHON', 'SQLITE', 'GROQ API'],
+        toolsSub: ['LLAMA 3.3 70B', 'SCIKIT-LEARN', 'PYPDF2', 'UVICORN', 'PYTHON-DOTENV', 'PYTHON-MULTIPART', 'JOBLIB', 'LOCAL .PKL MODEL', 'GOOGLE DRIVE API', 'GOOGLE SHEETS REST API'],
+        tools: ['NEXT.JS', 'REACT', 'TYPESCRIPT', 'TAILWIND CSS', 'FASTAPI', 'PYTHON', 'SQLITE', 'GROQ API'],
+        alt: 'AI Resume Screening System',
+        descTh: 'ระบบคัดกรอง Resume สำหรับ HR โดยเลือกตำแหน่งงานก่อนอัปโหลดไฟล์ PDF จากนั้น AI จะอ่านข้อมูลจาก Resume วิเคราะห์ทักษะ ประสบการณ์ ความเหมาะสมกับตำแหน่ง และให้คะแนนผู้สมัครอัตโนมัติ พร้อมแสดงผลผ่าน Dashboard สำหรับคัดกรองและดู Insight ของผู้สมัคร',
+        descEn: 'An AI-powered Resume screening system for HR. Select a job position, upload a PDF Resume, and the AI automatically reads, analyzes skills, experience, and job fit — scoring candidates and displaying results via an interactive Dashboard with applicant insights.',
+        longDescTh: 'ระบบคัดกรอง Resume สำหรับ HR โดยเลือกตำแหน่งงานก่อนอัปโหลดไฟล์ PDF จากนั้น AI จะอ่านข้อมูลจาก Resume วิเคราะห์ทักษะ ประสบการณ์ ความเหมาะสมกับตำแหน่ง และให้คะแนนผู้สมัครอัตโนมัติ พร้อมแสดงผลผ่าน Dashboard สำหรับคัดกรองและดู Insight ของผู้สมัคร',
+        longDescEn: 'An AI-powered Resume screening system for HR. Select a job position, upload a PDF Resume, and the AI automatically reads, analyzes skills, experience, and job fit — scoring candidates and displaying results via an interactive Dashboard with applicant insights.',
+        featuresTh: [
+            'อัปโหลด Resume PDF และอ่านข้อมูลจากไฟล์อัตโนมัติ',
+            'วิเคราะห์ Resume ด้วย Llama 3.3 70B ผ่าน Groq API',
+            'ให้คะแนนผู้สมัครแบบ AI Score พร้อมเหตุผลและคำแนะนำภาษาไทย',
+            'ตรวจ matched skills, missing skills, experience, portfolio และ impact metrics',
+            'คัดกรองผู้สมัครตามตำแหน่ง คะแนน และประสบการณ์',
+            'Dashboard แสดงสถิติผู้สมัคร คุณภาพผู้สมัคร และกิจกรรมรายวัน',
+            'เปิดดู Resume ต้นฉบับ และจัดการข้อมูลผู้สมัครได้',
+            'รองรับการดึง Resume จาก Google Form / Google Drive เพื่อวิเคราะห์อัตโนมัติ',
+        ],
+        featuresEn: [
+            'Upload Resume PDF and auto-extract candidate information',
+            'Analyze Resume with Llama 3.3 70B via Groq API',
+            'AI Score with reasoning and recommendations in Thai',
+            'Detect matched skills, missing skills, experience, portfolio, and impact metrics',
+            'Filter candidates by position, score, and experience',
+            'Dashboard showing applicant statistics, talent quality, and daily activity',
+            'View original Resume and manage candidate data',
+            'Support pulling Resumes from Google Form / Google Drive for automatic analysis',
+        ],
+        captionsTh: [
+            'HR Executive Dashboard: ภาพรวมผู้สมัคร สถิติคุณภาพ และกิจกรรมรายวัน',
+            'Positions View: วิเคราะห์ Resume ผู้สมัครพร้อม AI Score และ Skill Matching',
+        ],
+        captionsEn: [
+            'HR Executive Dashboard: Applicant overview, talent quality stats, and daily activity',
+            'Positions View: Resume analysis with AI Score and Skill Matching per candidate',
+        ],
+        accent: {
+            glow: 'rgba(139,92,246,0.15)',
+            text: 'text-violet-400',
+            bg: 'bg-black',
+            border: 'border-violet-500/30',
+            gradient: 'from-violet-400 via-purple-500 to-fuchsia-600',
+            primary: '#8b5cf6'
+        }
+    },
     { 
         title: 'Dormitory Management', 
         titleFull: 'Dormitory Management System',
         category: 'Web Application / UI', 
         img: dormImages[0], 
         images: dormImages,
+        side: 'left',
         toolsMain: ['React 19', 'Tailwind v4', 'Node.js', 'MongoDB'],
         toolsSub: ['Express 5', 'Mongoose 9', 'Vite 7', 'REST API'],
         tools: ['React 19', 'Tailwind v4', 'Node.js', 'MongoDB'],
@@ -162,6 +222,7 @@ const workItems = [
         category: 'Web Application / System', 
         img: stockImages[1], 
         images: stockImages,
+        side: 'right',
         toolsMain: ['React', 'Python (FastAPI)', 'Electron', 'SQLite'],
         toolsSub: ['Tailwind CSS', 'Recharts', 'PyInstaller', 'Axios'],
         tools: ['React', 'Python (FastAPI)', 'Electron', 'SQLite'],
@@ -514,7 +575,7 @@ const PortfolioWorks = React.memo(() => {
                         />
 
                         {workItems.map((item, i) => {
-                            const isEven = i % 2 === 0;
+                            const isEven = item.side === 'right' ? false : item.side === 'left' ? true : i % 2 === 0;
                             return (
                                 <motion.div
                                     key={i}

@@ -59,6 +59,11 @@ export const translations = {
             roleLabel: 'Role',
             descriptionLabel: 'Description',
             description: 'Participated in IT Empowering Day 2026 organized by the School of Information Technology and Innovation, Bangkok University. Worked as a Full Stack Developer, contributing to both frontend and backend development of the AI prototype, while collaborating with the team throughout the project. Presented the prototype in the final pitching round and received the Best AI Prototype for Real-World Impact Award.',
+            openHouseBadge: 'Event Staff',
+            openHouseTitle: 'BU Open House 2026 – School of Information Technology and Innovation',
+            openHouseRole: 'Staff & Project Board Presenter',
+            openHouseDescription: 'Served as Staff at BU Open House 2026, organized by the School of Information Technology and Innovation, Bangkok University. Responsible for presenting and supervising the department\'s Industry-Driven Innovation Project board — AIVoice Insight: an Intelligent Audio Analysis & Management System developed for Omazz Holding Co., Ltd. — explaining the project concept, system architecture, and key features to visiting students, faculty, and guests.',
+            openHouseChips: ['Event Staff', 'Project Showcase', 'Industry-Driven Innovation', 'AIVoice Insight'],
         },
         certificates: {
             title: 'Certificates',
@@ -158,6 +163,11 @@ export const translations = {
             roleLabel: 'บทบาท',
             descriptionLabel: 'รายละเอียดกิจกรรม',
             description: 'เข้าร่วมกิจกรรม IT Empowering Day 2026 จัดโดยคณะเทคโนโลยีสารสนเทศและนวัตกรรม มหาวิทยาลัยกรุงเทพ ทำหน้าที่เป็น Full Stack Developer ร่วมพัฒนาทั้ง Frontend และ Backend ของต้นแบบ AI (AI Prototype) พร้อมทำงานร่วมกับทีมตลอดโครงการ รวมถึงนำเสนอผลงานในรอบ Pitching สุดท้าย และได้รับรางวัล Best AI Prototype for Real-World Impact Award',
+            openHouseBadge: 'Event Staff',
+            openHouseTitle: 'BU Open House 2026 – คณะเทคโนโลยีสารสนเทศและนวัตกรรม',
+            openHouseRole: 'Staff & ผู้นำเสนอบอร์ดโปรเจค',
+            openHouseDescription: 'เป็น Staff ในงาน BU Open House 2026 จัดโดยคณะเทคโนโลยีสารสนเทศและนวัตกรรม มหาวิทยาลัยกรุงเทพ ทำหน้าที่ดูแลและนำเสนอบอร์ดโปรเจค Industry-Driven Innovation Project ของคณะ ซึ่งเป็นโปรเจค AIVoice Insight ระบบวิเคราะห์และจัดการเสียงอัจฉริยะสำหรับ Omazz Holding Co., Ltd. โดยอธิบายแนวคิด สถาปัตยกรรมระบบ และฟีเจอร์หลักให้กับผู้เข้าชมงาน ทั้งนักศึกษา อาจารย์ และบุคคลทั่วไป',
+            openHouseChips: ['Event Staff', 'Project Showcase', 'Industry-Driven Innovation', 'AIVoice Insight'],
         },
         certificates: {
             title: 'เกียรติบัตร',

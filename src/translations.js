@@ -70,7 +70,19 @@ export const translations = {
             subtitle: 'Selected certificates from coursework and professional learning.',
             badge: 'Certificate',
             view: 'View',
+            awsBadge: {
+                badge: 'Digital Badge',
+                date: 'Sep 2026',
+                title: 'AWS Cloud Quest: Generative AI Practitioner',
+                provider: 'Amazon Web Services (AWS) Training and Certification',
+                description: 'Completed AWS Cloud Quest, a hands-on learning experience focused on generative AI concepts and real-world applications on AWS.',
+                view: 'View Credential',
+            },
             items: {
+                awsCertificate: {
+                    title: 'AWS Certificate',
+                    description: 'An AWS certificate reflecting continued learning and practical growth in cloud computing foundations.',
+                },
                 programmingFundamentals: {
                     title: 'Programming 100 Fundamentals',
                     description: 'Completed structured coursework in programming fundamentals, covering logic, variables, control flow, functions, and practical problem-solving for building reliable software foundations.',
@@ -174,7 +186,19 @@ export const translations = {
             subtitle: 'เกียรติบัตรจากการเรียนรู้และการพัฒนาทักษะ',
             badge: 'เกียรติบัตร',
             view: 'ดูไฟล์',
+            awsBadge: {
+                badge: 'Digital Badge',
+                date: 'ก.ย. 2026',
+                title: 'AWS Cloud Quest: Generative AI Practitioner',
+                provider: 'Amazon Web Services (AWS) Training and Certification',
+                description: 'ผ่าน AWS Cloud Quest ซึ่งเป็นการเรียนรู้แบบลงมือทำเกี่ยวกับแนวคิด Generative AI และการใช้งานจริงบน AWS',
+                view: 'View Credential',
+            },
             items: {
+                awsCertificate: {
+                    title: 'AWS Certificate',
+                    description: 'เกียรติบัตรด้าน AWS ที่สะท้อนการเรียนรู้และการต่อยอดทักษะด้านคลาวด์คอมพิวติ้ง',
+                },
                 programmingFundamentals: {
                     title: 'Programming 100 Fundamentals',
                     description: 'ผ่านการเรียนรู้พื้นฐานการเขียนโปรแกรมอย่างเป็นระบบ ครอบคลุมตรรกะการเขียนโค้ด ตัวแปร เงื่อนไข ฟังก์ชัน และการแก้ปัญหาเพื่อสร้างพื้นฐานการพัฒนาซอฟต์แวร์ที่มั่นคง',

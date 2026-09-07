@@ -125,30 +125,35 @@ const Certificates = React.memo(() => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: '-10% 0px' }}
                         transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-                        className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#f8fbff] p-5 text-slate-900 shadow-[0_18px_45px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(68,71,255,0.22)]"
+                        className="relative overflow-hidden rounded-2xl border border-cyan-200/20 bg-[#f8fbff] text-slate-900 shadow-[0_18px_45px_rgba(0,0,0,0.28)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(15,118,255,0.22)]"
                     >
-                        <div className="mb-5 flex items-center justify-between gap-4">
-                            <span className="inline-flex items-center gap-2 rounded-xl bg-violet-500/10 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-violet-600">
-                                <Award strokeWidth={1.7} className="w-4 h-4" />
-                                {awsBadge.badge}
-                            </span>
-                            <span className="text-xs font-medium text-slate-500">
-                                {awsBadge.date}
-                            </span>
+                        <div className="relative overflow-hidden bg-[linear-gradient(135deg,#07111f_0%,#122b55_52%,#3b1a78_100%)] px-5 pb-7 pt-5">
+                            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/70 to-transparent" />
+                            <div className="flex items-center justify-between gap-4">
+                                <span className="inline-flex items-center gap-2 rounded-full border border-cyan-100/20 bg-white/10 px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-cyan-100">
+                                    <Award strokeWidth={1.7} className="w-4 h-4" />
+                                    {awsBadge.badge}
+                                </span>
+                                <span className="text-xs font-semibold text-cyan-50/75">
+                                    {awsBadge.date}
+                                </span>
+                            </div>
+
+                            <div className="relative mt-6 flex min-h-[270px] items-center justify-center rounded-xl border border-white/10 bg-white/[0.06]">
+                                <div className="absolute inset-x-8 top-8 h-px bg-cyan-200/15" />
+                                <div className="absolute inset-x-8 bottom-8 h-px bg-violet-200/15" />
+                                <img
+                                    src={awsTrainingImage}
+                                    alt={awsBadge.title}
+                                    loading="lazy"
+                                    decoding="async"
+                                    draggable="false"
+                                    className="relative z-10 h-60 w-60 object-contain drop-shadow-[0_24px_45px_rgba(37,99,235,0.42)] sm:h-72 sm:w-72"
+                                />
+                            </div>
                         </div>
 
-                        <div className="flex justify-center py-2 sm:py-4">
-                            <img
-                                src={awsTrainingImage}
-                                alt={awsBadge.title}
-                                loading="lazy"
-                                decoding="async"
-                                draggable="false"
-                                className="h-56 w-56 object-contain sm:h-64 sm:w-64"
-                            />
-                        </div>
-
-                        <div className="pt-3">
+                        <div className="p-5 pt-6">
                             <h3 className="text-xl sm:text-2xl font-extrabold leading-tight tracking-tight text-slate-950">
                                 {awsBadge.title}
                             </h3>
@@ -164,7 +169,7 @@ const Certificates = React.memo(() => {
                                     href={awsCredentialUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-5 py-3 text-sm font-bold text-white shadow-[0_12px_28px_rgba(124,58,237,0.32)] transition-colors hover:bg-violet-700"
+                                    className="inline-flex items-center gap-2 rounded-lg bg-slate-950 px-5 py-3 text-sm font-bold text-white shadow-[0_12px_28px_rgba(15,23,42,0.22)] transition-colors hover:bg-slate-800"
                                 >
                                     <ExternalLink strokeWidth={1.8} className="w-4 h-4" />
                                     {awsBadge.view}

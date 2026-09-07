@@ -81,6 +81,16 @@ const Contact = React.memo(() => {
                                     >
                                         <i className="fab fa-github text-lg"></i>
                                     </motion.a>
+                                    {/* LinkedIn */}
+                                    <motion.a
+                                        href="https://www.linkedin.com/in/cheeradech-makcharoen-49ab32430"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        whileHover={{ scale: 1.1, y: -5 }}
+                                        className="w-10 h-10 rounded-xl bg-[#111114] border border-white/5 flex items-center justify-center text-slate-400 hover:text-blue-500 hover:border-white/20 hover:bg-[#1a1a20] transition-all duration-300 cursor-pointer"
+                                    >
+                                        <i className="fab fa-linkedin-in text-lg"></i>
+                                    </motion.a>
                                     {/* Instagram */}
                                     <motion.a 
                                         href="https://www.instagram.com/jrrdate_htx/"

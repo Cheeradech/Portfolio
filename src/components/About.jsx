@@ -4,6 +4,8 @@ import { motion as Motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
+import resumePdf from '../assets/resume/Resume_portMain.pdf';
+import resumePreview from '../assets/resume/Resume_portMain-preview.png';
 
 const About = React.memo(() => {
     const [activeTab, setActiveTab] = useState('education');
@@ -23,11 +25,15 @@ const About = React.memo(() => {
     // Close modal on Escape key and lock body scroll
     useEffect(() => {
         if (!isResumeOpen) return;
+        const previousHtmlOverflow = document.documentElement.style.overflow;
+        const previousBodyOverflow = document.body.style.overflow;
+        document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
         const onKey = (e) => { if (e.key === 'Escape') setIsResumeOpen(false); };
         window.addEventListener('keydown', onKey);
         return () => {
-            document.body.style.overflow = '';
+            document.documentElement.style.overflow = previousHtmlOverflow;
+            document.body.style.overflow = previousBodyOverflow;
             window.removeEventListener('keydown', onKey);
         };
     }, [isResumeOpen]);
@@ -221,7 +227,7 @@ const About = React.memo(() => {
                                 {/* Right: Actions */}
                                 <div className="flex items-center gap-2">
                                     <a
-                                        href="/resumed.pdf"
+                                        href={resumePdf}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all text-xs font-medium"
@@ -241,11 +247,11 @@ const About = React.memo(() => {
                             </div>
 
                             {/* ── Resume Viewer: Ultra-sharp responsive rendering for all screen sizes (iOS, Android, iPad, Mac, PC) ── */}
-                            <div className="w-full overflow-y-auto overflow-x-hidden bg-white relative flex flex-col items-center">
+                            <div className="w-full overflow-hidden bg-white relative flex flex-col items-center justify-center">
                                 <img
-                                    src="/resume_preview.webp"
-                                    alt="Resume — Cheeradech Makcharoen"
-                                    className="w-full h-auto block select-none"
+                                    src={resumePreview}
+                                    alt="Resume - Cheeradech Makcharoen"
+                                    className="w-full h-auto max-h-[calc(88vh-52px)] object-contain select-none"
                                     loading="eager"
                                     decoding="async"
                                 />

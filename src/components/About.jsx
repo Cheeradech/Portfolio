@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion as Motion, AnimatePresence } from 'framer-motion';
+import { GraduationCap } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import SectionHeader from './ui/SectionHeader';
@@ -8,14 +9,10 @@ import resumePdf from '../assets/resume/Resume_portMain.pdf';
 import resumePreview from '../assets/resume/Resume_portMain-preview.png';
 
 const About = React.memo(() => {
-    const [activeTab, setActiveTab] = useState('education');
+    const activeTab = 'education';
     const [isResumeOpen, setIsResumeOpen] = useState(false);
     const { lang } = useLanguage();
     const t = translations[lang].about;
-    const handleTab = useCallback((id) => setActiveTab(id), []);
-    const tabs = [
-        { id: 'education', label: t.tabEducation },
-    ];
 
     // Handle Open Resume: open modal while keeping background at About section
     const handleOpenResume = useCallback(() => {
@@ -54,6 +51,22 @@ const About = React.memo(() => {
             description: t.experienceDescription,
         },
     };
+    const educationGpa = t.educationDescription.match(/(\d(?:\.\d+)?)/)?.[1] ?? '3.44';
+    const educationCopy = lang === 'th'
+        ? {
+            heading: t.tabEducation,
+            areasLabel: 'สายที่สนใจ',
+            interests: ['การพัฒนา Full-Stack', 'วิศวกรรมซอฟต์แวร์', 'ปัญญาประดิษฐ์ (AI)'],
+            note: 'เรียนรู้ผ่านการลงมือทำโปรเจกต์จริง',
+            gpaLabel: 'เกรดเฉลี่ย',
+        }
+        : {
+            heading: 'Education',
+            areasLabel: 'Areas of Interest',
+            interests: ['Full-Stack Development', 'Software Engineering', 'Artificial Intelligence'],
+            note: 'Learning through hands-on projects.',
+            gpaLabel: 'GPA',
+        };
 
     return (
         <>
@@ -117,65 +130,76 @@ const About = React.memo(() => {
                         className="lg:col-span-5 relative"
                     >
                         {/* Tab switcher */}
-                        <div className="bg-slate-800/40 backdrop-blur-xl border border-white/10 p-1.5 rounded-2xl flex mb-6 shadow-md">
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => handleTab(tab.id)}
-                                    className={`flex-1 text-center py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${activeTab === tab.id
-                                        ? 'bg-slate-700 text-white font-semibold shadow-sm'
-                                        : 'text-slate-400 hover:text-white'
-                                        }`}
-                                >
-                                    {tab.label}
-                                </button>
-                            ))}
+                        <div className="flex items-center gap-3 mb-4 px-1">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#34d399] shadow-[0_0_14px_rgba(52,211,153,0.65)]" />
+                            <span className="text-sm font-semibold text-slate-200">
+                                {educationCopy.heading}
+                            </span>
                         </div>
 
                         {/* Tab content card */}
                         <div className="bg-slate-800/65 border border-white/10 p-6 md:p-8 rounded-2xl relative overflow-hidden shadow-2xl min-h-65">
-                            {/* Timeline glow line */}
-                            <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-linear-to-b from-primary via-primary/40 to-transparent" />
-                            <div className="absolute left-10 top-10 bottom-10 w-0.5 bg-primary blur-sm opacity-40" />
+                            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.28),rgba(2,6,23,0.42))] pointer-events-none" />
 
-                            {/* Education / Experience tab */}
-                            {(activeTab === 'education' || activeTab === 'experience') && (() => {
-                                const content = tabContent[activeTab];
+                            {/* Education tab */}
+                            {activeTab === 'education' && (() => {
+                                const content = tabContent.education;
                                 return (
                                     <Motion.div
                                         key={activeTab}
                                         initial={{ opacity: 0, x: 10 }}
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ duration: 0.35 }}
-                                        className="relative pl-10"
+                                        className="relative"
                                     >
-                                        {/* Timeline dot */}
-                                        <div className="absolute -left-1.25 top-1.5 w-4 h-4 rounded-full bg-slate-900 border-2 border-primary z-10 shadow-[0_0_12px_rgba(14,165,233,0.5)]">
-                                            <div className="absolute inset-1 bg-primary rounded-full" />
-                                        </div>
-
-                                        <div className="mb-2 flex justify-between items-start flex-wrap gap-2">
-                                            <div>
-                                                <h4 className="text-xl font-bold text-white">{content.title}</h4>
-                                                <p className="text-slate-400 text-sm mt-1">{content.subtitle}</p>
+                                        <div className="flex items-start gap-5">
+                                            <div className="relative shrink-0">
+                                                <div className="w-14 h-14 rounded-xl border border-white/10 bg-slate-900/70 shadow-sm flex items-center justify-center">
+                                                    <GraduationCap className="w-9 h-9 text-[#34d399]" strokeWidth={1.8} />
+                                                </div>
+                                                <span className="absolute -right-1 bottom-1 w-4 h-4 rounded-full bg-[#34d399] border-4 border-slate-800 shadow-[0_0_12px_rgba(52,211,153,0.6)]" />
                                             </div>
-                                            <span className="text-sm font-semibold text-primary bg-primary/10 px-3 py-1 rounded-full">
-                                                {content.period}
-                                            </span>
-                                        </div>
 
-                                        <div className="mt-4 bg-slate-900/60 border border-slate-700/50 rounded-xl p-4 flex gap-4 items-start shadow-sm hover:shadow-md transition-shadow">
-                                            <div className="bg-slate-700 p-2 rounded-lg shadow-sm shrink-0">
-                                                <span
-                                                    className="material-symbols-outlined text-slate-300"
-                                                    style={{ fontSize: '20px' }}
-                                                >
-                                                    {content.icon}
+                                            <div className="min-w-0 pt-1">
+                                                <h4 className="text-2xl md:text-3xl font-black text-white drop-shadow-[0_1px_5px_rgba(255,255,255,0.15)]">
+                                                    {content.title}
+                                                </h4>
+                                                <p className="mt-2 text-sm md:text-base font-semibold text-slate-500">
+                                                    <span className="text-[#34d399]">{content.subtitle}</span>
+                                                </p>
+                                                <span className="inline-flex mt-3 px-3 py-1.5 rounded-lg border border-white/10 bg-white/[0.04] text-slate-300 text-sm font-semibold">
+                                                    {content.period}
                                                 </span>
                                             </div>
-                                            <p className="text-sm text-slate-300 leading-relaxed">
-                                                {content.description}
-                                            </p>
+                                        </div>
+
+                                        <div className="mt-7 border-t border-white/10 pt-5 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-6">
+                                            <div>
+                                                <p className="font-mono text-xs font-bold uppercase text-slate-500 mb-3">
+                                                    {educationCopy.areasLabel}
+                                                </p>
+                                                <div className="space-y-1.5">
+                                                    {educationCopy.interests.map((interest) => (
+                                                        <p key={interest} className="text-slate-100 text-base font-bold">
+                                                            {interest}
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                                <p className="mt-3 text-sm text-slate-500">
+                                                    {educationCopy.note}
+                                                </p>
+                                            </div>
+                                            <div className="sm:min-w-[128px] sm:border-l border-white/10 sm:pl-6 flex flex-col justify-center">
+                                                <p className="font-mono text-xs font-bold uppercase text-slate-500">
+                                                    {educationCopy.gpaLabel}
+                                                </p>
+                                                <p className="mt-1 text-3xl font-black text-[#34d399]">
+                                                    {educationGpa}
+                                                </p>
+                                                <p className="text-sm text-slate-400">
+                                                    / 4.00
+                                                </p>
+                                            </div>
                                         </div>
                                     </Motion.div>
                                 );

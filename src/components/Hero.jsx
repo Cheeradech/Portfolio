@@ -72,42 +72,41 @@ const Hero = ({ heroRef, scale, opacity, containerVariants, itemVariants, brImag
 
                         {/* Right Column: Image */}
                         <div className="flex justify-center order-1 md:order-2 z-10 w-full relative mt-8 sm:mt-16 md:mt-0">
-                            <Motion.div variants={itemVariants} className="relative w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[30rem] lg:w-96 lg:h-[34rem] xl:w-[28rem] xl:h-[38rem] group flex items-center justify-center mx-auto md:-ml-4 xl:ml-0 mt-8 md:mt-0">
+                            <Motion.div variants={itemVariants} className="relative isolate w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[30rem] lg:w-96 lg:h-[34rem] xl:w-[28rem] xl:h-[38rem] group flex items-center justify-center mx-auto md:-ml-4 xl:ml-0 mt-8 md:mt-0">
 
-                                {/* 🪐 Orbital System */}
-                                <div className="absolute inset-0 pointer-events-none">
-                                    {/* Orbit 1 */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[120%] border border-blue-500/20 rounded-full"
-                                        style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
-                                        <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
-                                            style={{ '--orbit-radius': '180px', '--orbit-duration': '8s' }}></div>
+                                <div className="absolute -inset-24 z-0 pointer-events-none">
+                                    {/* Orbital System */}
+                                    <div className="absolute inset-0">
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[120%] border border-blue-500/20 rounded-full"
+                                            style={{ transform: 'translate(-50%, -50%) rotateX(60deg) rotateY(10deg)' }}>
+                                            <div className="absolute top-0 left-1/2 w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_10px_#60A5FA] orbiting-element"
+                                                style={{ '--orbit-radius': '180px', '--orbit-duration': '8s' }}></div>
+                                        </div>
+
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[140%] border border-purple-500/20 rounded-full"
+                                            style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
+                                            <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
+                                                style={{ '--orbit-radius': '220px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                                        </div>
+
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[160%] border border-cyan-500/10 rounded-full"
+                                            style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
+                                        </div>
                                     </div>
 
-                                    {/* Orbit 2 */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] h-[140%] border border-purple-500/20 rounded-full"
-                                        style={{ transform: 'translate(-50%, -50%) rotateX(-60deg) rotateY(20deg)' }}>
-                                        <div className="absolute top-0 left-1/2 w-2 h-2 bg-purple-400 rounded-full shadow-[0_0_10px_#A855F7] orbiting-element"
-                                            style={{ '--orbit-radius': '220px', '--orbit-duration': '12s', animationDirection: 'reverse' }}></div>
+                                    {/* Floating Particles */}
+                                    <div className="absolute inset-10">
+                                        <div className="absolute top-0 left-1/4 w-1 h-1 bg-white rounded-full floating" style={{ animationDelay: '0s' }}></div>
+                                        <div className="absolute bottom-10 right-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full floating" style={{ animationDelay: '1s' }}></div>
+                                        <div className="absolute top-1/3 right-0 w-1 h-1 bg-purple-300 rounded-full floating" style={{ animationDelay: '2s' }}></div>
                                     </div>
 
-                                    {/* Orbit 3 (Faint) */}
-                                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180%] h-[160%] border border-cyan-500/10 rounded-full"
-                                        style={{ transform: 'translate(-50%, -50%) rotateX(75deg)' }}>
-                                    </div>
+                                    {/* Shooting Star */}
+                                    <div className="absolute left-20 top-16 w-40 h-0.5 bg-linear-to-r from-white via-cyan-400 to-transparent shooting-star opacity-70" style={{ animationDuration: '4.8s' }}></div>
                                 </div>
-
-                                {/* ✨ Floating Particles */}
-                                <div className="absolute -inset-12.5 pointer-events-none">
-                                    <div className="absolute top-0 left-1/4 w-1 h-1 bg-white rounded-full floating" style={{ animationDelay: '0s' }}></div>
-                                    <div className="absolute bottom-10 right-1/4 w-1.5 h-1.5 bg-blue-300 rounded-full floating" style={{ animationDelay: '1s' }}></div>
-                                    <div className="absolute top-1/3 right-0 w-1 h-1 bg-purple-300 rounded-full floating" style={{ animationDelay: '2s' }}></div>
-                                </div>
-
-                                {/* 🌠 Shooting Star */}
-                                <div className="absolute w-40 h-0.5 bg-linear-to-r from-white via-cyan-400 to-transparent shooting-star pointer-events-none" style={{ animationDuration: '4s' }}></div>
 
                                 {/* ✨ Glow Core - static pseudo-glow via box-shadow wrapper */}
-                                <div className="absolute w-[120%] h-[120%] rounded-[3rem] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%)' }}></div>
+                                <div className="absolute z-0 w-[120%] h-[120%] rounded-[3rem] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0) 70%)' }}></div>
 
                                 {/* 🧑 Your Image — glow via pseudo wrapper to avoid filter repaint */}
                                 <div

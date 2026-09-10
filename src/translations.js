@@ -91,6 +91,10 @@ export const translations = {
                     title: 'Certification',
                     description: 'A learning achievement that reflects continued self-development, technical curiosity, and consistent practice in strengthening professional software development skills.',
                 },
+                microsoftCertificate: {
+                    title: 'Microsoft Applied Skills: GitHub Copilot',
+                    description: 'Completed Microsoft Applied Skills for accelerating AI-assisted development with GitHub Copilot, reflecting practical learning in modern developer workflows.',
+                },
             },
         },
         works: {
@@ -206,6 +210,10 @@ export const translations = {
                 certification: {
                     title: 'Certification',
                     description: 'ผลงานการเรียนรู้ที่สะท้อนการพัฒนาตนเองอย่างต่อเนื่อง ความสนใจด้านเทคโนโลยี และการฝึกฝนทักษะที่เกี่ยวข้องกับงานพัฒนาซอฟต์แวร์อย่างสม่ำเสมอ',
+                },
+                microsoftCertificate: {
+                    title: 'Microsoft Applied Skills: GitHub Copilot',
+                    description: 'ผ่าน Microsoft Applied Skills ด้านการเร่งการพัฒนาซอฟต์แวร์ด้วย AI-assisted development และ GitHub Copilot สะท้อนการเรียนรู้เชิงปฏิบัติในเวิร์กโฟลว์ของนักพัฒนาสมัยใหม่',
                 },
             },
         },

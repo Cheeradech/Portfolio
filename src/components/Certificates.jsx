@@ -7,10 +7,12 @@ import SectionHeader from './ui/SectionHeader';
 import programmingFundamentalsPdf from '../assets/Cerfiticate/certificate-of-completion-for-programming-100-fundamentals.pdf';
 import certificationPdf from '../assets/Cerfiticate/Certification.pdf';
 import awsCertificatePdf from '../assets/Cerfiticate/AwsCerGe.pdf';
+import microsoftCertificatePdf from '../assets/Cerfiticate/CerMicrosoft.pdf';
 import awsCertificatePreview from '../assets/Cerfiticate/aws-cloud-quest-preview.png';
 import awsTrainingImage from '../assets/Cerfiticate/awsT.png';
 import programmingFundamentalsPreview from '../assets/Cerfiticate/programming-100-fundamentals-preview.png';
 import cybersecurityFoundationPreview from '../assets/Cerfiticate/cybersecurity-foundation-preview.png';
+import microsoftCertificatePreview from '../assets/Cerfiticate/microsoft-certificate-preview.jpg';
 
 const awsCredentialUrl = 'https://www.credly.com/badges/011bc091-5a23-4169-8bcb-36c422231b17/public_url';
 
@@ -23,6 +25,13 @@ const awsCertificate = {
 };
 
 const certificates = [
+    {
+        key: 'microsoftCertificate',
+        file: microsoftCertificatePdf,
+        preview: microsoftCertificatePreview,
+        previewAspect: 'aspect-[1.24]',
+        accent: 'from-sky-500/25 via-blue-400/10 to-transparent',
+    },
     {
         key: 'programmingFundamentals',
         file: programmingFundamentalsPdf,
